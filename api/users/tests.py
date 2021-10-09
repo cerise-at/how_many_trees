@@ -43,12 +43,12 @@ class TestCustomUserManager(TestCase):
         User = get_user_model()
 
         # NOTE: Cannot parametrize using pytest decorator due to django_db error.
-        failing_params = [#(None, 'baz', 'first', 'last', test_company),
+        failing_params = [(None, 'baz', 'first', 'last', test_company),
                           ('foo@bar.com', None, 'first', 'last', test_company),
                           ('foo@bar.com', 'baz', None, 'last', test_company),
                           ('foo@bar.com', 'baz', 'first', None, test_company),
                           ('foo@bar.com', 'baz', 'first', 'last', None)]
         
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError):
             for e, p, f, s, c in failing_params:
                 User.objects.create_user(email=e, password=p, first_name=f, surname=s, company=c)
