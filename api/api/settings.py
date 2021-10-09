@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 ]
 
 
-# –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– #
+# ––––––––––––––––––––––––––––––– AUTH –––––––––––––––––––––––––––––––––––– #
 
 # Specify custom user model for authentication
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -62,6 +62,10 @@ ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/?verification=1'
 
 SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'users.serializers.CustomUserSerializer',
+}
 
 # –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– #
 
