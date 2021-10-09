@@ -5,6 +5,7 @@ name = "pypi"
 
 [scripts]
 test = "pytest"
+test-log = "pytest -s"
 
 [packages]
 django = "*"
