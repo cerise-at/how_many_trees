@@ -13,7 +13,7 @@ class Company(models.Model):
 class CustomUser(AbstractUser):
     """
     Overwrites the existing django User model.
-    * Remove 'username' field/
+    * Remove 'username' field
     * Add 'first_name' and 'surname' required fields.
     * 'Email' as primary key instead of 'username' and used for authentication.
     * 'Company' as new required field.
