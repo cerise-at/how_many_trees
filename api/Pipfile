@@ -3,6 +3,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[scripts]
+test = "pytest"
+
 [packages]
 django = "*"
 djangorestframework = "*"
@@ -13,6 +16,7 @@ django-heroku = "*"
 
 [dev-packages]
 pytest = "*"
+pytest-django = "*"
 
 [requires]
 python_version = "3.9"
