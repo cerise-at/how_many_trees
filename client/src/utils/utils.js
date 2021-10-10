@@ -18,7 +18,7 @@ function isAuthenticated() {
         // check if the token has not expired
         //
         //
-        return true;
+        // return true;
     } catch (err) {
         //return false;
     }

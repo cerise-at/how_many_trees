@@ -24,9 +24,11 @@ function RegisterForm({ login }) {
                 { username, email, password }
             );
             // check for error msg in response, else login
-            data.hasOwnProperty === 'error'
-                ? throw new Error(data.error)
-                : login(e, {email, password}, setError);
+            if (data.hasOwnProperty === 'error') {
+                throw new Error(data.error);
+            } else {
+                login(e, {email, password}, setError);
+            }
 
         } catch (err) {
             console.log(err);
