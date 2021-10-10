@@ -1,0 +1,17 @@
+#routes-window {
+    border: solid 1px blue;
+    width: 400px;
+    height: 300px;
+}
+
+.route-info {
+    margin-bottom: 0;
+}
+
+.bar-container {
+    margin: 1em 0.5em 0 0.5em;
+}
+
+.progress {
+    cursor: pointer;
+}
