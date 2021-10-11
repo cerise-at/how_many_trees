@@ -8,7 +8,6 @@ import pprint
 def get_vehicle_info(request):
       
       if request.method == 'GET':
-            
             url = "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles"
 
             payload = "{\n\t\"registrationNumber\": \"AA19AAA\"\n}"
@@ -23,55 +22,58 @@ def get_vehicle_info(request):
             new_vehicle = {'co2_emissions': co2, 'revenue_weight': rev_weight, 'reg_plate': reg}
             return(new_vehicle)
 
-def get_directions_info(request):
+def get_directions_info(request, vehicle):
       if request.method == 'GET':
             startpoint = 'ba46bn'
             endpoint = 'wolverhampton'
-            geo_points = get_lat_long(startpoint, endpoint)
-            print(geo_points)
+            coords = get_lat_long(startpoint, endpoint)
+            print(coords)
 
             # headers= { 'alternatives: true', 'origin: {request.orig}', 'destination: {request.dest}'}
-            url = f'https://api.mapbox.com/directions/v5/driving{geo_points}'
+            url = f'https://api.mapbox.com/directions/v5/mapbox/driving/{coords}?geometries=geojson&alternatives=true&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1ycG54cDBkZ3MzMW9hYjY4dnAwNXMifQ.gsFC-xmHmsp-EneBn8yrQQ'
       
-            response = requests.request("POST", url)
-            
+            response = requests.request("GET", url)
             data = response.json()
-            print(data)
-            routes = data['routes']
-            if len(routes) <1:
-                  one = data["geocoded_waypoints"][0]["place_id"]
-                  two = data["geocoded_waypoints"][1]["place_id"]
-                  origin = f'place_id:{one}'
-                  desintation = f'place_id:{two}'
-                  url = f'https://api.mapbox.com/directions/v5/driving'
-                  response = requests.request("POST", url)
-                  data = response.json()
-                  print(data)
+            data = data['routes']
            
-            return data
+            routes= {}
+            for route in range(len(data)):
+                  routes[route] = {}
+                  for item in data:
+                        routes[route]['distance'] = item['distance']/1000
+                        routes[route]['duration'] = round(item['duration']/3600, 2)
+                        routes[route]['coordinates'] = item['geometry']['coordinates']
+                        routes[route]['emissions'] = calc_emissions(item['distance'], vehicle['co2_emissions'])
+
+            return(routes)
 
 
 def get_lat_long(startpoint, endpoint):
       url_start_lat_long = f'https://api.mapbox.com/geocoding/v5/mapbox.places/{startpoint}.json?country=gb&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1wMWhhaTAxMjAydWp0YnExa2lsanAifQ.11WeE94rbtUkNefoue_dSQ'
       start_response = requests.request('GET', url_start_lat_long)
       start_data = start_response.json()
-      coords = start_data['features'][0]['geometry']['coordinates']
+      start = start_data['features'][0]['geometry']['coordinates']
+      
       
       url_end_lat_long = f'https://api.mapbox.com/geocoding/v5/mapbox.places/{endpoint}.json?country=gb&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1wMWhhaTAxMjAydWp0YnExa2lsanAifQ.11WeE94rbtUkNefoue_dSQ'
       end_response = requests.request('GET', url_end_lat_long)
       end_data = end_response.json()
-      coords.extend(end_data['features'][0]['geometry']['coordinates'])
-
+      end = (end_data['features'][0]['geometry']['coordinates'])
+      coords = f"{start[0]},{start[1]};{end[0]},{end[1]}"
       return coords
 
+def calc_emissions(distance, emissions):
+      
+
+      return 
 
 class RouteViews(APIView):
       def get(self, request, format=None):
             
             vehicle = get_vehicle_info(request)
             
-            
-            route = get_directions_info(request)
+            routes = get_directions_info(request, vehicle)
+
 
            
             return vehicle
