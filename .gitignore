@@ -1,6 +1,9 @@
-node_modules
-coverage
+client/node_modules
 __pycache__
 .env
 .env.development
 .env.production
+.pytest_cache
+api/.pytest_cache
+api/.coverage
+coverage
