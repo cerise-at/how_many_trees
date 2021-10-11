@@ -4,7 +4,9 @@ from .models import Car
 
 
 def get_vehicle_info(request):
+      
       if request.method == 'GET':
+            
             url = "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles"
 
             payload = "{\n\t\"registrationNumber\": \"AA19AAA\"\n}"
@@ -21,46 +23,3 @@ def get_vehicle_info(request):
 
 
 
-def get_route_info():
-
-
-
-def return_cotwo_info():
-  
-
-# class caluate_freight(Resource):
-#     def get(self):
-#         return {'Message': 'Sucesss', 'data': 'dummy_data' + ' C02'}
-
-#     def put(self):
-#         parser = reqparse.RequestParser()
-#         parser.add_argument('miles', type=float)
-#         parser.add_argument('km', type=float)
-#         parser.add_argument('tonnes', type=float)
-#         parser.add_argument('km/tonnes', type=float)
-#         parser.add_argument('miles/tonnes', type=float)
-#         args = parser.parse_args()
-#         print(args['miles'])
-#         print(args['km'])
-#         print(args['tonnes'])
-#         print(args['km/tonnes'])
-#         print(args['miles/tonnes'])
-
-#         if args['miles'] is not None:
-#             args['km'] = args['miles'] / 0.621371
-#             args['km/tonnes'] = args['km'] * args['tonnes']
-
-#         if args['miles/tonnes'] is not None:
-#             args['km/tonnes'] = args['miles/tonnes'] * 1.459972
-
-#         if args['km/tonnes'] is None:
-#             args['km/tonnes'] = args['km'] * args['tonnes']
-
-#         g_CO2_tonne_km = args['km/tonnes'] * 8
-#         print("g_CO2_tonne_km", g_CO2_tonne_km)
-#         metric_tons = g_CO2_tonne_km / 1000000
-#         Emmisons = round(metric_tons, 2)
-
-#         calculations = {'Emmisons': str(Emmisons) + ' tonnes of CO2'}
-
-#         return calculations, 201
