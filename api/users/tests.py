@@ -21,8 +21,7 @@ class TestCustomUserManager(TestCase):
         test_company = Company.objects.create()
         User = get_user_model()
         user = User.objects.create_user(email='test@user.com', password='foo',
-                                        first_name='first', surname='last',
-                                        company=test_company)
+                                        first_name='first', company_name='test_company')
 
         self.assertEqual(user.email, 'test@user.com')
         self.assertTrue(user.is_active)
@@ -42,19 +41,17 @@ class TestCustomUserManager(TestCase):
         Assert cannot create user with any missing field.
         """
 
-        test_company = Company.objects.create()
         User = get_user_model()
 
         # NOTE: Cannot parametrize using pytest decorator due to django_db error.
-        failing_params = [(None, 'baz', 'first', 'last', test_company),
-                          ('foo@bar.com', None, 'first', 'last', test_company),
-                          ('foo@bar.com', 'baz', None, 'last', test_company),
-                          ('foo@bar.com', 'baz', 'first', None, test_company),
-                          ('foo@bar.com', 'baz', 'first', 'last', None)]
+        failing_params = [(None, 'baz', 'first', 'test_company'),
+                          ('foo@bar.com', None, 'first', 'test_company'),
+                          ('foo@bar.com', 'baz', None, 'test_company'),
+                          ('foo@bar.com', 'baz', 'first', None)]
         
         with self.assertRaises(ValueError):
             for e, p, f, s, c in failing_params:
-                User.objects.create_user(email=e, password=p, first_name=f, surname=s, company=c)
+                User.objects.create_user(email=e, password=p, first_name=f, company=c)
 
 
 
@@ -67,17 +64,13 @@ class TestCustomerUserSerializer(TestCase):
     @pytest.mark.django_db
     def test_contains_expected_keys_values(self):
 
-        test_company = Company.objects.create()
         User = get_user_model()
         user = User.objects.create_user(email='test@user.com', password='foo',
-                                        first_name='first', surname='last',
-                                        company=test_company)
+                                        first_name='first', company_name='test_company')
 
         user_serializer = CustomUserSerializer(instance = user)
         data = user_serializer.data
 
-        self.assertEqual(set(data.keys()), set(['email', 'password', 'first_name', 'surname', 'company']))
-
+        self.assertEqual(set(data.keys()), set(['email', 'password', 'first_name', 'company_name']))
         self.assertEqual('test@user.com', data['email'])
         self.assertEqual('first', data['first_name'])
-        self.assertEqual('last', data['surname'])

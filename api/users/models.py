@@ -22,9 +22,7 @@ class CustomUser(AbstractUser):
 
     username = None
     first_name = models.CharField(null=False, max_length=255)
-    surname = models.CharField(null=False, max_length=255)
     email = models.EmailField(_('email address'), unique=True, primary_key=True)
-    # company = models.OneToOneField(Company, on_delete=models.CASCADE)
     company_name = models.CharField(null=False, unique=True, max_length=255)
 
     USERNAME_FIELD = 'email'
