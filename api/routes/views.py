@@ -15,14 +15,17 @@ def get_vehicle_info(request):
 
             response = requests.request("POST", url, headers=headers, data = payload)
             data = response.json()
-            # reg = data[0].text.encode('utf8')
-            # co2 = data[11].text.encode('utf8')
-            # rev_weight = data[17].text.encode('utf8')
+            reg = data['registrationNumber']
+            co2 = data['co2Emissions']
+            rev_weight = data['revenueWeight']
 
             print(data)
-            # new_vehicle = Car(co2_emissions = co2, revenue_weight = rev_weight, reg_plate = reg)
-            # new_vehicle.save()
-            # return(new_vehicle)
+            print(reg)
+            print(co2)
+            print(rev_weight)
+            new_vehicle = Car(co2_emissions = co2, revenue_weight = rev_weight, reg_plate = reg)
+            
+            return(new_vehicle)
 
 
 
@@ -33,7 +36,6 @@ class RouteViews(APIView):
             
             vehicle = get_vehicle_info(request)
            
-            print(vehicle)
             return vehicle
 
       def post(self, request, format=None):
