@@ -35,6 +35,7 @@ class RouteViews(APIView):
       def get(self, request, format=None):
             
             vehicle = get_vehicle_info(request)
+
            
             return vehicle
 
