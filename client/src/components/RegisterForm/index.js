@@ -6,7 +6,7 @@ import '../style.css';
 
 function RegisterForm({ login }) {
 
-    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [company, setCompany] = useState('');
     const [password, setPassword] = useState('');
@@ -22,7 +22,7 @@ function RegisterForm({ login }) {
 
             const { data } = await axios.post(
                 `${process.env.REACT_APP_API_URL}/register`,
-                { username, email, company, password }
+                { name, email, company, password }
             );
             // check for error msg in response, else login
             if (data.hasOwnProperty === 'error') {
@@ -38,7 +38,7 @@ function RegisterForm({ login }) {
 
         setEmail('');
         setPassword('');
-        setUsername('');
+        setName('');
         setPasswordConf('');
     };
 
@@ -49,9 +49,9 @@ function RegisterForm({ login }) {
 
                 <input type="text"
                         className="form-control-lg mt-3"
-                        value={username}
-                        onChange={e => setUsername(e.target.value)}
-                        placeholder="Username"
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        placeholder="First Name"
                         required />
 
                 <input type="email"
