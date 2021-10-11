@@ -69,7 +69,16 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer',
 }
 
-# ACCOUNT_ADAPTER = 'users.adapters.CustomUserAccountAdapter'
+ACCOUNT_ADAPTER = 'users.adapters.UserAccountAdapter'
+
+REST_FRAMEWORK = {
+   'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework.authentication.TokenAuthentication',
+   ),
+   'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser'
+   ),
+}
 
 # –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– #
 
