@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from rest_framework.response import Response
 
 from .managers import CustomUserManager
 
@@ -35,7 +36,7 @@ class CustomUser(AbstractUser):
 
             # TODO: sophisticated implementation of n_trees 
             #       and amount offset also given!
-            "n_trees": self.emissions_CO2e / 7,
+            "n_trees": f'{self.emissions_CO2e / 7}',
 
             # TODO: implement Route model!
             # "routes": [ route.get_overview() for route in Route.objects.get(fk=self.email) ]
