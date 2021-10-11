@@ -12,7 +12,7 @@ Why does this exist?
 Our in-house RESTful API used to calculate emissions per km were derived from the European Chemical Transport Association's *Guidelines for Measuring and Managing CO2
  Emission from Freight Transport Operations* report:
 
-> [1] CO2 emissions = Transport volume by transport mode x average transport distance by transport mode x average CO2-emission factor per tonne-km by transport mode
+> [1] CO2 emissions (g) = Transport volume by transport mode x transport distance by transport mode x average CO2-emission factor per km by transport mode
 >
 > [2] CO2 emissions in tonnes = (Eqn. 1) / 1000000
 
