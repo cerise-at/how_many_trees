@@ -67,6 +67,8 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'users.serializers.CustomUserSerializer',
 }
 
+ACCOUNT_ADAPTER = 'users.adapters.CustomUserAccountAdapter'
+
 # –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– #
 
 MIDDLEWARE = [
