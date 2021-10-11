@@ -26,7 +26,7 @@ function RoutesList() {
 
         return (
             data.map(obj =>
-                <div className="bar-container">
+                <div key={obj.id} className="bar-container">
 
                     <p className="route-info">{obj.name}, {obj.emissions} units</p>
 
@@ -43,7 +43,6 @@ function RoutesList() {
                             aria-valuemax="100">
                         </div>
                     </div>
-
                 </div>
             )
         )

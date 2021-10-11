@@ -12,10 +12,17 @@ function Dashboard() {
     const [trees, setTrees] = useState();
 
     // useEffect(() => getDashboard());
-
+    //
     // async function getDashboard() {
-    //     const { data } = axios.get(`${process.env.REACT_APP_API_URL}/dashboard`);
-    //     // save data to state or redux store
+    //     try{
+    //         const { data } = axios.get(`${process.env.REACT_APP_API_URL}/dashboard`);
+    //         setUsername(data.user_name);
+    //         setRoutes(data.routes);
+    //         setTrees(data.n_trees);
+    //         setProjects(data.projects);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
     // }
 
     // dummy projects
@@ -26,10 +33,11 @@ function Dashboard() {
     ]
 
     function renderProjects(data) {
+        
         return data.map((obj, i) =>
-            <li key={i} class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">{obj.project_title}</div>
+            <li key={i} className="list-group-item d-flex justify-content-between align-items-start">
+                <div className="ms-2 me-auto">
+                    <div className="fw-bold">{obj.project_title}</div>
                     {obj.project_description}
                 </div>
             </li>
@@ -52,7 +60,7 @@ function Dashboard() {
 
                         <div>
                             <p className="h3">Active offsets</p>
-                            <ul class="list-group">
+                            <ul className="list-group">
                                 {renderProjects(data)}
                             </ul>
                         </div>
