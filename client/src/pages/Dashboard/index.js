@@ -11,19 +11,26 @@ function Dashboard() {
     const [projects, setProjects] = useState();
     const [trees, setTrees] = useState();
 
-    // useEffect(() => getDashboard());
-    //
-    // async function getDashboard() {
-    //     try{
-    //         const { data } = axios.get(`${process.env.REACT_APP_API_URL}/dashboard`);
-    //         setUsername(data.user_name);
-    //         setRoutes(data.routes);
-    //         setTrees(data.n_trees);
-    //         setProjects(data.projects);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
+    useEffect(() => getDashboard(), []);
+
+    async function getDashboard() {
+        try{
+            const email = localStorage.getItem('email');
+            const token = localStorage.getItem('token');
+
+            const { data } = await axios.get(
+                `${process.env.REACT_APP_API_URL}/dashboard/${email}`,
+                { headers: { "Authorization": token } }
+            );
+
+            setUsername(data.first_name);
+            setRoutes(data.routes);
+            setTrees(data.n_trees);
+            setProjects(data.projects);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     // dummy projects
     const data = [
@@ -33,7 +40,7 @@ function Dashboard() {
     ]
 
     function renderProjects(data) {
-        
+
         return data.map((obj, i) =>
             <li key={i} className="list-group-item d-flex justify-content-between align-items-start">
                 <div className="ms-2 me-auto">

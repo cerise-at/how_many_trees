@@ -15,11 +15,11 @@ function Auth() {
         try {
             const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/rest-auth/login/`, userData);
             console.log(data);
-            if (data.hasOwnProperty !== 'token') { throw new Error(data.error) };
+            // if (data.hasOwnProperty !== 'token') { throw new Error(data.error) };
 
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('email', data.email);
-            history.push('/dashboard');
+            localStorage.setItem('token', data.key);
+            localStorage.setItem('email', userData.email);
+            //history.push('/dashboard');
         } catch (err) {
             console.log(err);
             setError(err);
