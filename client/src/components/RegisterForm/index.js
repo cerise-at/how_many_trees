@@ -8,6 +8,7 @@ function RegisterForm({ login }) {
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
+    const [company, setCompany] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConf, setPasswordConf] = useState('');
     const [error, setError] = useState();
@@ -21,7 +22,7 @@ function RegisterForm({ login }) {
 
             const { data } = await axios.post(
                 `${process.env.REACT_APP_API_URL}/register`,
-                { username, email, password }
+                { username, email, company, password }
             );
             // check for error msg in response, else login
             if (data.hasOwnProperty === 'error') {
@@ -60,12 +61,21 @@ function RegisterForm({ login }) {
                         placeholder="Email"
                         required />
 
+                <input type="text"
+                        className="form-control-lg mt-3"
+                        value={company}
+                        onChange={e => setCompany(e.target.value)}
+                        placeholder="Company"
+                        required />
+
                 <input type="password"
                         className="form-control-lg mt-3"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                         placeholder="Password"
                         required />
+
+                <span>Use 8 or more characters with a mix of upper and lowercase letters & numbers</span>
 
                 <input type="password"
                         className="form-control-lg mt-3"
