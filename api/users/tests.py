@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
-from .models import Company
 from .serializers import CustomUserSerializer
 from django.test import TestCase
+from rest_framework.test import APIRequestFactory
 
 import pytest
 pytestmark = pytest.mark.django_db
@@ -18,7 +18,6 @@ class TestCustomUserManager(TestCase):
     def test_can_create_user(self):
 
         # Company is currently stub (@OGWJ 09-10-21)
-        test_company = Company.objects.create()
         User = get_user_model()
         user = User.objects.create_user(email='test@user.com', password='foo',
                                         first_name='first', company_name='test_company')
@@ -74,3 +73,22 @@ class TestCustomerUserSerializer(TestCase):
         self.assertEqual(set(data.keys()), set(['email', 'password', 'first_name', 'company_name']))
         self.assertEqual('test@user.com', data['email'])
         self.assertEqual('first', data['first_name'])
+
+
+
+class TestDashboardEndpoint(TestCase):
+
+    """
+    Tests the behaviour of the GET /dashboard/?user_email=user@email/ endpoint.
+    """
+
+    @pytest.mark.django_db
+    def test_dashboard_contains_expected_fields(self):
+        User = get_user_model()
+        user = User.objects.create_user(email='test@user.com', password='foo',
+                                        first_name='first', company_name='test_company')
+
+        factory = APIRequestFactory() 
+        request = factory.get('/dashboard/?user_email=test@user.com/')
+        #force_authenticate(request, user=user)
+        #response = view(request)

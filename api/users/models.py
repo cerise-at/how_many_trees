@@ -18,7 +18,7 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(null=False, max_length=255)
     email = models.EmailField(_('email address'), unique=True, primary_key=True)
     company_name = models.CharField(null=False, unique=True, max_length=255)
-    emissions_CO2e = models.DecimalField(default=0.0)
+    emissions_CO2e = models.DecimalField(default=0.0, max_digits=19, decimal_places=10)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
