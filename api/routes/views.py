@@ -27,9 +27,8 @@ def get_vehicle_info(request):
             
             return(new_vehicle)
 
-
-
-
+def get_directions_info(request):
+      if request.method == 'GET':
 
 class RouteViews(APIView):
       def get(self, request, format=None):
