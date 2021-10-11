@@ -22,7 +22,7 @@ def get_vehicle_info(request):
             new_vehicle = {'co2_emissions': co2, 'revenue_weight': rev_weight, 'reg_plate': reg}
             return(new_vehicle)
 
-def get_directions_info(request):
+def get_directions_info(request, vehicle):
       if request.method == 'GET':
             startpoint = 'ba46bn'
             endpoint = 'wolverhampton'
@@ -43,8 +43,9 @@ def get_directions_info(request):
                         routes[route]['distance'] = item['distance']/1000
                         routes[route]['duration'] = round(item['duration']/3600, 2)
                         routes[route]['coordinates'] = item['geometry']['coordinates']
+                        routes[route]['emissions'] = calc_emissions(item['distance'], vehicle['co2_emissions'])
 
-            print(routes)
+            return(routes)
 
 
 def get_lat_long(startpoint, endpoint):
@@ -61,7 +62,9 @@ def get_lat_long(startpoint, endpoint):
       coords = f"{start[0]},{start[1]};{end[0]},{end[1]}"
       return coords
 
-def calc_emissions(route):
+def calc_emissions(distance, emissions):
+      
+
       return 
 
 class RouteViews(APIView):
@@ -69,8 +72,8 @@ class RouteViews(APIView):
             
             vehicle = get_vehicle_info(request)
             
-            
-            route = get_directions_info(request)
+            routes = get_directions_info(request, vehicle)
+
 
            
             return vehicle
