@@ -2,6 +2,7 @@ from django.shortcuts import render
 import requests
 from .models import Car
 from rest_framework.views import APIView
+import pprint
 
 
 def get_vehicle_info(request):
@@ -19,36 +20,50 @@ def get_vehicle_info(request):
             co2 = data['co2Emissions']
             rev_weight = data['revenueWeight']
 
-            print(data)
-            print(reg)
-            print(co2)
-            print(rev_weight)
-            new_vehicle = Car(co2_emissions = co2, revenue_weight = rev_weight, reg_plate = reg)
-            
+            new_vehicle = {'co2_emissions': co2, 'revenue_weight': rev_weight, 'reg_plate': reg}
             return(new_vehicle)
 
 def get_directions_info(request):
       if request.method == 'GET':
-            orig = 'london'
-            dest = 'taunton'
+            startpoint = 'ba46bn'
+            endpoint = 'wolverhampton'
+            geo_points = get_lat_long(startpoint, endpoint)
+            print(geo_points)
+
             # headers= { 'alternatives: true', 'origin: {request.orig}', 'destination: {request.dest}'}
-            url = f'https://maps.googleapis.com/maps/api/directions/json?origin={orig}&destination={dest}&key=AIzaSyD6BIsAm5df2OUZ84T3gUb--CrJ8sYu6vE'
+            url = f'https://api.mapbox.com/directions/v5/driving{geo_points}'
       
             response = requests.request("POST", url)
             
             data = response.json()
+            print(data)
             routes = data['routes']
             if len(routes) <1:
                   one = data["geocoded_waypoints"][0]["place_id"]
                   two = data["geocoded_waypoints"][1]["place_id"]
                   origin = f'place_id:{one}'
                   desintation = f'place_id:{two}'
-                  url = f'https://maps.googleapis.com/maps/api/directions/json?origin={origin}&destination={desintation}&key=AIzaSyD6BIsAm5df2OUZ84T3gUb--CrJ8sYu6vE'
+                  url = f'https://api.mapbox.com/directions/v5/driving'
                   response = requests.request("POST", url)
                   data = response.json()
                   print(data)
            
             return data
+
+
+def get_lat_long(startpoint, endpoint):
+      url_start_lat_long = f'https://api.mapbox.com/geocoding/v5/mapbox.places/{startpoint}.json?country=gb&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1wMWhhaTAxMjAydWp0YnExa2lsanAifQ.11WeE94rbtUkNefoue_dSQ'
+      start_response = requests.request('GET', url_start_lat_long)
+      start_data = start_response.json()
+      coords = start_data['features'][0]['geometry']['coordinates']
+      
+      url_end_lat_long = f'https://api.mapbox.com/geocoding/v5/mapbox.places/{endpoint}.json?country=gb&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1wMWhhaTAxMjAydWp0YnExa2lsanAifQ.11WeE94rbtUkNefoue_dSQ'
+      end_response = requests.request('GET', url_end_lat_long)
+      end_data = end_response.json()
+      coords.extend(end_data['features'][0]['geometry']['coordinates'])
+
+      return coords
+
 
 class RouteViews(APIView):
       def get(self, request, format=None):
