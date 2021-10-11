@@ -9,20 +9,26 @@ Why does this exist?
 `gif here`
 
 # Calculator Methodology: 
+### Emissions in Metric Tonnes: 
 Our in-house RESTful API used to calculate emissions per km were derived from the European Chemical Transport Association's *Guidelines for Measuring and Managing CO2
  Emission from Freight Transport Operations* report:
 
-> [1] CO2 emissions (g) = Transport volume by transport mode x transport distance by transport mode x average CO2-emission factor per km by transport mode
+> `[1] CO2 emissions = Transport volume by transport mode (metric tonnes) x transport distance by transport mode (km) x average CO2-emissions per tonne-km by transport mode (g)`
 >
-> [2] CO2 emissions in tonnes = (Eqn. 1) / 1000000
+> `[2] CO2 emissions in metric tonnes = (Eqn. 1) / 1000000`
 
-Average CO2-emission factor per tonne-km and Transport volume by transport mode were taken from the DVLA Vehicle Enquiry Service API. Transport distance was taken from MapBox API
-
-For our calculations, we have assumed that the transport volume is equal to the vehicles Gross Revenue Weight (GRW) in kilograms, which is defined by the DVLA as:
+Average CO2-emission factor per tonne-km and Transport volume by transport mode were taken from the DVLA Vehicle Enquiry Service API. Transport distance was taken from MapBox API. For our calculations, we have assumed that the transport volume is equal to the vehicles Gross Revenue Weight (GRW) in kilograms, which is defined by the DVLA as:
 
 > *The maximum gross weight: fully laden passengers, luggage, and all.* 
 
-We are assuming the GRW is a constant value across distance travelled. 
+We are assuming the GRW is a constant value across distance travelled. To ensure consistency in our calculations, we converted GRW into metric tonnes by dividing GRW by 1000
+
+### How Many Trees: 
+The calculation for converting CO2 in metric tonnes into a 'Tree Equivalent' is based on the average mature tree absorbing 21kg of CO2 per year. For simplicity sake, we are assuming all trees are average, all trees are mature, and all trees are eternal (hail trees). 
+
+For a metric tonnage of CO2, 'Tree Equivalent' is calculated using Equn. 3 below:
+
+> `[3] Tree Equivalent = (Eqn. 2) / 0.021`
 
 ## User Experience TODO:
 [] Users should ...
