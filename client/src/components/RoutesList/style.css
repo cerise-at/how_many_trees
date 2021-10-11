@@ -1,7 +1,5 @@
 #routes-window {
-    border: solid 1px blue;
-    width: 400px;
-    height: 300px;
+    max-width: 500px;
 }
 
 .route-info {

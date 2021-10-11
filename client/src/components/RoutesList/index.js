@@ -7,6 +7,7 @@ function RoutesList() {
     const history = useHistory();
 
     // data passed as props from Dashboard page or loaded from redux store
+    // dummy emissions data
     const data = [
         { id: 1, name: 'route 1', emissions: 56 },
         { id: 2, name: 'route 2', emissions: 123 },
@@ -49,7 +50,8 @@ function RoutesList() {
     }
 
     return (
-        <div id="routes-window" className="overflow-auto">
+        <div id="routes-window">
+            <p className="h3">Active Routes</p>
             {renderBars(data)}
         </div>
     )
