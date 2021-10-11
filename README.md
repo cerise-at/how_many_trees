@@ -16,8 +16,9 @@ Our in-house RESTful API used to calculate emissions per km were derived from th
 >
 > [2] CO2 emissions in tonnes = (Eqn. 1) / 1000000
 
-Average CO2-emission factor per tonne-km and Transport volume by transport mode were taken from the DVLA Vehicle Enquiry Service API
-Transport distance was taken from MapBox API
+Average CO2-emission factor per tonne-km and Transport volume by transport mode were taken from the DVLA Vehicle Enquiry Service API. Transport distance was taken from MapBox API
+
+For our calculations, we have assumed that the transport volume is equal to the vehicles Gross Revenue Weight (GRW) in kilograms, which is defined by the DVLA as *the maximum gross weight: fully laden passengers, luggage, and all*. We are assuming the GRW is a constant value across distance travelled. 
 
 ## User Experience TODO:
 [] Users should ...
