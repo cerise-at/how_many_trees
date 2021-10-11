@@ -9,8 +9,8 @@ function RegisterForm({ login }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [company, setCompany] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordConf, setPasswordConf] = useState('');
+    const [password1, setPassword1] = useState('');
+    const [password2, setPassword2] = useState('');
     const [error, setError] = useState();
     const history = useHistory();
 
@@ -18,17 +18,17 @@ function RegisterForm({ login }) {
         e.preventDefault();
 
         try {
-            validate(password, passwordConf);
+            validate(password1, password2);
 
             const { data } = await axios.post(
-                `${process.env.REACT_APP_API_URL}/register`,
-                { name, email, company, password }
+                `${process.env.REACT_APP_API_URL}/rest-auth/registration`,
+                { name, email, company, password1, password2 }
             );
             // check for error msg in response, else login
             if (data.hasOwnProperty === 'error') {
                 throw new Error(data.error);
             } else {
-                login(e, {email, password}, setError);
+                login(e, {email, password1}, setError);
             }
 
         } catch (err) {
@@ -37,9 +37,10 @@ function RegisterForm({ login }) {
         }
 
         setEmail('');
-        setPassword('');
+        setPassword1('');
+        setCompany('');
         setName('');
-        setPasswordConf('');
+        setPassword2('');
     };
 
     return (
@@ -70,8 +71,8 @@ function RegisterForm({ login }) {
 
                 <input type="password"
                         className="form-control-lg mt-3"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
+                        value={password1}
+                        onChange={e => setPassword1(e.target.value)}
                         placeholder="Password"
                         required />
 
@@ -79,8 +80,8 @@ function RegisterForm({ login }) {
 
                 <input type="password"
                         className="form-control-lg mt-3"
-                        value={passwordConf}
-                        onChange={e => setPasswordConf(e.target.value)}
+                        value={password2}
+                        onChange={e => setPassword2(e.target.value)}
                         placeholder="Confirm Password"
                         required />
 
