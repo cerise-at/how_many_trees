@@ -17,6 +17,7 @@ psycopg2 = "*"
 django-heroku = "*"
 django-allauth = "*"
 django-rest-auth = "*"
+numpy = "*"
 
 [dev-packages]
 pytest = "*"
