@@ -8,7 +8,6 @@ import pprint
 def get_vehicle_info(request):
       
       if request.method == 'GET':
-            
             url = "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles"
 
             payload = "{\n\t\"registrationNumber\": \"AA19AAA\"\n}"
@@ -31,24 +30,21 @@ def get_directions_info(request):
             print(coords)
 
             # headers= { 'alternatives: true', 'origin: {request.orig}', 'destination: {request.dest}'}
-            url = f'https://api.mapbox.com/directions/v5/mapbox/driving/{coords}?geometries=geojson&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1ycG54cDBkZ3MzMW9hYjY4dnAwNXMifQ.gsFC-xmHmsp-EneBn8yrQQ'
+            url = f'https://api.mapbox.com/directions/v5/mapbox/driving/{coords}?geometries=geojson&alternatives=true&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1ycG54cDBkZ3MzMW9hYjY4dnAwNXMifQ.gsFC-xmHmsp-EneBn8yrQQ'
       
             response = requests.request("GET", url)
-            
             data = response.json()
+            data = data['routes']
            
-            routes = data['routes']
-            if len(routes) <1:
-                  one = data["geocoded_waypoints"][0]["place_id"]
-                  two = data["geocoded_waypoints"][1]["place_id"]
-                  origin = f'place_id:{one}'
-                  desintation = f'place_id:{two}'
-                  url = f'https://api.mapbox.com/directions/v5/driving'
-                  response = requests.request("POST", url)
-                  data = response.json()
-                  print(data)
-           
-            return data
+            routes= {}
+            for route in range(len(data)):
+                  routes[route] = {}
+                  for item in data:
+                        routes[route]['distance'] = item['distance']/1000
+                        routes[route]['duration'] = round(item['duration']/3600, 2)
+                        routes[route]['coordinates'] = item['geometry']['coordinates']
+
+            print(routes)
 
 
 def get_lat_long(startpoint, endpoint):
@@ -65,6 +61,8 @@ def get_lat_long(startpoint, endpoint):
       coords = f"{start[0]},{start[1]};{end[0]},{end[1]}"
       return coords
 
+def calc_emissions(route):
+      return 
 
 class RouteViews(APIView):
       def get(self, request, format=None):
