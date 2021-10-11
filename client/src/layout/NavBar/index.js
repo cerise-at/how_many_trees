@@ -1,17 +1,25 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
+import axios from 'axios';
 import './style.css';
 
 function NavBar() {
 
     const history = useHistory();
 
-    const goBack = () => history.goBack();
-
-    const logout = () => localStorage.clear();
+    async function logout() {
+        try {
+            // Is email or password needed to logout ???
+            await axios.post(`${process.env.REACT_APP_API_URL}/reat-auth/logout/`);
+        } catch (err) {
+            console.log(err);
+        }
+        localStorage.clear();
+        history.push('/');
+    }
 
     return (
-        <nav className="navbar sticky-top navbar-expand-md navbar-light">
+        <nav className="navbar sticky-top navbar-expand-md navbar-light p-0">
 
             <div className="container-fluid">
 
@@ -22,7 +30,7 @@ function NavBar() {
 
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                
+
                 <span className="navbar-brand">How Many Trees?</span>
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -43,23 +51,12 @@ function NavBar() {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/offset">Offset Options</NavLink>
                         </li>
-
-                        {/*<li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">Menu</a>
-
-                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><NavLink className="dropdown-item" to="/dashboard">Dashboard</NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/new-route">New Route</NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/portfolio">Portfolio</NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/offset">Offset Options</NavLink></li>
-                            </ul>
-                        </li>*/}
                     </ul>
 
                     <div className="d-flex">
-                        <a className="nav-link" href="#" onClick={goBack}>Back</a>
+                        <button className="btn" onClick={e => history.goBack()}>Back</button>
 
-                        <a className="nav-link" href="/" onClick={logout}>Log out</a>
+                        <button className="btn" onClick={logout}>Log out</button>
                     </div>
                 </div>
             </div>
