@@ -24,16 +24,11 @@ function RegisterForm({ login }) {
                 `${process.env.REACT_APP_API_URL}/rest-auth/registration/`,
                 { name, email, company, password1, password2 }
             );
-            console.log(data);
-            // check for error msg in response, else login
-            if (data.hasOwnProperty === 'error') {
-                throw new Error(data.error);
-            } else {
-                login(e, {email, password1}, setError);
-            }
+            // ??? Check for django errors
+            // display message about email verification
 
+            // login(e, {email, password1}, setError);
         } catch (err) {
-            console.log(err);
             setError(err);
         }
 

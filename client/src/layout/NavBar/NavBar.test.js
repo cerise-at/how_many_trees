@@ -10,7 +10,7 @@ describe('NavBar', () => {
         const links = screen.getAllByRole('link');
 
         expect(navBar).toBeInTheDocument();
-        expect(links.length).toBe(6);
+        expect(links.length).toBe(4);
     });
 
     // test for each navlink when the respective pages are created
