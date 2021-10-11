@@ -21,9 +21,10 @@ function RegisterForm({ login }) {
             validate(password1, password2);
 
             const { data } = await axios.post(
-                `${process.env.REACT_APP_API_URL}/rest-auth/registration`,
+                `${process.env.REACT_APP_API_URL}/rest-auth/registration/`,
                 { name, email, company, password1, password2 }
             );
+            console.log(data);
             // check for error msg in response, else login
             if (data.hasOwnProperty === 'error') {
                 throw new Error(data.error);
