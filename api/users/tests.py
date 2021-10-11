@@ -1,7 +1,9 @@
 from django.contrib.auth import get_user_model
-from .models import Company
 from .serializers import CustomUserSerializer
 from django.test import TestCase
+from rest_framework import status
+from rest_framework.test import APIRequestFactory, APITestCase
+from django.urls import reverse
 
 import pytest
 pytestmark = pytest.mark.django_db
@@ -18,7 +20,6 @@ class TestCustomUserManager(TestCase):
     def test_can_create_user(self):
 
         # Company is currently stub (@OGWJ 09-10-21)
-        test_company = Company.objects.create()
         User = get_user_model()
         user = User.objects.create_user(email='test@user.com', password='foo',
                                         first_name='first', company_name='test_company')
@@ -74,3 +75,45 @@ class TestCustomerUserSerializer(TestCase):
         self.assertEqual(set(data.keys()), set(['email', 'password', 'first_name', 'company_name']))
         self.assertEqual('test@user.com', data['email'])
         self.assertEqual('first', data['first_name'])
+
+
+
+class TestDashboardEndpoint(APITestCase):
+
+    """
+    Tests the behaviour of the GET /dashboard/?user_email=user@email/ endpoint.
+    """
+
+    @pytest.mark.django_db
+    def test_dashboard_contains_expected_fields(self):
+        User = get_user_model()
+        user = User.objects.create_user(email='test@user.com', password='foo',
+                                        first_name='first', company_name='test_company')
+
+        url = reverse('dashboard', kwargs={'user_email': user.email})
+
+        # NOTE: stubbed response!
+        expected_response = {
+            "first_name": user.first_name,
+            "company_name": user.company_name,
+            "n_trees": f'{user.emissions_CO2e / 7}',
+            "routes": [
+                {
+                    "start_address": "address",
+                    "stop_address": "address",
+                    "emissions_CO2e": 100,
+                    "distance_km": 100,
+                    "vehicle_registration": "SA65 XXX"
+                }
+            ],
+            "projects": [
+                {
+                    "project_title": "Project Title Placeholder",
+                    "project_description": "Project Description Placeholder"
+                }
+            ]
+        }
+
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json(), expected_response)
