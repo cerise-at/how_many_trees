@@ -10,7 +10,7 @@ def get_vehicle_info(request):
             url = "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles"
 
             payload = "{\n\t\"registrationNumber\": \"AA19AAA\"\n}"
-            headers = { 'x-api-key': '4374ac90-b6ff-4b8c-a86e-809564970414','Content-Type': 'application/json' }
+            headers = { 'x-api-key': 'yaA4ghNltM91GCEFqIjEg6c0ECFJtN12aMhNR1CO','Content-Type': 'application/json' }
 
             response = requests.request("POST", url, headers=headers, data = payload)
             reg = response[0].text.encode('utf8')
