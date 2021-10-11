@@ -19,3 +19,15 @@ headers = {
 response = requests.request("POST", url, headers=headers, data = payload)
 
 print(response.text.encode('utf8'))
+
+def get_vehicle_info():{
+
+}
+
+def get_route_info():{
+
+}
+
+def return_cotwo_info():{
+  
+}
