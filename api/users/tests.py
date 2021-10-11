@@ -1,7 +1,9 @@
 from django.contrib.auth import get_user_model
 from .serializers import CustomUserSerializer
 from django.test import TestCase
-from rest_framework.test import APIRequestFactory
+from rest_framework import status
+from rest_framework.test import APIRequestFactory, APITestCase
+from django.urls import reverse
 
 import pytest
 pytestmark = pytest.mark.django_db
@@ -76,7 +78,7 @@ class TestCustomerUserSerializer(TestCase):
 
 
 
-class TestDashboardEndpoint(TestCase):
+class TestDashboardEndpoint(APITestCase):
 
     """
     Tests the behaviour of the GET /dashboard/?user_email=user@email/ endpoint.
@@ -88,7 +90,9 @@ class TestDashboardEndpoint(TestCase):
         user = User.objects.create_user(email='test@user.com', password='foo',
                                         first_name='first', company_name='test_company')
 
-        factory = APIRequestFactory() 
-        request = factory.get('/dashboard/?user_email=test@user.com/')
-        #force_authenticate(request, user=user)
-        #response = view(request)
+        url = reverse('dashboard', kwargs={'user_email': user.email})
+        data = { "user_email": user.email }
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, data)
+        print(response)
