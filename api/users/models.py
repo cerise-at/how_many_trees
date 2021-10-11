@@ -9,17 +9,18 @@ from .managers import CustomUserManager
 class CustomUser(AbstractUser):
     """
     Overwrites the existing django User model.
-    * Remove 'username' field
-    * Add 'first_name' and 'surname' required fields.
     * 'Email' as primary key instead of 'username' and used for authentication.
     * 'Company' as new required field.
     """
 
-    username = None
-    first_name = models.CharField(null=False, max_length=255)
+    username = models.CharField(null=False, max_length=255)
     email = models.EmailField(_('email address'), unique=True, primary_key=True)
+<<<<<<< HEAD
     company_name = models.CharField(null=False, unique=True, max_length=255)
     emissions_CO2e = models.DecimalField(default=0.0, max_digits=19, decimal_places=10)
+=======
+    company = models.CharField(null=False, max_length=255, unique=False)
+>>>>>>> dev
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

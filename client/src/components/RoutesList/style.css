@@ -1,0 +1,15 @@
+#routes-window {
+    max-width: 500px;
+}
+
+.route-info {
+    margin-bottom: 0;
+}
+
+.bar-container {
+    margin: 1em 0.5em 0 0.5em;
+}
+
+.progress {
+    cursor: pointer;
+}

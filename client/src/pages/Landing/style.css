@@ -1,0 +1,9 @@
+section {
+    display: flex;
+    justify-content: center;
+    padding: 4em;
+}
+
+.btn {
+    margin: 1em;
+}

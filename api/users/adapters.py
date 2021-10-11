@@ -11,7 +11,9 @@ class CustomUserAccountAdapter(DefaultAccountAdapter):
         from allauth.account.utils import user_field
 
         user = super().save_user(request, user, form, False)
-        user_field(user, 'first_name', request.data.get('first_name', ''))
-        user_field(user, 'company_name', request.data.get('user_type', ''))
+        user_field(user, 'name', request.data.get('name', ''))
+        user_field(user, 'email', request.data.get('email', ''))
+        user_field(user, 'company', request.data.get('company', ''))
+        user_field(user, 'password', request.data.get('password', ''))
         user.save()
         return user
