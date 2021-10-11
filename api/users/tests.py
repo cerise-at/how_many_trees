@@ -91,7 +91,29 @@ class TestDashboardEndpoint(APITestCase):
                                         first_name='first', company_name='test_company')
 
         url = reverse('dashboard', kwargs={'user_email': user.email})
-        data = { "user_email": user.email }
+
+        # NOTE: stubbed response!
+        expected_response = {
+            "first_name": user.first_name,
+            "company_name": user.company_name,
+            "n_trees": f'{user.emissions_CO2e / 7}',
+            "routes": [
+                {
+                    "start_address": "address",
+                    "stop_address": "address",
+                    "emissions_CO2e": 100,
+                    "distance_km": 100,
+                    "vehicle_registration": "SA65 XXX"
+                }
+            ],
+            "projects": [
+                {
+                    "project_title": "Project Title Placeholder",
+                    "project_description": "Project Description Placeholder"
+                }
+            ]
+        }
+
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json(), data)
+        self.assertEqual(response.json(), expected_response)

@@ -30,16 +30,16 @@ class CustomUser(AbstractUser):
         return self.email
 
     def get_dashboard(self):
+            # TODO: sophisticated implementation of n_trees 
+            #       and amount offset also given!
+            # TODO: implement Route model!
+            # "routes": [ route.get_overview() for route in Route.objects.get(fk=self.email) ]
+            # TODO: implement Project model!
+            # "projects": [ project.get_overview() for project in Project.objects.get(fk=self.email) ]
         dashboard = {
             "first_name": self.username,
             "company_name": self.company_name,
-
-            # TODO: sophisticated implementation of n_trees 
-            #       and amount offset also given!
-            "n_trees": f'{self.emissions_CO2e / 7}',
-
-            # TODO: implement Route model!
-            # "routes": [ route.get_overview() for route in Route.objects.get(fk=self.email) ]
+            "n_trees": f'{self.emissions_CO2e / 7 if self.emissions_CO2e > 0 else 0.0}',
             "routes": [
                 {
                     "start_address": "address",
@@ -49,8 +49,6 @@ class CustomUser(AbstractUser):
                     "vehicle_registration": "SA65 XXX"
                 }
             ],
-            # TODO: implement Project model!
-            # "projects": [ project.get_overview() for project in Project.objects.get(fk=self.email) ]
             "projects": [
                 {
                     "project_title": "Project Title Placeholder",
