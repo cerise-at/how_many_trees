@@ -29,17 +29,42 @@ def get_vehicle_info(request):
 
 def get_directions_info(request):
       if request.method == 'GET':
+            orig = 'london'
+            dest = 'taunton'
+            # headers= { 'alternatives: true', 'origin: {request.orig}', 'destination: {request.dest}'}
+            url = f'https://maps.googleapis.com/maps/api/directions/json?origin={orig}&destination={dest}&key=AIzaSyD6BIsAm5df2OUZ84T3gUb--CrJ8sYu6vE'
+      
+            response = requests.request("POST", url)
+            
+            data = response.json()
+            routes = data['routes']
+            if len(routes) <1:
+                  one = data["geocoded_waypoints"][0]["place_id"]
+                  two = data["geocoded_waypoints"][1]["place_id"]
+                  origin = f'place_id:{one}'
+                  desintation = f'place_id:{two}'
+                  url = f'https://maps.googleapis.com/maps/api/directions/json?origin={origin}&destination={desintation}&key=AIzaSyD6BIsAm5df2OUZ84T3gUb--CrJ8sYu6vE'
+                  response = requests.request("POST", url)
+                  data = response.json()
+                  print(data)
+           
+            return data
 
 class RouteViews(APIView):
       def get(self, request, format=None):
             
             vehicle = get_vehicle_info(request)
+            
+            
+            route = get_directions_info(request)
 
            
             return vehicle
 
       def post(self, request, format=None):
             vehicle = get_vehicle_info(request)
+            
+            route = get_directions_info(request)
            
-            print(vehicle)
+           
             return vehicle
