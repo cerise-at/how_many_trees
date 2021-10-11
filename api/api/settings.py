@@ -66,10 +66,10 @@ SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'users.serializers.CustomUserSerializer',
+    'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer',
 }
 
-ACCOUNT_ADAPTER = 'users.adapters.CustomUserAccountAdapter'
+# ACCOUNT_ADAPTER = 'users.adapters.CustomUserAccountAdapter'
 
 # –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– #
 
