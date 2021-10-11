@@ -94,5 +94,4 @@ class TestDashboardEndpoint(APITestCase):
         data = { "user_email": user.email }
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, data)
-        print(response)
+        self.assertEqual(response.json(), data)
