@@ -15,12 +15,8 @@ class CustomUser(AbstractUser):
 
     username = models.CharField(null=False, max_length=255)
     email = models.EmailField(_('email address'), unique=True, primary_key=True)
-<<<<<<< HEAD
     company_name = models.CharField(null=False, unique=True, max_length=255)
     emissions_CO2e = models.DecimalField(default=0.0, max_digits=19, decimal_places=10)
-=======
-    company = models.CharField(null=False, max_length=255, unique=False)
->>>>>>> dev
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -31,7 +27,7 @@ class CustomUser(AbstractUser):
         return self.email
 
     def get_dashboard(self):
-            # TODO: sophisticated implementation of n_trees 
+            # TODO: sophisticated implementation of n_trees
             #       and amount offset also given!
             # TODO: implement Route model!
             # "routes": [ route.get_overview() for route in Route.objects.get(fk=self.email) ]
