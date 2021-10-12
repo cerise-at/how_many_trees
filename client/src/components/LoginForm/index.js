@@ -11,7 +11,7 @@ function LoginForm({ login }) {
 
     return (
         <section id="login-form" className="d-flex flex-row">
-
+    
             <form onSubmit={e => login(e, {email, password}, setError, [setEmail, setPassword])}
                     className="d-flex flex-column">
 

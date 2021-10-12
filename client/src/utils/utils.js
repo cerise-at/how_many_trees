@@ -13,15 +13,10 @@ function validate(password, passwordConf) {
 }
 
 function isAuthenticated() {
-    try {
-        const token = localStorage.getItem('token');
-        // check if the token has not expired
-        //
-        //
-        // return true;
-    } catch (err) {
-        //return false;
-    }
+
+    const token = localStorage.getItem('token');
+    const isAuth = token ? true : false;
+    return isAuth;
 }
 
 export { validate, isAuthenticated };

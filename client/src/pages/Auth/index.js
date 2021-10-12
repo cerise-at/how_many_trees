@@ -17,7 +17,7 @@ function Auth() {
 
             localStorage.setItem('token', data.key);
             localStorage.setItem('email', userData.email);
-            //history.push('/dashboard');
+            history.push('/dashboard');
         } catch (err) {
             console.log(err);
             setError(err);
