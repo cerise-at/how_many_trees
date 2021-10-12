@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 # ––––––––––––––––––––––––––––––– AUTH –––––––––––––––––––––––––––––––––––– #
 
 # Specify custom user model for authentication
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'users.User'
 
 # Settings for django-allauth
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
@@ -68,8 +68,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer',
 }
-
-ACCOUNT_ADAPTER = 'users.adapters.UserAccountAdapter'
 
 REST_FRAMEWORK = {
    'DEFAULT_AUTHENTICATION_CLASSES': (

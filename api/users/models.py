@@ -1,12 +1,13 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.fields.related import OneToOneField
 from django.utils.translation import gettext_lazy as _
 from rest_framework.response import Response
 
 from .managers import CustomUserManager
 
 
-class CustomUser(AbstractUser):
+class User(AbstractUser):
     """
     Overwrites the existing django User model.
     * 'Email' as primary key instead of 'username' and used for authentication.
@@ -15,7 +16,7 @@ class CustomUser(AbstractUser):
 
     username = models.CharField(null=False, max_length=255)
     email = models.EmailField(_('email address'), unique=True, primary_key=True)
-    company_name = models.CharField(null=False, unique=True, max_length=255)
+    company = models.CharField(null=False, unique=True, max_length=255)
     emissions_CO2e = models.DecimalField(default=0.0, max_digits=19, decimal_places=10)
 
     USERNAME_FIELD = 'email'
@@ -35,7 +36,7 @@ class CustomUser(AbstractUser):
             # "projects": [ project.get_overview() for project in Project.objects.get(fk=self.email) ]
         dashboard = {
             "first_name": self.username,
-            "company_name": self.company_name,
+            "company_name": self.company,
             "n_trees": f'{self.emissions_CO2e / 7 if self.emissions_CO2e > 0 else 0.0}',
             "routes": [
                 {
