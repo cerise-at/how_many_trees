@@ -43,7 +43,7 @@ class User(AbstractUser):
             # "projects": [ project.get_overview() for project in Project.objects.get(fk=self.email) ]
         dashboard = {
             "first_name": self.username,
-            "company_name": self.get_company(),
+            "company_name": self.company,
             "n_trees": f'{self.emissions_CO2e / 7 if self.emissions_CO2e > 0 else 0.0}',
             "routes": [
                 {
