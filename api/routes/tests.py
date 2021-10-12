@@ -14,10 +14,10 @@ from django.test import TestCase
 # """
 
 class BaseTestCase(TestCase):
-    
+
     @classmethod
-    def mock_dvla(a, b, c):
-        data = {
+    def mock_dvla(cls):
+        cls.data = {
             "data": {
                 {
                 "artEndDate": "2025-02-28",
@@ -45,8 +45,8 @@ class BaseTestCase(TestCase):
 
         return data
 
-    def mock_routes():
-        routes = {
+    def mock_routes(cls):
+        cls.routes = {
             {"routes":[
                 {"weight_name":"auto",
                 "weight":10404.483,
@@ -86,3 +86,5 @@ class TestBasicViews(BaseTestCase):
 
     def test_latlong(monkeypatch):
         monkeypatch.setattr(views, "data_request", mock_routes())
+        data = json.loads(views.get_directions_info('start', 'end')
+        assert 1640 == data["revenueWeight"]
