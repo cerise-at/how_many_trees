@@ -2,7 +2,6 @@ from django.test import TestCase
 import pytest
 from .models import Route
 from .serializers import RouteSerializer
-# from numpy import repeat
 from django.db.utils import IntegrityError
 
 # Create your tests here.

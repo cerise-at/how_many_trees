@@ -69,7 +69,7 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer',
 }
 
-ACCOUNT_ADAPTER = 'users.adapters.UserAccountAdapter'
+# ACCOUNT_ADAPTER = 'users.adapters.UserAccountAdapter'
 
 REST_FRAMEWORK = {
    'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -117,9 +117,18 @@ WSGI_APPLICATION = 'api.wsgi.application'
 
 # Database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+# brew services start Postgres
+'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'howmanytreesdb',
+        'USER': 'user',
+        'PASSWORD': 'password',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
