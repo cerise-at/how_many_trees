@@ -6,6 +6,14 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework.response import Response
 
 from .managers import CustomUserManager
+from routes.models import Route
+
+class Project(models.Model):
+
+    company = models.CharField(null=False, unique=True, max_length=255)
+
+    def get_overview(self):
+        return {'test': 'success'}
 
 
 class User(AbstractUser):
@@ -25,40 +33,24 @@ class User(AbstractUser):
 
     objects = CustomUserManager()
 
-    # @classmethod
-    # def create(cls, **kwargs):
-    #     user = cls(**kwargs)
-    #     Company.objects.create(name=kwargs.pop('company'), user=user)
-    #     return user 
-
     def __str__(self):
         return self.email
 
     def get_dashboard(self):
-            # TODO: sophisticated implementation of n_trees
-            #       and amount offset also given!
-            # TODO: implement Route model!
-            # "routes": [ route.get_overview() for route in Route.objects.get(fk=self.email) ]
-            # TODO: implement Project model!
-            # "projects": [ project.get_overview() for project in Project.objects.get(fk=self.email) ]
+
+        try:
+            routes = [route.get_overview() for route in Route.objects.get(company=self.company)]
+            projects = [project.get_overview() for project in Project.objects.get(company=self.company)]
+        except:
+            routes = []
+            projects = []
+
         dashboard = {
-            "first_name": self.username,
-            "company_name": self.company,
+            "username": self.username,
+            "company": self.company,
             "n_trees": f'{self.emissions_CO2e / 7 if self.emissions_CO2e > 0 else 0.0}',
-            "routes": [
-                {
-                    "start_address": "address",
-                    "stop_address": "address",
-                    "emissions_CO2e": 100,
-                    "distance_km": 100,
-                    "vehicle_registration": "SA65 XXX"
-                }
-            ],
-            "projects": [
-                {
-                    "project_title": "Project Title Placeholder",
-                    "project_description": "Project Description Placeholder"
-                }
-            ]
-        }
+            "routes": routes, 
+            "projects": projects
+            }
         return dashboard
+
