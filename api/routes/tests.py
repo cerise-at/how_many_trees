@@ -1,5 +1,9 @@
 from django.test import TestCase
+from rest_framework.test import APIRequestFactory
+from rest_framework.test import APIClient
 
+client = APIClient()
+client.login(username='lauren', password='secret')
 # Create your tests here.
 
 """

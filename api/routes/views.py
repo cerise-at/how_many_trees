@@ -2,6 +2,9 @@ from django.shortcuts import render
 import requests
 from .models import Routes
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
 
 
 def calc_emissions(distance, vehicle):
@@ -72,6 +75,7 @@ def get_directions_info(request):
 
 
 class Directions(APIView):    
+      permission_classes = [IsAuthenticated]
       def get(self, request, format=None):
             if request.method =='GET':
                   if request.GET['vehicle_registration']:
