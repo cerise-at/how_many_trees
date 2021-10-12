@@ -17,8 +17,7 @@ class User(AbstractUser):
 
     username = models.CharField(null=False, max_length=255)
     email = models.EmailField(_('email address'), unique=True, primary_key=True)
-    # company = models.CharField(null=False, unique=True, max_length=255)
-    # company = OneToOneField(Company, on_delete=models.CASCADE)
+    company = models.CharField(null=False, unique=True, max_length=255)
     emissions_CO2e = models.DecimalField(default=0.0, max_digits=19, decimal_places=10)
 
     USERNAME_FIELD = 'email'
@@ -26,17 +25,14 @@ class User(AbstractUser):
 
     objects = CustomUserManager()
 
-    @classmethod
-    def create(cls, **kwargs):
-        user = cls(**kwargs)
-        Company.objects.create(name=kwargs.pop('company'), user=user)
-        return user 
+    # @classmethod
+    # def create(cls, **kwargs):
+    #     user = cls(**kwargs)
+    #     Company.objects.create(name=kwargs.pop('company'), user=user)
+    #     return user 
 
     def __str__(self):
         return self.email
-
-    def get_company(self):
-        return Company.objects(email=self.email)
 
     def get_dashboard(self):
             # TODO: sophisticated implementation of n_trees
@@ -66,11 +62,3 @@ class User(AbstractUser):
             ]
         }
         return dashboard
-
-
-
-
-class Company(models.Model):
-
-    name = models.CharField(null=False, unique=True, max_length=255)
-    user = OneToOneField(User, on_delete=models.CASCADE)
