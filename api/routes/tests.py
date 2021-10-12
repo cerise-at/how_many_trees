@@ -17,8 +17,9 @@ class TestRouteModel(TestCase):
         "email": "user@email.test", 
         "start_address": "34 Test Street, The Town, The County, The Country",
         "end_address": "35 Test Street, The Town, The County, The Country",
+        "distance_km": 100,
         "vehicle_registration": "XXXX XXXX",
-        "emissions_CO2e": 0
+        "vehicle_emissions_CO2e_km": 0
     }
 
     @pytest.mark.django_db

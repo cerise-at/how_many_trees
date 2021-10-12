@@ -2,15 +2,16 @@ from django.db import models
 from django.db.models.fields import CharField, DecimalField, EmailField
 
 
+
 class Route(models.Model):
 
     email = EmailField(null=False)
     start_address = CharField(null=False, max_length=255)
     end_address = CharField(null=False, max_length=255)
+    distance_km = DecimalField(default=0.0, max_digits=19, decimal_places=10)
     vehicle_registration = CharField(null=False, max_length=17)
-    emissions_CO2e = DecimalField(default=0.0, max_digits=19, decimal_places=10)
-    # route_dates = []
-    # coords = [[]]
+    vehicle_emissions_CO2e_km = CharField(null=False, max_length=17)
+    coords = []
 
     @classmethod
     def create(cls, **kwargs):
