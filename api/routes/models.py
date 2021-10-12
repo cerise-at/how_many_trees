@@ -9,9 +9,12 @@ class Route(models.Model):
     start_address = CharField(null=False, max_length=255)
     end_address = CharField(null=False, max_length=255)
     distance_km = DecimalField(default=0.0, max_digits=19, decimal_places=10)
+    # TODO: coords = [] => migrate to postgres for ArrayField?
+    # TODO: dates = [] => migrate to postgres for ArrayField?
+
+    # vehicle details
     vehicle_registration = CharField(null=False, max_length=17)
     vehicle_emissions_CO2e_km = CharField(null=False, max_length=17)
-    coords = []
 
     @classmethod
     def create(cls, **kwargs):

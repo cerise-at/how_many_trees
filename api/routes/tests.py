@@ -1,6 +1,7 @@
 from django.test import TestCase
 import pytest
 from .models import Route
+from .serializers import RouteSerializer
 # from numpy import repeat
 from django.db.utils import IntegrityError
 
@@ -9,8 +10,9 @@ class TestRouteModel(TestCase):
 
     """
     Tests the behaviour of the Route model.
-    * test_model_created
-    * test_model_not_created
+    * test_model_created (and stores correct key value pairs)
+    * test_model_not_created (if given missing fields)
+    * test_serializes_expected_key_values
     """
 
     test_data = {
@@ -65,3 +67,18 @@ class TestRouteModel(TestCase):
                 Route.objects.create(**kwargs)
 
         return
+
+
+    @pytest.mark.django_db
+    def test_serializes_expected_keys_values(self):
+
+        """
+        Tests the behaviour of the RouteSerializer.
+        """
+
+        route = Route.objects.create(**self.test_data)
+
+        route_serializer = RouteSerializer(instance = route)
+        data = route_serializer.data
+
+        self.assertEqual(set(data.keys()), set(self.test_data.keys()))
