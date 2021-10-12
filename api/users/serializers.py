@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User
+from .models import User, Company
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -8,4 +8,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['username', 'email', 'company', 'emissions_CO2e']
 
     def create(self, validated_data):
-        return User.objects.create_user(**validated_data)
+        user = User.objects.create_user(**validated_data)
+        Company.objects.create(name=validated_data['company'], user=user)
+        return user

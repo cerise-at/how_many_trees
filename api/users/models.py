@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.fields import CharField
 from django.db.models.fields.related import OneToOneField
 from django.utils.translation import gettext_lazy as _
 from rest_framework.response import Response
@@ -16,7 +17,8 @@ class User(AbstractUser):
 
     username = models.CharField(null=False, max_length=255)
     email = models.EmailField(_('email address'), unique=True, primary_key=True)
-    company = models.CharField(null=False, unique=True, max_length=255)
+    # company = models.CharField(null=False, unique=True, max_length=255)
+    # company = OneToOneField(Company, on_delete=models.CASCADE)
     emissions_CO2e = models.DecimalField(default=0.0, max_digits=19, decimal_places=10)
 
     USERNAME_FIELD = 'email'
@@ -24,8 +26,17 @@ class User(AbstractUser):
 
     objects = CustomUserManager()
 
+    @classmethod
+    def create(cls, **kwargs):
+        user = cls(**kwargs)
+        Company.objects.create(name=kwargs.pop('company'), user=user)
+        return user 
+
     def __str__(self):
         return self.email
+
+    def get_company(self):
+        return Company.objects(email=self.email)
 
     def get_dashboard(self):
             # TODO: sophisticated implementation of n_trees
@@ -36,7 +47,7 @@ class User(AbstractUser):
             # "projects": [ project.get_overview() for project in Project.objects.get(fk=self.email) ]
         dashboard = {
             "first_name": self.username,
-            "company_name": self.company,
+            "company_name": self.get_company(),
             "n_trees": f'{self.emissions_CO2e / 7 if self.emissions_CO2e > 0 else 0.0}',
             "routes": [
                 {
@@ -55,3 +66,11 @@ class User(AbstractUser):
             ]
         }
         return dashboard
+
+
+
+
+class Company(models.Model):
+
+    name = models.CharField(null=False, unique=True, max_length=255)
+    user = OneToOneField(User, on_delete=models.CASCADE)
