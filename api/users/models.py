@@ -40,17 +40,17 @@ class User(AbstractUser):
 
         try:
             routes = [route.get_overview() for route in Route.objects.get(company=self.company)]
-            projects = [project.get_overview() for project in Project.objects.get(company=self.company)]
         except:
             routes = []
+
+        try:
+            projects = [project.get_overview() for project in Project.objects.get(company=self.company)]
+        except:
             projects = []
 
-        dashboard = {
-            "username": self.username,
-            "company": self.company,
-            "n_trees": f'{self.emissions_CO2e / 7 if self.emissions_CO2e > 0 else 0.0}',
-            "routes": routes, 
-            "projects": projects
-            }
-        return dashboard
+        return { "username": self.username,
+                 "company": self.company,
+                 "n_trees": f'{self.emissions_CO2e / 7 if self.emissions_CO2e > 0 else 0.0}',
+                 "routes": routes, 
+                 "projects": projects }
 

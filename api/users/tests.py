@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from .serializers import CustomUserSerializer
+from .serializers import CustomRegisterSerializer
 from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, APITestCase
@@ -10,29 +10,37 @@ pytestmark = pytest.mark.django_db
 
 
 
+test_data = {
+    'email': 'test@user.email', 'password': 'test_password',
+    'username': 'test_username', 'company': 'test_company'
+}
+
+
+
 class TestCustomUserManager(TestCase):
 
     """
     Tests the creation of the CustomUser model.
     """
 
+    # test_data = {
+    #     'email': 'test@user.email', 'password': 'test_password',
+    #     'username': 'test_username', 'company': 'test_company'
+    # }
+
     @pytest.mark.django_db
     def test_can_create_user(self):
 
-        # Company is currently stub (@OGWJ 09-10-21)
         User = get_user_model()
-        user = User.objects.create_user(email='test@user.com', password='foo',
-                                        first_name='first', company_name='test_company')
+        user = User.objects.create_user(**test_data)
+        for key in test_data.keys():
+            # password is hashed and not directly comparable
+            if key != 'password':
+                self.assertEqual(test_data[key], user.__dict__[key])
 
-        self.assertEqual(user.email, 'test@user.com')
         self.assertTrue(user.is_active)
         self.assertFalse(user.is_staff)
         self.assertFalse(user.is_superuser)
-
-        try:
-            self.assertIsNone(user.username)
-        except AttributeError:
-            pass
 
 
     @pytest.mark.django_db
@@ -52,29 +60,27 @@ class TestCustomUserManager(TestCase):
         
         with self.assertRaises(ValueError):
             for e, p, f, s, c in failing_params:
-                User.objects.create_user(email=e, password=p, first_name=f, company=c)
+                User.objects.create_user(email=e, password=p, username=f, company=c)
 
 
 
-class TestCustomerUserSerializer(TestCase):
+class TestCustomerRegisterSerializer(TestCase):
 
     """
-    Tests the behaviour of the CustomUserSerializer.
+    Tests the behaviour of the CustomRegisterSerializer.
     """
 
     @pytest.mark.django_db
     def test_contains_expected_keys_values(self):
 
         User = get_user_model()
-        user = User.objects.create_user(email='test@user.com', password='foo',
-                                        first_name='first', company_name='test_company')
-
-        user_serializer = CustomUserSerializer(instance = user)
+        user = User.objects.create_user(**test_data)
+        user_serializer = CustomRegisterSerializer(instance = user)
         data = user_serializer.data
 
-        self.assertEqual(set(data.keys()), set(['email', 'password', 'first_name', 'company_name']))
-        self.assertEqual('test@user.com', data['email'])
-        self.assertEqual('first', data['first_name'])
+        self.assertEqual(set(data.keys()), set(['username', 'email', 'company', 'emissions_CO2e']))
+        # self.assertEqual('test@user.com', data['email'])
+        # self.assertEqual('first', data['first_name'])
 
 
 
@@ -87,33 +93,20 @@ class TestDashboardEndpoint(APITestCase):
     @pytest.mark.django_db
     def test_dashboard_contains_expected_fields(self):
         User = get_user_model()
-        user = User.objects.create_user(email='test@user.com', password='foo',
-                                        first_name='first', company_name='test_company')
-
-        url = reverse('dashboard', kwargs={'user_email': user.email})
+        user = User.objects.create_user(**test_data)
+        url = reverse('dashboard', kwargs={'email': user.email})
 
         # NOTE: stubbed response!
-        expected_response = {
-            "first_name": user.first_name,
-            "company_name": user.company_name,
-            "n_trees": f'{user.emissions_CO2e / 7}',
-            "routes": [
-                {
-                    "start_address": "address",
-                    "stop_address": "address",
-                    "emissions_CO2e": 100,
-                    "distance_km": 100,
-                    "vehicle_registration": "SA65 XXX"
-                }
-            ],
-            "projects": [
-                {
-                    "project_title": "Project Title Placeholder",
-                    "project_description": "Project Description Placeholder"
-                }
-            ]
-        }
+        # expected_response = {
+        #     "username": user.first_name,
+        #     "company": user.company,
+        #     "n_trees": f'{user.emissions_CO2e / 7}',
+        #     "routes": [],
+        #     "projects": []
+        # }
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json(), expected_response)
+        expected = {'detail': 'Authentication credentials were not provided.'}
+
+        response = self.client.get(f'{url}/')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.json(), expected)
