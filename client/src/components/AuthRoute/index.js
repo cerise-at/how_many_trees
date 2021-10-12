@@ -10,12 +10,7 @@ import { isAuthenticated } from '../../utils/utils';
 function AuthRoute({ Component }) {
 
     return (
-        <>
-        {/*
-        Disabled until auth is fully implemented
-        <> { isAuthenticated() ? <Redirect to='/dashboard' /> : <Component /> } </>
-        */}
-        <Component /> </>
+        <> {/* isAuthenticated() ? <Redirect to='/dashboard' /> : <Component /> */} <Component /> </>
     )
 }
 

@@ -10,7 +10,7 @@ function NavBar() {
     async function logout() {
         try {
             // Is email or password needed to logout ???
-            await axios.post(`${process.env.REACT_APP_API_URL}/reat-auth/logout/`);
+            await axios.post(`${process.env.REACT_APP_API_URL}/rest-auth/logout/`);
         } catch (err) {
             console.log(err);
         }

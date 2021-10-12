@@ -24,12 +24,11 @@ function RegisterForm({ login }) {
                 `${process.env.REACT_APP_API_URL}/rest-auth/registration/`,
                 { name, email, company, password1, password2 }
             );
-            // ??? Check for django errors
-            // display message about email verification
 
-            // login(e, {email, password1}, setError);
+            history.push('/auth/login');
         } catch (err) {
             setError(err);
+            console.log(err);
         }
 
         setEmail('');
@@ -45,28 +44,28 @@ function RegisterForm({ login }) {
             <form onSubmit={register} className="d-flex flex-column">
 
                 <input type="text"
-                        className="form-control-lg mt-3"
+                        className="form-control mt-3"
                         value={name}
                         onChange={e => setName(e.target.value)}
                         placeholder="First Name"
                         required />
 
                 <input type="email"
-                        className="form-control-lg mt-3"
+                        className="form-control mt-3"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                         placeholder="Email"
                         required />
 
                 <input type="text"
-                        className="form-control-lg mt-3"
+                        className="form-control mt-3"
                         value={company}
                         onChange={e => setCompany(e.target.value)}
                         placeholder="Company"
                         required />
 
                 <input type="password"
-                        className="form-control-lg mt-3"
+                        className="form-control mt-3"
                         value={password1}
                         onChange={e => setPassword1(e.target.value)}
                         placeholder="Password"
@@ -75,17 +74,18 @@ function RegisterForm({ login }) {
                 <span>Use 8 or more characters with a mix of upper and lowercase letters & numbers</span>
 
                 <input type="password"
-                        className="form-control-lg mt-3"
+                        className="form-control mt-3"
                         value={password2}
                         onChange={e => setPassword2(e.target.value)}
                         placeholder="Confirm Password"
                         required />
 
                 <input type="submit"
-                        className="btn btn-outline-primary btn-lg col-12"
+                        className="btn btn-outline-primary btn col-12"
                         value="Sign Up" />
 
-                { error && <span role="alert" className="alert alert-danger">{ error.message }</span> }
+                { error && <span role="alert" className="alert alert-danger">
+                    Registration failed. Try different email or password.</span> }
 
             </form>
         </section>

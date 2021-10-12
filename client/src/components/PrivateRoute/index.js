@@ -10,12 +10,7 @@ import { isAuthenticated } from '../../utils/utils';
 function PrivateRoute({ Component }) {
 
     return (
-        <>
-        {/*
-            Dsiabled until auth is fully implemented
-            <> { isAuthenticated() ? <Component /> : <Redirect to='/' /> } </>
-        */}
-        <Component /> </>
+        <> {/* isAuthenticated() ? <Component /> : <Redirect to='/' /> */} <Component /></>
     );
 };
 
