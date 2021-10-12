@@ -13,7 +13,7 @@ from django.test import TestCase
 # test saving to database
 # """
 
-def mock_dvla():
+def mock_dvla(a, b, c):
     data = {
         "data": {
             {
@@ -48,6 +48,6 @@ def mock_request():
     }
 
 def test_dvla(monkeypatch):
-    monkeypatch.setattr(app, "data_request", mock_weather)
-    weather = json.loads(app.weather('UK', 'England', 'London'))
-    assert 30 == weather["wind_speed"]
+    monkeypatch.setattr(views, "data_request", mock_dvla())
+    data = json.loads(views.get_vehicle_info('registrationNumber', 'co2Emissions', 'revenueWeight'))
+    assert 1640 == data["revenueWeight"]
