@@ -42,6 +42,13 @@ def mock_dvla(a, b, c):
 
     return data
 
+def mock_latlong():
+    latlong = {
+        "latlong": {
+            
+        }
+    }
+
 def mock_request():
     {
         "method": 'POST'
