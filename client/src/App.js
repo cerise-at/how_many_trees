@@ -8,8 +8,7 @@ import {
     Landing,
     Offset,
     Portfolio,
-    RouteDetails,
-    SelectRoute
+    RouteDetails
 } from './pages';
 
 function App() {
@@ -20,8 +19,6 @@ function App() {
             <AuthRoute path='/auth/:action' Component={Auth}></AuthRoute>
 
             <PrivateRoute path='/new-route' Component={CreateRoute}></PrivateRoute>
-
-            <PrivateRoute path='/select-route' Component={SelectRoute}></PrivateRoute>
 
             <PrivateRoute path='/route-details' Component={RouteDetails}></PrivateRoute>
 
