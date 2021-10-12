@@ -11,13 +11,13 @@ function LoginForm({ login }) {
 
     return (
         <section id="login-form" className="d-flex flex-row">
-    
+
             <form onSubmit={e => login(e, {email, password}, setError, [setEmail, setPassword])}
                     className="d-flex flex-column">
 
                 <input type="email"
                         name="email"
-                        className="form-control-lg mt-3"
+                        className="form-control mt-3"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                         placeholder="Email"
@@ -25,14 +25,14 @@ function LoginForm({ login }) {
 
                 <input type="password"
                         name="password"
-                        className="form-control-lg mt-3"
+                        className="form-control mt-3"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                         placeholder="Password"
                         required />
 
                 <input type="submit"
-                        className="btn btn-outline-primary btn-lg col-12"
+                        className="btn btn-outline-primary btn col-12"
                         value="Login" />
 
                 { error && <span role="alert" className="alert alert-danger">{ error.message }</span> }
