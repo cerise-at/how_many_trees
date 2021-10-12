@@ -6,5 +6,5 @@ class RouteSerializer(serializers.ModelSerializer):
         model = Route
         fields = [
             'email', 'start_address', 'end_address', 'distance_km', 
-            'vehicle_registration', 'vehicle_emissions_CO2_km', 'coords'
+            'vehicle_registration', 'vehicle_class', 'vehicle_emissions_CO2e_km'#, 'coords'
             ]

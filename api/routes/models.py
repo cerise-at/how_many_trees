@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.fields import CharField, DecimalField, EmailField
+from django.db.models.fields import CharField, DecimalField, EmailField, IntegerField
 
 
 
@@ -13,8 +13,9 @@ class Route(models.Model):
     # TODO: dates = [] => migrate to postgres for ArrayField?
 
     # vehicle details
-    vehicle_registration = CharField(null=False, max_length=17)
-    vehicle_emissions_CO2e_km = CharField(null=False, max_length=17)
+    vehicle_registration = CharField(null=True, max_length=17)
+    vehicle_class = CharField(null=True, max_length=17)
+    vehicle_emissions_CO2e_km = IntegerField(default=0)
 
     @classmethod
     def create(cls, **kwargs):

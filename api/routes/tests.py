@@ -21,6 +21,7 @@ class TestRouteModel(TestCase):
         "end_address": "35 Test Street, The Town, The County, The Country",
         "distance_km": 100,
         "vehicle_registration": "XXXX XXXX",
+        "vehicle_class": "HGV",
         "vehicle_emissions_CO2e_km": 0
     }
 
@@ -77,7 +78,6 @@ class TestRouteModel(TestCase):
         """
 
         route = Route.objects.create(**self.test_data)
-
         route_serializer = RouteSerializer(instance = route)
         data = route_serializer.data
 
