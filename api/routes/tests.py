@@ -86,5 +86,4 @@ class TestBasicViews(BaseTestCase):
 
     def test_latlong(monkeypatch):
         monkeypatch.setattr(views, "data_request", mock_routes())
-        data = json.loads(views.get_directions_info('start', 'end')
-        assert 1640 == data["revenueWeight"]
+        data = json.loads(views.get_directions_info('start', 'end'))
