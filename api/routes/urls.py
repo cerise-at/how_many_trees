@@ -1,8 +1,8 @@
 from django.urls import include, path
 from . import views
 
-from .views import RouteViews
+from .views import Directions
 
 urlpatterns = [
-    path('', RouteViews.as_view()),
+    path('directions', Directions.as_view()),
 ]
