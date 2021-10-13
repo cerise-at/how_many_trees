@@ -18,6 +18,7 @@ django-heroku = "*"
 django-allauth = "*"
 django-rest-auth = "*"
 psycopg2-binary = "*"
+dj-database-url = "*"
 
 [dev-packages]
 pytest = "*"
