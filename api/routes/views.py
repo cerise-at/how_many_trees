@@ -1,7 +1,10 @@
 from django.shortcuts import render
 import requests
-from .models import Routes
+from .models import Route
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
 
 # Calculates the vehicle emissions for a given distance
 def calc_emissions(distance, vehicle):
@@ -17,9 +20,9 @@ def calc_emissions(distance, vehicle):
             return route_emissions 
 
 # This reaches into the DVLA API to get a vehicles registration number, vehicle weight, and CO2 emissions per km. 
-def get_vehicle_info(request):
+def get_vehicle_info(reg, request):
       if request.method == 'GET':
-            reg = request.GET['reg']
+            
             url = "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles"
             payload = "{\n\t\"registrationNumber\": \"{reg}\"\n}"
             headers = { 'x-api-key': 'yaA4ghNltM91GCEFqIjEg6c0ECFJtN12aMhNR1CO','Content-Type': 'application/json' }
@@ -35,14 +38,14 @@ def get_vehicle_info(request):
                   new_vehicle = {'co2_emissions': calc_emissions_no_vehicle_info(), 'revenue_weight': 0, 'reg_plate': 'unknown'}
                   
 # This reaches into the MapBox API to get a routes startpoint and endpoint
-def get_lat_long(startpoint, endpoint):
-      try:
-            url_start_lat_long = f'https://api.mapbox.com/geocoding/v5/mapbox.places/{startpoint}.json?country=gb&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1wMWhhaTAxMjAydWp0YnExa2lsanAifQ.11WeE94rbtUkNefoue_dSQ'
+def get_lat_long(to, fro):
+      try:  
+            url_start_lat_long = f'https://api.mapbox.com/geocoding/v5/mapbox.places/{to}.json?country=gb&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1wMWhhaTAxMjAydWp0YnExa2lsanAifQ.11WeE94rbtUkNefoue_dSQ'
             start_response = requests.request('GET', url_start_lat_long)
             start_data = start_response.json()
             start = start_data['features'][0]['geometry']['coordinates']
             
-            url_end_lat_long = f'https://api.mapbox.com/geocoding/v5/mapbox.places/{endpoint}.json?country=gb&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1wMWhhaTAxMjAydWp0YnExa2lsanAifQ.11WeE94rbtUkNefoue_dSQ'
+            url_end_lat_long = f'https://api.mapbox.com/geocoding/v5/mapbox.places/{fro}.json?country=gb&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1wMWhhaTAxMjAydWp0YnExa2lsanAifQ.11WeE94rbtUkNefoue_dSQ'
             end_response = requests.request('GET', url_end_lat_long)
             end_data = end_response.json()
             end = (end_data['features'][0]['geometry']['coordinates'])
@@ -57,11 +60,10 @@ def calc_emissions_no_vehicle_info(distance):
       return total_emits_per_km
 
 # This reaches into the MapBox API and uses the previously inputted coordinate data to provide a list of routes
-def get_directions_info(request):
+def get_directions_info(request, to, fro):
       if request.method == 'GET':
-            startpoint = request.GET['start']
-            endpoint = request.GET['end']
-            coords = get_lat_long(startpoint, endpoint)
+            
+            coords = get_lat_long(to, fro)
       
             url = f'https://api.mapbox.com/directions/v5/mapbox/driving/{coords}?geometries=geojson&alternatives=true&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1ycG54cDBkZ3MzMW9hYjY4dnAwNXMifQ.gsFC-xmHmsp-EneBn8yrQQ'
             try:
@@ -83,17 +85,22 @@ def get_directions_info(request):
 # We then run our emissions calculations and tell the user how much CO2, in metric tons, their journey/delivery will emit
 # If they haven't provided enough information to do this, then it'll throw an error and ask for more information
 class Directions(APIView):    
+      permission_classes = [IsAuthenticated]
       def get(self, request, format=None):
             if request.method =='GET':
-                  if request.GET['vehicle_registration']:
-                        vehicle = get_vehicle_info(request)
-                        routes = get_directions_info(request, vehicle, package_weight=200)
+                  if self.request.query_params.get['vehicle_registration']:
+                        vehicle = get_vehicle_info(self.request.query_params.get['vehicle_registration'], request)
+                        to = self.request.query_params.get['address1']
+                        fro = self.request.query_params.get['address2']
+                        routes = get_directions_info(request, to, fro)
                         for route in routes:
                               routes.append(
                               {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry']['coordinates'], 'emissions': calc_emissions(route['distance'], vehicle)})
                         return {'routes': routes}
-                  elif request.GET['vehicle_class']:
-                        routes = get_directions_info(request, package_weight=20)
+                  elif self.request.query_params.get['vehicle_class']:
+                        to = self.request.query_params.get['address1']
+                        fro = self.request.query_params.get['address2']
+                        routes = get_directions_info(request, to, fro)
                         for route in routes:
                               routes.append(
                               {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry']['coordinates'], 'emissions': (calc_emissions_no_vehicle_info()*route['distance'])})
@@ -101,5 +108,5 @@ class Directions(APIView):
                   else:
                         return ("Not enough information provided, please try again")
             elif request.method =='POST':
-                  new_route = Routes(request)  
-                  new_route.save()    
+                  new_route = Route.create(request)  
+                      
