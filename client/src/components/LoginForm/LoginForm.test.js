@@ -3,11 +3,11 @@ import { act } from 'react-dom/test-utils';
 import LoginForm from '.';
 import axios from 'axios';
 
-describe('RegisterForm', () => {
+describe('LoginForm', () => {
 
-    it('renders form with input fields', () => {
+    it('renders login form with input fields and calls login function on submission', () => {
         const axiosSpy = jest.spyOn(axios, 'post');
-        renderWithReduxAndRouter(<LoginForm login={axiosSpy}/>);
+        render(<LoginForm login={axiosSpy}/>);
 
         const email = screen.getByPlaceholderText('Email');
         const password = screen.getByPlaceholderText('Password');
@@ -15,7 +15,7 @@ describe('RegisterForm', () => {
         act(() => {
             userEvent.type(email, 'test@email.com');
             userEvent.type(password, 'Password1{enter}');
-        })
+        });
 
         expect(axiosSpy).toBeCalledTimes(1);
     });

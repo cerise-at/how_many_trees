@@ -5,7 +5,7 @@ import Auth from '.';
 describe('Auth Page', () => {
 
     it('renders login form if redirected from login btn', () => {
-        renderWithReduxAndRouter(
+        renderWithRouter(
             <MemoryRouter initialEntries={['/auth/login']}>
                 <Auth />
             </MemoryRouter>
@@ -16,7 +16,7 @@ describe('Auth Page', () => {
     });
 
     it('renders sign up form if redirected from register btn',  () => {
-        renderWithReduxAndRouter(
+        renderWithRouter(
             <MemoryRouter initialEntries={['/auth/register']}>
                 <Auth />
             </MemoryRouter>
