@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models.fields import CharField
+from django.db.models.fields import CharField, DateField
 from django.db.models.fields.related import OneToOneField
 from django.utils.translation import gettext_lazy as _
 from rest_framework.response import Response
@@ -57,3 +57,19 @@ class User(AbstractUser):
             ]
         }
         return dashboard
+
+class Project(models.Model):
+
+    company = models.CharField(null=False, unique=True, max_length=255)
+    title = models.CharField(null=False, unique=True, max_length=255)
+    description = models.CharField(null=False, unique=True, max_length=510)
+    offset_emissions_CO2e = models.DecimalField(default=0.0, max_digits=19, decimal_places=10)
+    start_date = DateField()
+    end_date = DateField()
+
+    def get_overview(self):
+        return {
+            "title": self.title,
+            "start_date": self.start_date,
+            "offset_emissions_CO2e": self.offset_emissions_CO2e
+        }
