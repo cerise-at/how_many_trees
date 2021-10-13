@@ -119,7 +119,6 @@ class Directions(APIView):
                               for route in routes:
                                     route_options.append(
                                     {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry'], 'emissions': (calc_emissions_no_vehicle_info(route['distance'])), 'start_address': fro, 'end_address': to })
-                              print('these are the options', route_options)
                               return Response({'routes': route_options}, status=status.HTTP_200_OK)
                         else:
                               return Response("Not enough information provided, please try again")
