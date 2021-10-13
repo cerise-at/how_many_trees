@@ -24,10 +24,13 @@ from users import views as user_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # –––––––––––––––––– AUTH ––––––––––––––––––– #
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^account/', include('allauth.urls')),
     url(r'^accounts-rest/registration/account-confirm-email/(?P<key>.+)/$', confirm_email, name='account_confirm_email'),
+    # ––––––––––––––––– ROUTES –––––––––––––––––– #
     path('routes/', include('routes.urls')),
+    # –––––––––––––––– DASHBOARD –––––––––––––––– #
     url(r'^dashboard/(?P<email>.*)', user_views.dashboard, name='dashboard')
 ]

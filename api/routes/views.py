@@ -118,9 +118,11 @@ def route_detail(_, route_id):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def create_route(request):
 
       serializer = RouteSerializer(data=request.data)
+
       if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -130,9 +132,12 @@ def create_route(request):
 
 
 @api_view(['UPDATE'])
-def create_route(request):
+@permission_classes([IsAuthenticated])
+def update_route(request):
+
       existing_route = get_object_or_404(Route, pk=request.data['route_id'])
       serializer = RouteSerializer(existing_route, data=request.data)
+
       if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
