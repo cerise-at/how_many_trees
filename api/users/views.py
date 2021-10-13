@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, JsonResponse
+from django.shortcuts import get_list_or_404, get_object_or_404, JsonResponse
 from django.http import HttpResponse
 from .models import User, Project
 from .serializers import ProjectSerializer
@@ -48,11 +48,25 @@ def create_project(request):
 @permission_classes([IsAuthenticated])
 def update_project(request):
 
-      existing_route = get_object_or_404(Project, pk=request.data['project_id'])
-      serializer = ProjectSerializer(existing_route, data=request.data)
+      existing_project = get_object_or_404(Project, pk=request.data['project_id'])
+      serializer = ProjectSerializer(existing_project, data=request.data)
 
       if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
 
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_user_projects(_, company):
+
+      """
+      Get all information for a single project.
+      """
+
+      projects = get_list_or_404(Project, company=company)
+      serializer = ProjectSerializer(projects, many=True)
+      return JsonResponse(serializer.data, safe=False)
