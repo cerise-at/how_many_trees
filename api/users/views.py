@@ -2,6 +2,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from .models import User, Project
 from .serializers import ProjectSerializer
+from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 import json
@@ -39,9 +40,9 @@ def create_project(request):
 
       if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
 
-      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+      return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -54,15 +55,15 @@ def update_project(request):
 
       if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+            return JsonResponse(serializer.data, status=status.HTTP_204_NO_CONTENT)
 
-      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+      return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def get_user_projects(_, company):
+def get_user_projects(request, company):
 
       """
       Get all information for a single project.

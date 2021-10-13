@@ -36,7 +36,7 @@ urlpatterns = [
     url(r'^projects/id/(?P<project_id>\d+)', user_views.project_detail, name='project_detail'),
     url('projects/create/', user_views.create_project, name='create_project'),
     url('projects/update/', user_views.update_project, name='update_project'),
-    url(r'^projects/user/(?P<email>)', user_views.get_user_projects, name='create_project'),
+    url(r'^projects/user/(?P<company>.*)', user_views.get_user_projects, name='user_projects'),
     # –––––––––––––––– DASHBOARD –––––––––––––––– #
     url(r'^dashboard/(?P<email>.*)', user_views.dashboard, name='dashboard')
 ]
