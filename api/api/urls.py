@@ -40,5 +40,4 @@ urlpatterns = [
     url(r'^projects/user/(?P<email>)', user_views.get_user_projects, 'create_project'),
     # –––––––––––––––– DASHBOARD –––––––––––––––– #
     url(r'^dashboard/(?P<email>.*)', user_views.dashboard, name='dashboard')
-
 ]
