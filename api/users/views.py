@@ -5,6 +5,7 @@ from .serializers import ProjectSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 import json
+from rest_framework.views import Response
 
 
 
@@ -12,7 +13,7 @@ import json
 @permission_classes([IsAuthenticated])
 def dashboard(request, email):
     user = get_object_or_404(User, email=email)
-    return HttpResponse(json.dumps(user.get_dashboard()), content_type='application/json')
+    return HttpResponse(json.dumps(user.get_dashboard()), content_type='application/json', )
 
 
 
