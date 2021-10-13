@@ -14,6 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+
+"""
+NOTE: This branch is for reference (Auth is working in this branch)
+"""
+
 from django.contrib import admin
 from django.urls import path
 from allauth.account.views import confirm_email
