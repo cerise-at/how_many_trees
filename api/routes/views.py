@@ -53,7 +53,8 @@ def get_lat_long(to, fro):
       except Exception as e:
             return  (e)
 
-# Calculates the vehicle emissions for a given distance if vehicle information is unknown. Uses average for road freight provided by the European Automobile Manufacturers Association
+# Calculates the vehicle emissions for a given distance if vehicle information is unknown. Uses average for road freight provided by the European Automobile Manufacturers Association 
+# and set by the 1996 EU "Weights and dimensions" Directive
 def calc_emissions_no_vehicle_info(distance):
       total_emits_per_km = (26 * distance * 62)/1000000
       return total_emits_per_km
