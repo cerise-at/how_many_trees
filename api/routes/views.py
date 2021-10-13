@@ -2,15 +2,16 @@ from django.shortcuts import get_object_or_404
 import requests
 from .models import Route
 from .serializers import RouteSerializer
-from rest_framework.views import APIView
+from rest_framework.views import APIView, Response
 from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+import string
 
 
 def calc_emissions(distance, vehicle):
-      if vehicle['revenue_weight'] == 0:
+      if vehicle('revenue_weight'):
             route_emissions = vehicle['co2_emissions']*distance
             return route_emissions
       else:
@@ -32,7 +33,7 @@ def get_vehicle_info(reg, request):
                   co2 = data['co2Emissions']
                   rev_weight = data['revenueWeight']
                   new_vehicle = {'co2_emissions': co2, 'revenue_weight': rev_weight, 'reg_plate': reg}
-                  return(new_vehicle)
+                  return (new_vehicle)
             else:
                   new_vehicle = {'co2_emissions': calc_emissions_no_vehicle_info(), 'revenue_weight': 0, 'reg_plate': 'unknown'}
 
@@ -40,6 +41,7 @@ def get_vehicle_info(reg, request):
 def get_lat_long(to, fro):
       try:
             url_start_lat_long = f'https://api.mapbox.com/geocoding/v5/mapbox.places/{to}.json?country=gb&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1wMWhhaTAxMjAydWp0YnExa2lsanAifQ.11WeE94rbtUkNefoue_dSQ'
+            print(url_start_lat_long)
             start_response = requests.request('GET', url_start_lat_long)
             start_data = start_response.json()
             start = start_data['features'][0]['geometry']['coordinates']
@@ -79,25 +81,35 @@ class Directions(APIView):
       permission_classes = [IsAuthenticated]
       def get(self, request, format=None):
             if request.method =='GET':
-                  if self.request.query_params.get('vehicle_registration'):
-                        vehicle = get_vehicle_info(self.request.query_params.get('vehicle_registration'), request)
+                  print(request)
+                  if self.request.query_params.get('registration_no'):
+                        reg = self.request.query_params.get('registration_no')
+                        reg = reg.replace('/', '')
+                        vehicle = get_vehicle_info(reg, request)
+                        print(vehicle)
                         to = self.request.query_params.get('address1')
+                        to = to.replace(',', ' ')
                         fro = self.request.query_params.get('address2')
+                        fro = fro.replace(',', ' ')
                         routes = get_directions_info(request, to, fro)
                         for route in routes:
                               routes.append(
                               {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry']['coordinates'], 'emissions': calc_emissions(route['distance'], vehicle)})
-                        return {'routes': routes}
+                        print(routes)
+                        return Response({'routes': routes})
                   elif self.request.query_params.get('vehicle_class'):
                         to = self.request.query_params.get('address1')
                         fro = self.request.query_params.get('address2')
+                        to = to.replace(',', ' ')
+                        fro = fro.replace(',', ' ')
                         routes = get_directions_info(request, to, fro)
                         for route in routes:
                               routes.append(
                               {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry']['coordinates'], 'emissions': (calc_emissions_no_vehicle_info()*route['distance'])})
-                        return {'routes': routes}
+                        print(routes)
+                        return Response({'routes': routes})
                   else:
-                        return ("Not enough information provided, please try again")
+                        return Response("Not enough information provided, please try again")
             elif request.method =='POST':
                   new_route = Route.create(request)
 
