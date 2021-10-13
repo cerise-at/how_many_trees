@@ -1,8 +1,10 @@
 from django.urls import include, path
 from . import views
+from django.conf.urls import url
 
-from .views import Directions
+from .views import Directions, route_detail
 
 urlpatterns = [
-    path('directions', Directions.as_view()),
+    url(r'^id/(?P<route_id>.*)', route_detail, name='route_detail'),
+    path('directions/', Directions.as_view(), name='directions'),
 ]

@@ -5,6 +5,7 @@ from django.contrib.postgres.fields import ArrayField
 
 class Route(models.Model):
 
+    name = CharField(null=False, max_length=255)
     email = EmailField(null=False)
     start_address = CharField(null=False, max_length=255)
     end_address = CharField(null=False, max_length=255)

@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 import requests
 from .models import Route
+from .serializers import RouteSerializer
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-
+from django.http import HttpResponse, JsonResponse
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 
 def calc_emissions(distance, vehicle):
@@ -98,4 +100,19 @@ class Directions(APIView):
                         return ("Not enough information provided, please try again")
             elif request.method =='POST':
                   new_route = Route.create(request)  
-                      
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def route_detail(_, route_id):
+
+      """
+      Get all information for a single route.
+      """
+
+      route = get_object_or_404(Route, pk=route_id)
+      serializer = RouteSerializer(route, many=False)
+      return JsonResponse(serializer.data, safe=False)
+
+
