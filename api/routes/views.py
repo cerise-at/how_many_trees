@@ -5,7 +5,6 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-
 # Calculates the vehicle emissions for a given distance
 def calc_emissions(distance, vehicle):
       if vehicle['revenue_weight'] == 0:
