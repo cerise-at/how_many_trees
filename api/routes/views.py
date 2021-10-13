@@ -7,9 +7,10 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
 import string
 
-from rest_framework import status 
+from rest_framework import status
 
 def calc_emissions(distance, vehicle):
       if vehicle('revenue_weight'):
@@ -54,7 +55,7 @@ def get_lat_long(to, fro):
             coords = f"{start[0]},{start[1]};{end[0]},{end[1]}"
             return coords
       except Exception as e:
-            return  (e)
+            return status.HTTP_400_BAD_REQUEST
 
 
 def calc_emissions_no_vehicle_info():
@@ -64,9 +65,7 @@ def calc_emissions_no_vehicle_info():
 
 def get_directions_info(request, to, fro):
       if request.method == 'GET':
-
             coords = get_lat_long(to, fro)
-
             url = f'https://api.mapbox.com/directions/v5/mapbox/driving/{coords}?geometries=geojson&alternatives=true&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1ycG54cDBkZ3MzMW9hYjY4dnAwNXMifQ.gsFC-xmHmsp-EneBn8yrQQ'
             try:
                   response = requests.request("GET", url)
@@ -74,7 +73,7 @@ def get_directions_info(request, to, fro):
                   data = data['routes']
                   return(data)
             except Exception as e:
-                  return e
+                  return status.HTTP_400_BAD_REQUEST
 
 
 
@@ -82,33 +81,31 @@ class Directions(APIView):
       permission_classes = [IsAuthenticated]
       def get(self, request, format=None):
             if request.method =='GET':
-                  print(request)
                   if self.request.query_params.get('registration_no'):
                         reg = self.request.query_params.get('registration_no')
                         reg = reg.replace('/', '')
                         vehicle = get_vehicle_info(reg, request)
-                        print(vehicle)
                         to = self.request.query_params.get('address1')
                         to = to.replace(',', ' ')
                         fro = self.request.query_params.get('address2')
                         fro = fro.replace(',', ' ')
                         routes = get_directions_info(request, to, fro)
+                        route_options = []
                         for route in routes:
-                              routes.append(
+                              route_options.append(
                               {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry']['coordinates'], 'emissions': calc_emissions(route['distance'], vehicle)})
-                        print(routes)
-                        return Response({'routes': routes})
+                        return Response({'routes': route_options})
                   elif self.request.query_params.get('vehicle_class'):
                         to = self.request.query_params.get('address1')
                         fro = self.request.query_params.get('address2')
                         to = to.replace(',', ' ')
                         fro = fro.replace(',', ' ')
                         routes = get_directions_info(request, to, fro)
+                        route_options = []
                         for route in routes:
-                              routes.append(
-                              {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry']['coordinates'], 'emissions': (calc_emissions_no_vehicle_info()*route['distance'])})
-                        print(routes)
-                        return Response({'routes': routes})
+                              route_options.append(
+                              {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry'], 'emissions': (calc_emissions_no_vehicle_info()*route['distance'])})
+                        return Response({'routes': route_options})
                   else:
                         return Response("Not enough information provided, please try again")
             elif request.method =='POST':
@@ -127,7 +124,7 @@ def route_detail(_, route_id):
       route = get_object_or_404(Route, pk=route_id)
       serializer = RouteSerializer(route, many=False)
       return JsonResponse(serializer.data, safe=False)
-    
+
 
 
 @api_view(['POST'])
