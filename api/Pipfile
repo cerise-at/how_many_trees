@@ -3,6 +3,11 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[scripts]
+test = "pytest"
+test-log = "pytest -s"
+test-cov = "pytest --cov=api --cov=users --cov=routes ."
+
 [packages]
 django = "*"
 djangorestframework = "*"
@@ -10,9 +15,14 @@ django-cors-headers = "*"
 gunicorn = "*"
 psycopg2 = "*"
 django-heroku = "*"
+django-allauth = "*"
+django-rest-auth = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 pytest = "*"
+pytest-django = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.9"
