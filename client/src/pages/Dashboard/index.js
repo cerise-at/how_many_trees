@@ -29,6 +29,7 @@ function Dashboard() {
             setProjects(data.projects);
         } catch (err) {
             console.log(err);
+            // TO DO: add error handling
         }
     }
 
@@ -51,6 +52,7 @@ function Dashboard() {
     ]
 
     function renderProjects(projectsData) {
+        // render list of project names with short description
 
         return projectsData.map((obj, i) =>
             <li key={i} className="list-group-item d-flex justify-content-between align-items-start">
@@ -73,7 +75,7 @@ function Dashboard() {
                     <div className="col-lg">
                         <div>
                             <p className="h3">How many trees...?</p>
-                            <p>You need to plant x trees per year to offset the company's CO2 emissions.</p>
+                            <p>You need to plant x trees per year to offset the company's CO<sub>2</sub> emissions.</p>
                         </div>
 
                         <div>
