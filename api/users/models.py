@@ -15,7 +15,7 @@ class User(AbstractUser):
     * 'Company' as new required field.
     """
 
-    username = models.CharField(null=False, max_length=255)
+    # username = models.CharField(null=False, max_length=255)
     email = models.EmailField(_('email address'), unique=True, primary_key=True)
     company = models.CharField(null=False, unique=True, max_length=255)
     emissions_CO2e = models.DecimalField(default=0.0, max_digits=19, decimal_places=10)
@@ -24,12 +24,6 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
-
-    # @classmethod
-    # def create(cls, **kwargs):
-    #     user = cls(**kwargs)
-    #     Company.objects.create(name=kwargs.pop('company'), user=user)
-    #     return user 
 
     def __str__(self):
         return self.email
@@ -47,6 +41,7 @@ class User(AbstractUser):
             "n_trees": f'{self.emissions_CO2e / 7 if self.emissions_CO2e > 0 else 0.0}',
             "routes": [
                 {
+                    "route_name": "route name",
                     "start_address": "address",
                     "stop_address": "address",
                     "emissions_CO2e": 100,

@@ -114,3 +114,5 @@ def route_detail(_, route_id):
       route = get_object_or_404(Route, pk=route_id)
       serializer = RouteSerializer(route, many=False)
       return JsonResponse(serializer.data, safe=False)
+
+
