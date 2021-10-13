@@ -64,8 +64,8 @@ def get_lat_long(to, fro):
 # Calculates the vehicle emissions for a given distance if vehicle information is unknown. Uses average for road freight provided by the European Automobile Manufacturers Association 
 # and set by the 1996 EU "Weights and dimensions" Directive
 def calc_emissions_no_vehicle_info(distance):
-      total_emits_per_km = (26 * distance * 62)/1000000
-      return total_emits_per_km
+      total_emits = (26 * distance * 62)/1000000
+      return total_emits
 
 # This reaches into the MapBox API and uses the previously inputted coordinate data to provide a list of routes
 def get_directions_info(request, to, fro):
@@ -118,7 +118,8 @@ class Directions(APIView):
                               route_options = []
                               for route in routes:
                                     route_options.append(
-                                    {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry'], 'emissions': (calc_emissions_no_vehicle_info()*route['distance']), 'start_address': fro, 'end_address': to })
+                                    {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry'], 'emissions': (calc_emissions_no_vehicle_info(route['distance'])), 'start_address': fro, 'end_address': to })
+                              print('these are the options', route_options)
                               return Response({'routes': route_options}, status=status.HTTP_200_OK)
                         else:
                               return Response("Not enough information provided, please try again")
