@@ -26,42 +26,24 @@ function CreateRoute() {
         // e.target.reset();
     }
 
+    async function sendRoute(e) {
+        e.preventDefault();
+
+        try {
+            const token = localStorage.getItem('token');
+            const email = localStorage.getItem('email');
+
+            await axios.post(`${process.env.REACT_APP_API_URL}/routes/create/`, { ...selectedRoute, email },
+                { headers: { "Authorization": `Token ${token}` }}
+            );
+        } catch (err) {
+            console.log(err);
+            setError(err);
+        }
+    }
+
     console.log(selectedRoute);
     console.log(routesData);
-
-    // dummy routesData
-    // const routesData = [
-    //     {
-    //         id: 1,
-    //         route_name: 'the first route',
-    //         route_start: 'London',
-    //         route_end: 'Leeds',
-    //         emissions: 234,
-    //         duration: 6435,
-    //         distance: 123,
-    //         geometry: []
-    //     },
-    //     {
-    //         id: 2,
-    //         route_name: 'the second route',
-    //         route_start: 'London',
-    //         route_end: 'Liverpool',
-    //         emissions: 543,
-    //         duration: 324324,
-    //         distance: 43,
-    //         geometry: []
-    //     },
-    //     {
-    //         id: 3,
-    //         route_name: 'the third route',
-    //         route_start: 'London',
-    //         route_end: 'Manchester',
-    //         emissions: 4534,
-    //         duration: 32454,
-    //         distance: 676,
-    //         geometry: []
-    //     }
-    // ]
 
     return (
         <>
@@ -70,12 +52,18 @@ function CreateRoute() {
                 ? <>
                     <h1>Select a Route</h1>
                     <main className="container row">
+
                         <Map selectedRoute={ selectedRoute }/>
+
                         <aside className="col-4">
                             <h4>{selectedRoute.route_name}</h4>
                             <p>From: {selectedRoute.route_start}</p>
                             <p>To: {selectedRoute.route_end}</p>
                             <RoutesSelector routesData={ routesData } setSelectedRoute={ setSelectedRoute }/>
+
+                        <button className="btn btn-primary" onClick={ e => sendRoute(e) }>Save Route</button>
+
+                        { error && <p className="alert" role="alert alert-danger">{ error.message }</p> }
                         </aside>
                     </main>
                 </>
