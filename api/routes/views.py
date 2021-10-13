@@ -3,17 +3,20 @@ import requests
 from .models import Routes
 from rest_framework.views import APIView
 
-
+# Calculates the vehicle emissions for a given distance
 def calc_emissions(distance, vehicle):
       if vehicle['revenue_weight'] == 0:
             route_emissions = vehicle['co2_emissions']*distance
             return route_emissions
       else:
-            emissions = vehicle['co2_emissions']
-            rev_weight = vehicle['revenue_weight']
-            route_emissions = (distance*emissions)*rev_weight
-            return route_emissions
+            emissions = vehicle['co2_emissions'] # gives emissions in g per km
+            rev_weight = vehicle['revenue_weight'] # gives weight in kg
+            rev_weight_ton = rev_weight/1000 # converts weights to metric tonnes. Revenue weight acts like an emissions "modifier"
+            emission_g = (distance*emissions)*rev_weight_ton # gives route emissions in g for freight of that weight transported across the distance moved 
+            route_emissions = emission_g/1000000 # converts route emissions to metric tonnes
+            return route_emissions 
 
+# This reaches into the DVLA API to get a vehicles registration number, vehicle weight, and CO2 emissions per km. 
 def get_vehicle_info(request):
       if request.method == 'GET':
             reg = request.GET['reg']
@@ -31,7 +34,7 @@ def get_vehicle_info(request):
             else:
                   new_vehicle = {'co2_emissions': calc_emissions_no_vehicle_info(), 'revenue_weight': 0, 'reg_plate': 'unknown'}
                   
-
+# This reaches into the MapBox API to get a routes startpoint and endpoint
 def get_lat_long(startpoint, endpoint):
       try:
             url_start_lat_long = f'https://api.mapbox.com/geocoding/v5/mapbox.places/{startpoint}.json?country=gb&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1wMWhhaTAxMjAydWp0YnExa2lsanAifQ.11WeE94rbtUkNefoue_dSQ'
@@ -48,12 +51,12 @@ def get_lat_long(startpoint, endpoint):
       except Exception as e:
             return  (e)
 
-
-def calc_emissions_no_vehicle_info():
-      total_emits_per_km = (100000 * 500 * 62)/1000000
+# Calculates the vehicle emissions for a given distance if vehicle information is unknown. Uses average for road freight provided by the European Automobile Manufacturers Association
+def calc_emissions_no_vehicle_info(distance):
+      total_emits_per_km = (26 * distance * 62)/1000000
       return total_emits_per_km
 
-
+# This reaches into the MapBox API and uses the previously inputted coordinate data to provide a list of routes
 def get_directions_info(request):
       if request.method == 'GET':
             startpoint = request.GET['start']
@@ -70,7 +73,15 @@ def get_directions_info(request):
                   return e
 
 
-
+# Putting it all together: 
+# We get our vehicle registration, journey startpoint and journey endpoint from the user. 
+# We reach into the DVLA API and, assuming its a valid vehicle registration, get the infor specified in the get_vehicle_info function
+# We reach into the MapBox API and get the info on the users startpoint, and endpoint, as well as:
+# -- the various routes they can use to get there; 
+# -- how long each will take; 
+# -- and the distance they'll travel
+# We then run our emissions calculations and tell the user how much CO2, in metric tons, their journey/delivery will emit
+# If they haven't provided enough information to do this, then it'll throw an error and ask for more information
 class Directions(APIView):    
       def get(self, request, format=None):
             if request.method =='GET':
