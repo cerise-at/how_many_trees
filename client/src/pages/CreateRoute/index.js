@@ -15,7 +15,7 @@ function CreateRoute() {
 
         try {
             console.log(url);
-            //const { data } = axios.get(url, { headers: { "Authorization": token }});
+            //const { data } = axios.get(url, { headers: { "Authorization": `Token ${token}` }});
             //setRoutesData(data);
             // //set the first route as default
             // selectedRoute(data[0]);

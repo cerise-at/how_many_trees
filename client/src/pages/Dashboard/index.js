@@ -20,7 +20,7 @@ function Dashboard() {
 
             const { data } = await axios.get(
                 `${process.env.REACT_APP_API_URL}/dashboard/${email}`,
-                { headers: { "Authorization": token } }
+                { headers: { "Authorization": `Token ${token}` } }
             );
 
             setUsername(data.first_name);

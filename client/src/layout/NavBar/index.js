@@ -10,7 +10,8 @@ function NavBar() {
     async function logout() {
         try {
             // Is email or password needed to logout ???
-            await axios.post(`${process.env.REACT_APP_API_URL}/rest-auth/logout/`);
+            await axios.post(`${process.env.REACT_APP_API_URL}/rest-auth/logout/`,
+                { headers: { 'Authorization': `Token ${localStorage.getItem('token')}` }});
         } catch (err) {
             console.log(err);
         }
