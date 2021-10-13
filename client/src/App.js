@@ -20,7 +20,7 @@ function App() {
 
             <PrivateRoute path='/new-route' Component={CreateRoute}></PrivateRoute>
 
-            <PrivateRoute path='/route-details' Component={RouteDetails}></PrivateRoute>
+            <PrivateRoute path='/route-details/:id' Component={RouteDetails}></PrivateRoute>
 
             <PrivateRoute path='/dashboard' Component={Dashboard}></PrivateRoute>
 

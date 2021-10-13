@@ -26,7 +26,7 @@ function RoutesList({ routes }) {
 
                     <div className="progress"
                         style={{width: `${norm(obj, max)}%`}}
-                        onClick={e => history.push(`/route-details?${obj.id}`)}
+                        onClick={e => history.push(`/route-details/${obj.id}`)}
                         key={obj.id}>
 
                         <div className="progress-bar w-100"

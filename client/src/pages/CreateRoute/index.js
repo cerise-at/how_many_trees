@@ -55,15 +55,13 @@ function CreateRoute() {
 
                         <Map selectedRoute={ selectedRoute }/>
 
-                        <aside className="col-4">
+                        <aside className="col-lg-4">
                             <h4>{selectedRoute.route_name}</h4>
-                            <p>From: {selectedRoute.route_start}</p>
-                            <p>To: {selectedRoute.route_end}</p>
                             <RoutesSelector routesData={ routesData } setSelectedRoute={ setSelectedRoute }/>
 
                         <button className="btn btn-primary" onClick={ e => sendRoute(e) }>Save Route</button>
 
-                        { error && <p className="alert" role="alert alert-danger">{ error.message }</p> }
+                        { error && <p role="alert" className="alert alert-danger">{ error.message }</p> }
                         </aside>
                     </main>
                 </>

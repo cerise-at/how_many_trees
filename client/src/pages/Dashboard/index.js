@@ -71,7 +71,7 @@ function Dashboard() {
                     </div>
 
                     <div className="col-lg">
-                        { routes && <RoutesList routes={routes}/> }
+                        { (routes && routes.length >= 1) ? <RoutesList routes={routes}/> : null}
                     </div>
 
                 </div>
