@@ -19,7 +19,7 @@ function NavBar() {
     }
 
     return (
-        <nav className="navbar sticky-top navbar-expand-md navbar-light p-0">
+        <nav className="navbar sticky-top navbar-expand-lg navbar-light p-0">
 
             <div className="container-fluid">
 

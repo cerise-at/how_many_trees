@@ -5,4 +5,3 @@ export { default as Landing } from './Landing';
 export { default as Offset } from './Offset';
 export { default as Portfolio } from './Portfolio';
 export { default as RouteDetails } from './RouteDetails';
-export { default as SelectRoute } from './SelectRoute';

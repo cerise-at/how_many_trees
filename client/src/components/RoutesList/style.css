@@ -4,6 +4,7 @@
 
 .route-info {
     margin-bottom: 0;
+    cursor: pointer;
 }
 
 .bar-container {
