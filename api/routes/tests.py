@@ -1,4 +1,5 @@
 from django.test import TestCase
+from rest_framework.test import APIRequestFactory, APITestCase
 import pytest
 from .models import Route
 from .serializers import RouteSerializer
@@ -84,6 +85,39 @@ class TestRouteModel(TestCase):
         data = route_serializer.data
 
         self.assertEqual(set(data.keys()), set(self.test_data.keys()))
+
+
+from datetime import date
+
+class TestGetRouteByIDEndpoint(APITestCase):
+
+    """
+    Tests the behaviour of the GET /routes/<route_id> endpoint.
+    """
+
+    route_data =  {
+        "name": 'test_route',
+        "email" : 'test_email',
+        "start_address" : 'test_start_address',
+        "end_address" : 'test_end_address',
+        "distance_km" : 1.0,
+        "coords" : [0.0],
+        "dates" : [date.today()],
+
+        # vehicle details
+        "vehicle_registration": 'test_vehicle_registration',
+        "vehicle_class": None,
+        "vehicle_emissions_CO2e_km": 1.0
+    }
+
+    @pytest.mark.django_db
+    def test_response_contains_expected_fields(self):
+
+        route = Route.objects.create(**self.route_data)
+        url = reverse('route_detail', kwargs={'route_id': 0})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        print(response)
         
 
 
