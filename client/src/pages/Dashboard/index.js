@@ -10,63 +10,32 @@ function Dashboard() {
     const [routes, setRoutes] = useState();
     const [projects, setProjects] = useState();
     const [trees, setTrees] = useState();
+    const [error, setError] = useState();
 
-    // useEffect(() => getDashboard(), []);
-    useEffect(() => {
-        async function getDashboard() {
-            try{
-                const email = localStorage.getItem('email');
-                const token = localStorage.getItem('token');
+    useEffect(() => getDashboard(), []);
 
-                const { data } = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/dashboard/${email}`,
-                    { headers: { "Authorization": `Token ${token}` } }
-                );
+    async function getDashboard() {
+        try{
+            const email = localStorage.getItem('email');
+            const token = localStorage.getItem('token');
 
-                console.log(data);
-                console.log(data.first_name);
-                console.log(data.n_trees);
-                console.log(data.projects);
-                console.log(data.routes);
-                setProjects(data.projects);
-                setUsername(data.first_name);
-                setRoutes(data.routes);
-                setTrees(data.n_trees);
-            } catch (err) {
-                console.log(err);
-                // TO DO: add error handling
-            }
+            const { data } = await axios.get(
+                `${process.env.REACT_APP_API_URL}/dashboard/${email}`,
+                { headers: { "Authorization": `Token ${token}` } }
+            );
+
+            console.log(data);
+            setProjects(data.projects);
+            setUsername(data.first_name);
+            setRoutes(data.routes);
+            setTrees(data.n_trees);
+        } catch (err) {
+            console.log(err);
+            setError('Coud not fetch data');
         }
-        getDashboard();
-    }, [])
+    }
 
-    // async function getDashboard() {
-    //     try{
-    //         const email = localStorage.getItem('email');
-    //         const token = localStorage.getItem('token');
-    //
-    //         const { data } = await axios.get(
-    //             `${process.env.REACT_APP_API_URL}/dashboard/${email}`,
-    //             { headers: { "Authorization": `Token ${token}` } }
-    //         );
-    //
-    //         console.log(data);
-    //         setProjects(data.projects);
-    //         setUsername(data.first_name);
-    //         setRoutes(data.routes);
-    //         setTrees(data.n_trees);
-    //     } catch (err) {
-    //         console.log(err);
-    //         // TO DO: add error handling
-    //     }
-    // }
-
-    // console.log(username);
-    // console.log(trees);
-    // console.log(projects);
-    // console.log(routes);
-
-    const renderProjects = (projects) => {
+    const renderProjects = () => {
         // render list of project names with short description
 
         return projects.map((obj, i) =>
@@ -96,13 +65,13 @@ function Dashboard() {
                         <div>
                             <p className="h3">Active offsets</p>
                             <ul className="list-group">
-                                {/*renderProjects(projects)*/}
+                                { projects && renderProjects() }
                             </ul>
                         </div>
                     </div>
 
                     <div className="col-lg">
-                        {/*<RoutesList routes={routes}/>*/}
+                        { routes && <RoutesList routes={routes}/> }
                     </div>
 
                 </div>
