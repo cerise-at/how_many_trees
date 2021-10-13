@@ -20,8 +20,12 @@ function Dashboard() {
 
             const { data } = await axios.get(
                 `${process.env.REACT_APP_API_URL}/dashboard/${email}`,
+<<<<<<< HEAD
                 // { headers: { "Authorization": `Token ${token}`} }
                 { headers: { 'Authorization': `Token ${token}` } }
+=======
+                { headers: { "Authorization": `Token ${token}` } }
+>>>>>>> 66e04709a8ccbee09aa8b5ddeb21212e4b9c8c08
             );
 
             console.log(data);
@@ -36,6 +40,7 @@ function Dashboard() {
         }
     }
 
+<<<<<<< HEAD
     // dummy emissions data
     const emissionsData = [
         { id: 1, name: 'route 1', emissions_CO2e: 56, emissions_CO2e_km: 23, distance_km: 45 },
@@ -55,9 +60,12 @@ function Dashboard() {
     ]
 
     function renderProjects(projectsData) {
+=======
+    function renderProjects(projects) {
+>>>>>>> 66e04709a8ccbee09aa8b5ddeb21212e4b9c8c08
         // render list of project names with short description
 
-        return projectsData.map((obj, i) =>
+        return projects.map((obj, i) =>
             <li key={i} className="list-group-item d-flex justify-content-between align-items-start">
                 <div className="ms-2 me-auto">
                     <div className="fw-bold">{obj.project_title}</div>
@@ -70,7 +78,7 @@ function Dashboard() {
     return (
         <>
             <NavBar />
-            <h1>Welcome, Corporate Ghouls!</h1>
+            <h1>Welcome, {username}!</h1>
             <main className="container">
 
                 <div className="row">
@@ -78,19 +86,23 @@ function Dashboard() {
                     <div className="col-lg">
                         <div>
                             <p className="h3">How many trees...?</p>
-                            <p>You need to plant x trees per year to offset the company's CO<sub>2</sub> emissions.</p>
+                            <p>You need to plant {trees} trees per year to offset the company's CO<sub>2</sub> emissions.</p>
                         </div>
 
                         <div>
                             <p className="h3">Active offsets</p>
                             <ul className="list-group">
-                                {renderProjects(projectsData)}
+                                {renderProjects(projects)}
                             </ul>
                         </div>
                     </div>
 
                     <div className="col-lg">
+<<<<<<< HEAD
                         <RoutesList routes={emissionsData} />
+=======
+                        <RoutesList routes={routes}/>
+>>>>>>> 66e04709a8ccbee09aa8b5ddeb21212e4b9c8c08
                     </div>
 
                 </div>
