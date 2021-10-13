@@ -1,18 +1,12 @@
 from allauth.account.adapter import DefaultAccountAdapter
 
 
-class CustomUserAccountAdapter(DefaultAccountAdapter):
+class CustomAccountAdapter(DefaultAccountAdapter):
 
-    def save_user(self, request, user, form, commit=True):
-        """
-        Saves a new `User` instance using information provided in the
-        signup form.
-        """
-        from allauth.account.utils import user_field
-
-        user = super().save_user(request, user, form, False)
-        user_field(user, 'first_name', request.data.get('first_name', ''))
-        user_field(user, 'surname', request.data.get('last_name', ''))
-        user_field(user, 'company_name', request.data.get('user_type', ''))
+    def save_user(self, request, user, form, commit=False):
+        user = super().save_user(request, user, form, commit)
+        data = form.cleaned_data
+        user.company = data.get('company')
+        user.emissions_CO2e = data.get('emissions_CO2e')
         user.save()
         return user

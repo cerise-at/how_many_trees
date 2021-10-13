@@ -4,6 +4,8 @@ from .models import Route
 from .serializers import RouteSerializer
 # from numpy import repeat
 from django.db.utils import IntegrityError
+from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your tests here.
 class TestRouteModel(TestCase):
