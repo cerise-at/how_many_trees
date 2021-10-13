@@ -1,5 +1,5 @@
-from django.shortcuts import get_list_or_404, get_object_or_404, JsonResponse
-from django.http import HttpResponse
+from django.shortcuts import get_list_or_404, get_object_or_404
+from django.http import HttpResponse, JsonResponse
 from .models import User, Project
 from .serializers import ProjectSerializer
 from rest_framework.decorators import api_view, permission_classes
