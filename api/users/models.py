@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from .managers import CustomUserManager
 
 
+
 class User(AbstractUser):
     """
     Overwrites the existing django User model.
@@ -57,6 +58,8 @@ class User(AbstractUser):
             ]
         }
         return dashboard
+
+
 
 class Project(models.Model):
 
