@@ -17,7 +17,7 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
                  <input class="form-check-input me-1"
                         type="radio" name="route"
                         onInput={e => selectRoute(e, route.id)}/>
-                  {route.route_name}
+                  {route.emissions}
             </label>
         )
 
@@ -33,7 +33,7 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
 
     return (
         <>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between align-items-center">
                 <h4>Route Alternatives</h4>
 
                 <div class="dropdown">
@@ -43,7 +43,7 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Sort By
                     </button>
-                    
+
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         { renderSortOptions() }
                     </ul>

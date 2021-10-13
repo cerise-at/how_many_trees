@@ -9,24 +9,25 @@ function CreateRoute() {
     const [error, setError] = useState(null);
     const [selectedRoute, setSelectedRoute] = useState({});
 
-    console.log(selectedRoute);
-
     async function getDirections(e, url) {
         e.preventDefault();
 
         try {
-            console.log(url);
             const token = localStorage.getItem('token');
-            const { data } = axios.get(url, { headers: { "Authorization": `Token ${token}` }});
-            setRoutesData(data);
+            const { data } = await axios.get(url, { headers: { "Authorization": `Token ${token}` }});
+
             //set the first route as default
-            selectedRoute(data[0]);
+            setSelectedRoute(data.routes[0]);
+            setRoutesData(data.routes);
         } catch (err) {
             console.log(err);
             setError({ message: 'New route registration failed' });
         }
         // e.target.reset();
     }
+
+    console.log(selectedRoute);
+    console.log(routesData);
 
     // dummy routesData
     // const routesData = [
@@ -67,15 +68,16 @@ function CreateRoute() {
             <NavBar />
             { routesData
                 ? <>
-                    <Map selectedRoute={ selectedRoute }/>
-                    <aside>
-                        {/*<div>
+                    <h1>Select a Route</h1>
+                    <main className="container row">
+                        <Map selectedRoute={ selectedRoute }/>
+                        <aside className="col-4">
                             <h4>{selectedRoute.route_name}</h4>
                             <p>From: {selectedRoute.route_start}</p>
-                            <p>To: {selectedRoute.route.end}</p>
-                        </div>*/}
-                        <RoutesSelector routesData={ routesData } setSelectedRoute={ setSelectedRoute }/>
-                    </aside>
+                            <p>To: {selectedRoute.route_end}</p>
+                            <RoutesSelector routesData={ routesData } setSelectedRoute={ setSelectedRoute }/>
+                        </aside>
+                    </main>
                 </>
                 : <NewRouteForm getDirections={ getDirections } error={ error } setError={ setError }/>
             }
