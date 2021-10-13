@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework import status 
 
 def calc_emissions(distance, vehicle):
       if vehicle['revenue_weight'] == 0:
@@ -124,5 +124,17 @@ def create_route(request):
       if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['UPDATE'])
+def create_route(request):
+      existing_route = get_object_or_404(Route, pk=request.data['route_id'])
+      serializer = RouteSerializer(existing_route, data=request.data)
+      if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
 
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
