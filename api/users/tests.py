@@ -192,22 +192,26 @@ class TestProjectEndpoints(APITestCase):
         assert len(Project.objects.all()) == 1
 
 
-    # """
-    # UPDATE projects/create
-    # """
-    # @pytest.mark.django_db
-    # def test_projects_create_correctly_instantiates_project(self):
+    """
+    UPDATE projects/create
+    """
+    @pytest.mark.django_db
+    def test_projects_update_correctly_updates_project(self):
 
-    #     User = get_user_model()
-    #     user = User.objects.create_user(email='test@user.com', password='HowManyTrees123',
-    #                                     username='first', company='test_company')
+        User = get_user_model()
+        user = User.objects.create_user(email='test@user.com', password='HowManyTrees123',
+                                        username='first', company='test_company')
 
-    #     url = reverse('create_project')
-    #     self.client.force_authenticate(user=user)
-    #     assert len(Project.objects.all()) == 0
-    #     response = self.client.post(url, self.test_data)
-    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-    #     assert len(Project.objects.all()) == 1
+        project = Project.objects.create(**self.test_data)
+        updated_field = { 'offset_emissions_CO2e': 123.4 }
+
+        url = reverse('update_project', kwargs={ 'project_id': project.id })
+        self.client.force_authenticate(user=user)
+        response = self.client.post(url, updated_field)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+
+
     
 
 

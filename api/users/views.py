@@ -46,11 +46,11 @@ def create_project(request):
 
 
 
-@api_view(['UPDATE'])
+@api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-def update_project(request):
+def update_project(request, project_id):
 
-      existing_project = get_object_or_404(Project, pk=request.data['project_id'])
+      existing_project = get_object_or_404(Project, pk=project_id)
       serializer = ProjectSerializer(existing_project, data=request.data)
 
       if serializer.is_valid():
