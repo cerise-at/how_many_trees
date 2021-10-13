@@ -7,7 +7,7 @@ function RoutesList({ routes }) {
     const [isPerKM, setIsPerKM] = useState(false);
     const history = useHistory();
 
-    function renderBars(routes) {
+    const renderBars = (routes) => {
         // sort the routes by CO2 emissions and return an array of bar elements
 
         const emissions = isPerKM ? 'emissions_CO2e_km' : 'emissions_CO2e';
