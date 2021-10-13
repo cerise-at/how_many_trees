@@ -26,6 +26,7 @@ def project_detail(_, project_id):
 
       route = get_object_or_404(Project, pk=project_id)
       serializer = ProjectSerializer(route, many=False)
+      print(serializer.data)
       return JsonResponse(serializer.data, safe=False)
 
 

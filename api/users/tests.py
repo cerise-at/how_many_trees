@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.test import APIRequestFactory, APITestCase
 from rest_framework.authtoken.models import Token
 from django.urls import reverse
+import json
 
 import pytest
 pytestmark = pytest.mark.django_db
@@ -13,29 +14,24 @@ from .models import Project
 
 
 
-# class TestCustomUserManager(TestCase):
+class TestCustomUserManager(TestCase):
 
-#     """
-#     Tests the creation of the CustomUser model.
-#     """
+    """
+    Tests the creation of the CustomUser model.
+    """
 
-#     @pytest.mark.django_db
-#     def test_can_create_user(self):
+    @pytest.mark.django_db
+    def test_can_create_user(self):
 
-#         # Company is currently stub (@OGWJ 09-10-21)
-#         User = get_user_model()
-#         user = User.objects.create_user(email='test@user.com', password='foo',
-#                                         first_name='first', company_name='test_company')
+        User = get_user_model()
+        user = User.objects.create_user(email='test@user.com', password='foo',
+                                        username='username', company='test_company')
 
-#         self.assertEqual(user.email, 'test@user.com')
-#         self.assertTrue(user.is_active)
-#         self.assertFalse(user.is_staff)
-#         self.assertFalse(user.is_superuser)
+        self.assertEqual(user.email, 'test@user.com')
+        self.assertTrue(user.is_active)
+        self.assertFalse(user.is_staff)
+        self.assertFalse(user.is_superuser)
 
-#         try:
-#             self.assertIsNone(user.username)
-#         except AttributeError:
-#             pass
 
 
 #     @pytest.mark.django_db
@@ -130,31 +126,30 @@ class TestGetProjectEndpoint(APITestCase):
     """
 
     test_data = {
-        'id': 0,
+        'company': 'test_company',
         'title': 'Test Project Title',
         'description': 'test description',
         'start_date': date.today(),
-        'end_date': date.today() 
+        'end_date': date.today(),
+        'offset_emissions_CO2e': 125.0
     }
 
     @pytest.mark.django_db
     def test_get_project_contains_expected_fields(self):
 
-        # project = Project.objects.create(**self.test_data)
-        url = reverse('project_detail', kwargs={'project_id': 0})
-
-        print(url)
-
-        unauth_response = self.client.get(url)
-        self.assertEqual(unauth_response.status_code, status.HTTP_401_UNAUTHORIZED)
-
         User = get_user_model()
         user = User.objects.create_user(email='test@user.com', password='HowManyTrees123',
                                         username='first', company='test_company')
 
-        # token = Token.objects.get(user__username='lauren')
-        # self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        project = Project.objects.create(**self.test_data)
+        url = reverse('project_detail', kwargs={'project_id': project.id})
         self.client.force_authenticate(user=user)
-        auth_response = self.client.get(url)
-        self.assertEqual(auth_response.status_code, status.HTTP_200_OK)
+        response = self.client.get(url)
+        print(response.content.decode('utf-8'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        data = json.loads(response.content.decode('utf-8'))
+        response_keys = set([k for k in data.keys()])
+        expected_keys = set([k for k in self.test_data.keys()])
+        self.assertEqual(response_keys, expected_keys)
 
