@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.fields import CharField
 from django.db.models.fields.related import OneToOneField
 from django.utils.translation import gettext_lazy as _
 from rest_framework.response import Response
@@ -23,6 +24,12 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
+
+    # @classmethod
+    # def create(cls, **kwargs):
+    #     user = cls(**kwargs)
+    #     Company.objects.create(name=kwargs.pop('company'), user=user)
+    #     return user 
 
     def __str__(self):
         return self.email
