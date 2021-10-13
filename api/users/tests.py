@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from .serializers import CustomUserSerializer
+from .serializers import CustomRegisterSerializer
 from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, APITestCase
@@ -69,7 +69,7 @@ class TestCustomerUserSerializer(TestCase):
         user = User.objects.create_user(email='test@user.com', password='foo',
                                         first_name='first', company_name='test_company')
 
-        user_serializer = CustomUserSerializer(instance = user)
+        user_serializer = CustomRegisterSerializer(instance = user)
         data = user_serializer.data
 
         self.assertEqual(set(data.keys()), set(['email', 'password', 'first_name', 'company_name']))

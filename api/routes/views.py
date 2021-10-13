@@ -9,6 +9,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 import string
 
+from rest_framework import status 
 
 def calc_emissions(distance, vehicle):
       if vehicle('revenue_weight'):
@@ -126,3 +127,32 @@ def route_detail(_, route_id):
       route = get_object_or_404(Route, pk=route_id)
       serializer = RouteSerializer(route, many=False)
       return JsonResponse(serializer.data, safe=False)
+    
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_route(request):
+
+      serializer = RouteSerializer(data=request.data)
+
+      if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['UPDATE'])
+@permission_classes([IsAuthenticated])
+def update_route(request):
+
+      existing_route = get_object_or_404(Route, pk=request.data['route_id'])
+      serializer = RouteSerializer(existing_route, data=request.data)
+
+      if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+
+      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
