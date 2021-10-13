@@ -14,14 +14,17 @@ function Dashboard() {
     useEffect(() => getDashboard(), []);
 
     async function getDashboard() {
-        try{
+        try {
             const email = localStorage.getItem('email');
             const token = localStorage.getItem('token');
 
             const { data } = await axios.get(
                 `${process.env.REACT_APP_API_URL}/dashboard/${email}`,
-                { headers: { "Authorization": token } }
+                // { headers: { "Authorization": `Token ${token}`} }
+                { headers: { 'Authorization': `Token ${token}` } }
             );
+
+            console.log(data);
 
             setUsername(data.first_name);
             setRoutes(data.routes);
@@ -46,9 +49,9 @@ function Dashboard() {
 
     // dummy projects
     const projectsData = [
-        {project_title: 'Project 1', project_description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
-        {project_title: 'Project 2', project_description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."},
-        {project_title: 'Project 3', project_description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
+        { project_title: 'Project 1', project_description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+        { project_title: 'Project 2', project_description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+        { project_title: 'Project 3', project_description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }
     ]
 
     function renderProjects(projectsData) {
@@ -87,7 +90,7 @@ function Dashboard() {
                     </div>
 
                     <div className="col-lg">
-                        <RoutesList routes={emissionsData}/>
+                        <RoutesList routes={emissionsData} />
                     </div>
 
                 </div>
