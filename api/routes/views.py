@@ -8,7 +8,7 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
-import string
+
 
 from rest_framework import status
 
@@ -43,7 +43,6 @@ def get_vehicle_info(reg, request):
 def get_lat_long(to, fro):
       try:
             url_start_lat_long = f'https://api.mapbox.com/geocoding/v5/mapbox.places/{to}.json?country=gb&access_token=pk.eyJ1IjoiY2VyaXNlLWF0IiwiYSI6ImNrdW1wMWhhaTAxMjAydWp0YnExa2lsanAifQ.11WeE94rbtUkNefoue_dSQ'
-            print(url_start_lat_long)
             start_response = requests.request('GET', url_start_lat_long)
             start_data = start_response.json()
             start = start_data['features'][0]['geometry']['coordinates']
@@ -54,8 +53,8 @@ def get_lat_long(to, fro):
             end = (end_data['features'][0]['geometry']['coordinates'])
             coords = f"{start[0]},{start[1]};{end[0]},{end[1]}"
             return coords
-      except Exception as e:
-            return status.HTTP_400_BAD_REQUEST
+      except Exception as e :
+            raise e
 
 
 def calc_emissions_no_vehicle_info():
@@ -73,43 +72,47 @@ def get_directions_info(request, to, fro):
                   data = data['routes']
                   return(data)
             except Exception as e:
-                  return status.HTTP_400_BAD_REQUEST
+                  raise e
 
 
 
 class Directions(APIView):
       permission_classes = [IsAuthenticated]
       def get(self, request, format=None):
-            if request.method =='GET':
-                  if self.request.query_params.get('registration_no'):
-                        reg = self.request.query_params.get('registration_no')
-                        reg = reg.replace('/', '')
-                        vehicle = get_vehicle_info(reg, request)
-                        to = self.request.query_params.get('address1')
-                        to = to.replace(',', ' ')
-                        fro = self.request.query_params.get('address2')
-                        fro = fro.replace(',', ' ')
-                        routes = get_directions_info(request, to, fro)
-                        route_options = []
-                        for route in routes:
-                              route_options.append(
-                              {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry']['coordinates'], 'emissions': calc_emissions(route['distance'], vehicle)})
-                        return Response({'routes': route_options})
-                  elif self.request.query_params.get('vehicle_class'):
-                        to = self.request.query_params.get('address1')
-                        fro = self.request.query_params.get('address2')
-                        to = to.replace(',', ' ')
-                        fro = fro.replace(',', ' ')
-                        routes = get_directions_info(request, to, fro)
-                        route_options = []
-                        for route in routes:
-                              route_options.append(
-                              {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry'], 'emissions': (calc_emissions_no_vehicle_info()*route['distance'])})
-                        return Response({'routes': route_options})
-                  else:
-                        return Response("Not enough information provided, please try again")
-            elif request.method =='POST':
-                  new_route = Route.create(request)
+            try:
+                  if request.method =='GET':
+                        if self.request.query_params.get('registration_no'):
+                              reg = self.request.query_params.get('registration_no')
+                              reg = reg.replace('/', '')
+                              vehicle = get_vehicle_info(reg, request)
+                              to = self.request.query_params.get('address1')
+                              to = to.replace(',', ' ')
+                              fro = self.request.query_params.get('address2')
+                              fro = fro.replace(',', ' ')
+                              routes = get_directions_info(request, to, fro)
+                              route_options = []
+                              for route in routes:
+                                    route_options.append(
+                                    {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry']['coordinates'], 'emissions': calc_emissions(route['distance'], vehicle), 'start_address': fro, 'end_address': to })
+                              return Response({'routes': route_options,})
+                        elif self.request.query_params.get('vehicle_class'):
+                              to = self.request.query_params.get('address1')
+                              fro = self.request.query_params.get('address2')
+                              to = to.replace(',', ' ')
+                              fro = fro.replace(',', ' ')
+                              routes = get_directions_info(request, to, fro)
+                              route_options = []
+                              for route in routes:
+                                    route_options.append(
+                                    {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry'], 'emissions': (calc_emissions_no_vehicle_info()*route['distance']), 'start_address': fro, 'end_address': to })
+                              return Response({'routes': route_options}, status=status.HTTP_200_OK)
+                        else:
+                              return Response("Not enough information provided, please try again")
+                  elif request.method =='POST':
+                        new_route = Route.create(request)
+            except: 
+                  return Response (status = status.HTTP_400_BAD_REQUEST)
+                  
 
 
 
@@ -153,3 +156,4 @@ def update_route(request):
             return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
 
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
