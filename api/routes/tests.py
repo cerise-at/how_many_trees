@@ -5,7 +5,6 @@ from .serializers import RouteSerializer
 from django.db.utils import IntegrityError
 
 
-
 class TestRouteModel(TestCase):
 
     """
@@ -16,10 +15,12 @@ class TestRouteModel(TestCase):
     """
 
     test_data = {
-        "email": "user@email.test", 
+        "company": "Test Company", 
         "start_address": "34 Test Street, The Town, The County, The Country",
         "end_address": "35 Test Street, The Town, The County, The Country",
         "distance_km": 100,
+        "coords": [],
+        "dates": [],
         "vehicle_registration": "XXXX XXXX",
         "vehicle_class": "HGV",
         "vehicle_emissions_CO2e_km": 0
