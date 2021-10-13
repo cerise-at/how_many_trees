@@ -3,6 +3,7 @@ from .serializers import CustomRegisterSerializer
 from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, APITestCase
+from rest_framework.authtoken.models import Token
 from django.urls import reverse
 
 import pytest
@@ -129,6 +130,7 @@ class TestGetProjectEndpoint(APITestCase):
     """
 
     test_data = {
+        'id': 0,
         'title': 'Test Project Title',
         'description': 'test description',
         'start_date': date.today(),
@@ -138,13 +140,21 @@ class TestGetProjectEndpoint(APITestCase):
     @pytest.mark.django_db
     def test_get_project_contains_expected_fields(self):
 
-        project = Project.objects.create(**self.test_data)
-
+        # project = Project.objects.create(**self.test_data)
         url = reverse('project_detail', kwargs={'project_id': 0})
 
-        # NOTE: stubbed response!
-        expected_response = { "retval": "nothing"}
+        print(url)
 
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json(), expected_response)
+        unauth_response = self.client.get(url)
+        self.assertEqual(unauth_response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        User = get_user_model()
+        user = User.objects.create_user(email='test@user.com', password='HowManyTrees123',
+                                        username='first', company='test_company')
+
+        # token = Token.objects.get(user__username='lauren')
+        # self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        self.client.force_authenticate(user=user)
+        auth_response = self.client.get(url)
+        self.assertEqual(auth_response.status_code, status.HTTP_200_OK)
+
