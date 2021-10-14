@@ -23,7 +23,8 @@ function Dashboard() {
                 `${process.env.REACT_APP_API_URL}/dashboard/${email}`,
                 { headers: { "Authorization": `Token ${token}` } }
             );
-
+            
+            localStorage.setItem({'company': data.company_name})
             console.log(data);
             setProjects(data.projects);
             setUsername(data.first_name);
