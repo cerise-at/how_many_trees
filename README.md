@@ -1,15 +1,55 @@
-# How Many Trees?
-# Brief:
-askjahsa
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+    <img src="https://bestpoolsystems.com/wp-content/themes/BestPoolSystems/img/green-trees.png">
+</head>" alt="Logo" width="80" height="80">
+  </a>
 
-# Background and Rationale: 
-Why does this exist? 
+  <h3 align="center">How Many Trees?</h3>
 
-# The End Result
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <ol>
+    <li><a href="#bg">Background and Rationale</a>
+        <ul>
+            <li><a href="#products">The Product</a></li>
+        </ul>
+    </li>
+    <li><a href="#license">Calculator Methodology</a></li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#prerequisites">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#license">Technologies Used</a>
+        <ul>
+        <li><a href="#frontend">Frontend</a></li>
+        <li><a href="#backend">Backend</a></li>
+        <li><a href="#ExtAPI">External API</a></li>
+        <li><a href="#IntAPI">In-House API</a></li>
+      </ul>
+    </li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
+
+<!-- Background and Rationale -->
+## Background and Rationale:
+Transport emissions make up a significant part of global emissions by sector. According to the <a href="https://www.ipcc.ch/report/ar5/wg3/transport/">IPCC 2014 WG3 Report,</a> 22% of global emissions come from transport. If we break down transport emissions, 74% of transport sector emissions come from cars (40% of sector emissions) and lorries (34% of sector emissions). 
+
+Yet transport emissions and wider emissions in the supply chain are often overlooked in our efforts to transition to a zero-carbon economy. In addition, given the current level of EV deployment, its an area that isn't immediately decarbonisable. At present, efforts to decarbonise transport and logistics chains don't focus on active drawdown (or offsetting in the case of carbon neutrality), but instead focus on emissions trading with sustainability companies. 
+
+How Many Trees is a business-to-business and people-to-business service for those who want to see and track their own freight based carbon costs; see their carbon debt in a clear, easy to understand way (how many trees will it take to offset my footprint?); and give users the tools to make their orders/supply chains carbon neutral by allowing them to track and handle carbon offsets they’ve invested in.
+
+### The Product:
 `gif here`
 
-# Calculator Methodology: 
-### Emissions in Metric Tonnes: 
+<!-- CALCULATOR METHODOLOGY -->
+## Calculator Methodology: 
 Our in-house RESTful API used to calculate emissions per km were derived from the European Chemical Transport Association's *Guidelines for Measuring and Managing CO2
  Emission from Freight Transport Operations* report:
 
@@ -25,91 +65,11 @@ Average CO2-emission factor per tonne-km and Transport volume by transport mode 
 
 We are assuming the GRW is a constant value across distance travelled. To ensure consistency in our calculations, we converted GRW into metric tonnes by dividing GRW by 1000
 
-### How Many Trees: 
 The calculation for converting CO2 in metric tonnes into a 'Tree Equivalent' is based on the average mature tree absorbing 21kg of CO2 per year. For simplicity sake, we are assuming all trees are average, all trees are mature, and all trees are eternal (hail trees). 
 
 For a metric tonnage of CO2, 'Tree Equivalent' is calculated using Equn. 3 below:
 
 > `[3] Tree Equivalent = (Eqn. 2) / 0.021`
-
-## User Experience TODO:
-[] Users should ...
-[] Minimum 60% test coverage, with an aim of 80%
-
-# Installation & Usage
-## Installation
-
-## Usage
-
-## Change Log
-
-# Technologies used:
-## Frontend:
-- HTML
-- CSS
-- React
-- JSX
-- Redux
-- Redux-thunk
-- Jest
-- React-Testing-Library
-
-## Backend:
-- Django
-
-# APIs consumed:
-## External APIs:
-- Google Maps API
--- Google Maps Directions API
-- DVLA Vehicle Enquiry Service API
-
-## Internal APIs:
-- Django REST 
-
-# Wins, Challenges, and Solutions:
-## Wins
-- 
-## Challenges
-
-## Challenge Solutions
-- 
-
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-    <img src="https://ogwj-public-bucket.s3.eu-west-2.amazonaws.com/favicon.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h3 align="center">Polyglot Micro-Service Development with Express, Flask and Docker</h3>
-
-  <p align="center">
-    In this example, we use an Express server to send an image across a local Docker network for classification by a neural net hosted on a Flask server.
-    <br />
-    <a href="https://github.com/OGWJ/express-flask-microservice-demo"><strong>View the Blog Post »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/OGWJ/express-flask-microservice-demo/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/OGWJ/express-flask-microservice-demo/issues">Request Feature</a>
-  </p>
-</p>
-
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
-  <ol>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#prerequisites">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
-  </ol>
-</details>
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -121,36 +81,45 @@ To get a local copy up and running follow these simple steps.
 * You have docker installed. See https://docs.docker.com/get-docker/ for how to install Docker on your local system.
 
 ### Installation and Usage
-1. Clone the repo
+1. Fork and clone the repo:
    ```sh
-   git clone https://github.com/OGWJ/express-flask-microservice-demo.git
+   git clone https://github.com/cerise-at/how_many_trees.git
    ```
 2. Check Docker engine is running\*
-3. Start your micro-service application
+3. To Start up on the local host:
     ```sh
     cd express-flask-microservice-demo && docker-compose up
     ```
-4. Visit localhost:3000 to get predictions for your image.
+4. Visit localhost:3000.
 
-5. Try swapping out the image.jpeg (for another named image.jpeg) in the express-requests directory.
+6. Finished? Ctrl+C in your application terminal to stop the server
 
-6. Finished? Ctrl+C in your application terminal and clean up your system with
-    ```sh
-    docker-compose down --rmi all --volumes --remove-orphans
-    ```
-7. Stop Docker\*
+<!-- TECH USED -->
+## Technologies Used:
 
-8. Remove the local repository from your system
-    ```sh
-    cd .. && rm -rf express-flask-microservice-demo
-    ```
+### Frontend:
 
-* (\* this will depend on your OS- see documentation linked in Prerequisites)
+- HTML
+- CSS
+- React
+- JSX
+- Redux
+- Redux-thunk
+- Jest
+- React-Testing-Library
 
-<!-- LICENSE -->
-## License
+### Backend:
 
-Distributed under the MIT License. See `LICENSE` for more information.
+- Django
+
+### External APIs:
+
+- Mapbox API
+- DVLA Vehicle Enquiry Service API
+
+### In-house API:
+
+- Django REST
 
 <!-- CONTACT -->
 ## Contact
