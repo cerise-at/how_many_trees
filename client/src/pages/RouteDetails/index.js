@@ -31,8 +31,6 @@ function RouteDetails() {
         }
     }
 
-    console.log(error);
-    console.log(routeDetails);
     return (
         <>
             <NavBar />

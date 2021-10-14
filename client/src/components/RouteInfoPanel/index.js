@@ -12,7 +12,7 @@ function RouteInfoPanel({ routeDetails }) {
         try {
             const email = localStorage.getItem('email');
             const token = localStorage.getItem('token');
-            
+
             axios.put(`${process.env.REACT_APP_API_URL}/`, {},
                 { headers: { 'Authorization': `Token ${token}`}}
             ) // endpoint needed
@@ -26,8 +26,10 @@ function RouteInfoPanel({ routeDetails }) {
     return (
         <>
             <h4>{routeDetails.name}</h4>
-            <p>Emissions: {routeDetails.Emissions}</p>
-            <p>Trees: {routeDetails.n_trees}</p>
+            <p>Distance: {routeDetails.distance_km}</p>
+            <p>Emissions: {routeDetails.emissions}</p>
+            <p>From: {routeDetails.start_address}</p>
+            <p>To: {routeDetails.end_address}</p>
 
             <button className="btn btn-primary"
                 onClick={e => setUpdate(prev => !prev)}>
