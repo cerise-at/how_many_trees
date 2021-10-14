@@ -118,7 +118,7 @@ class Directions(APIView):
                               route_options = []
                               for i, route in enumerate(routes):
                                     route_options.append(
-                                    {'route_id': i, 'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry'], 'emissions': (calc_emissions_no_vehicle_info(route['distance'])), 'start_address': fro, 'end_address': to })
+                                    {'route_id': i, 'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry'], 'emissions': (calc_emissions_no_vehicle_info(route['distance']/1000)), 'start_address': fro, 'end_address': to })
                               return Response({'routes': route_options}, status=status.HTTP_200_OK)
                         else:
                               return Response("Not enough information provided, please try again")
