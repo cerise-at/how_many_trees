@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavBar } from '../../layout';
+import { ProjectCards, NewProjectForm } from '../../components'
 
 function Portfolio() {
 
