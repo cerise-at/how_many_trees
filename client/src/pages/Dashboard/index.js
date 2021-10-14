@@ -12,7 +12,10 @@ function Dashboard() {
     const [trees, setTrees] = useState();
     const [error, setError] = useState();
 
-    useEffect(() => getDashboard(), []);
+    useEffect(() => {
+        getDashboard();
+        getProjects();
+        }, []);
 
     async function getDashboard() {
         try {
@@ -25,7 +28,7 @@ function Dashboard() {
             );
 
             localStorage.setItem('company', data.company_name)
-           
+            
             setCompany(data.company_name);
             setRoutes(data.routes);
             setTrees(data.n_trees);
@@ -36,17 +39,15 @@ function Dashboard() {
         }
     }
 
-        // render list of project names with short description
-
-        const renderProjects = async () => {
-            // render list of project names with short description
+    
+        const getProjects = async () => {
             const comp = localStorage.getItem('company')
             const token = localStorage.getItem('token');
             const { data } = await axios.get(
                 `${process.env.REACT_APP_API_URL}/projects/user/${comp}`,
                 { headers: { "Authorization": `Token ${token}` } }
             );
-                console.log('this is data')
+                console.log('this is data', data)
             for (let i = 0; i < data.length; i++) {
                 let str  = new Date(data[i].start_date)
                 let start = `${str.getDate()}-${str.getMonth()}-${str.getFullYear()}`
@@ -58,14 +59,20 @@ function Dashboard() {
               }
     
               setProjects(data);
-              console.log('thisis', data)
+              console.log('thisis', projects)
+        }
+        // render list of project names with short description
+
+        const renderProjects = () => {
+            // render list of project names with short description
+
               return(
                   
                 projects.map((obj, i) =>
                     <li key={i} className="list-group-item d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
-                            <div className="fw-bold">{obj.project_title}</div>
-                            {obj.project_description}
+                            <div className="fw-bold">{obj.title}</div>
+                            {obj.description}
                         </div>
                     </li>
                 )
