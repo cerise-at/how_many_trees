@@ -18,16 +18,16 @@ function Landing() {
                                 <div className="mask">
                                 <ul>
                                     <li className="anim1">
-                                    <div className="quote">...to offset my shipping?</div>
+                                    <div className="quote">...to offset my shipping emissions?</div>
                                     </li>
                                     <li className="anim2">
-                                    <div className="quote">...to accountably deliver to my customers?</div>
+                                    <div className="quote">...to deliver sustainability to my customers?</div>
                                     </li>
                                     <li className="anim3">
-                                    <div className="quote">...to make my business more sustainable?</div>
+                                    <div className="quote">...to make my business carbon neutral?</div>
                                     </li>
                                     <li className="anim4">
-                                    <div className="quote">...does it take to draw down a ton of CO2?</div>
+                                    <div className="quote">...does it take to draw down a tonne of CO2?</div>
                                     </li>
                                     <li className="anim5">
                                     <div className="quote">...to save the planet?</div>
