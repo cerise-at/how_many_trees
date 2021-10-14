@@ -16,7 +16,11 @@ function ProjectCards() {
                 { headers: { "Authorization": `Token ${token}` } }
             );
 
-            setProjects(data)
+            data
+            for (let i = 0; i < data.length; i++) { 
+                let str  = data.start_date
+                str.toLocal
+              }
 
 
         } catch (err) {
