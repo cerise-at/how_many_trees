@@ -125,7 +125,7 @@ class Directions(APIView):
                   elif request.method =='POST':
                         new_route = Route.create(request)
             except: 
-                  return Response (status = status.HTTP_400_BAD_REQUEST)
+                  return JsonResponse (status = status.HTTP_400_BAD_REQUEST)
                   
 
 
@@ -152,9 +152,9 @@ def create_route(request):
 
       if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
 
-      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+      return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -167,7 +167,7 @@ def update_route(request):
 
       if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+            return JsonResponse(serializer.data, status=status.HTTP_204_NO_CONTENT)
 
-      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+      return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
