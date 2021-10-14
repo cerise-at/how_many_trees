@@ -40,7 +40,7 @@ function CreateRoute() {
             console.log(n);
             console.log('value', n.name);
 
-            const data = { ...selectedRoute, email, coords: flatCoords, distance_km: selectedRoute.distance, name: 'route name' }
+            const data = { ...selectedRoute, email, coords: flatCoords, distance_km: selectedRoute.distance, name: localStorage.getItem('routeName') }
             console.log(data);
 
             await axios.post(`${process.env.REACT_APP_API_URL}/routes/create/`,
