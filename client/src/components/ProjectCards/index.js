@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 function ProjectCards() {
@@ -16,9 +15,9 @@ function ProjectCards() {
                 `${process.env.REACT_APP_API_URL}/projects/user/${company}`,
                 { headers: { "Authorization": `Token ${token}` } }
             );
-            console.log(data)
+
             setProjects(data)
-            console.log(projects)
+
 
         } catch (err) {
             console.log(err);
@@ -27,9 +26,9 @@ function ProjectCards() {
     }
     const renderCards = () => {
         return projects && projects.map((obj, i) =>
-            <div class="card" style="width: 18rem;">
+            <div className="card" style= {{width: "18rem"}}>
                 {/* <img class="card-img-top" src="..." alt="Card image cap"> */}
-                <div key={i} class="card-body">
+                <div key={i} className="card-body">
                     <h5 className="card-title">{obj.title}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">{obj.start_date}{obj.end_date}</h6>
                     <p className="card-text">{obj.description}</p>

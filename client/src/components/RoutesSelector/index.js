@@ -16,8 +16,8 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
         routesData.sort((a,b) => a[sortBy] - b[sortBy]);
 
         return routesData.map(route =>
-            <label  key={route.id} class="list-group-item">
-                 <input class="form-check-input me-1"
+            <label  key={route.id} className="list-group-item">
+                 <input className="form-check-input me-1"
                         type="radio" name="route"
                         onInput={e => selectRoute(e, route.id)}/>
                   {route[sortBy]}
@@ -27,7 +27,7 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
     const renderSortOptions = () =>
         [['duration', 'h'], ['distance', 'km'], ['emissions', 'CO2']].map((item, i) =>
             <li>
-                <button key={i} class="dropdown-item"
+                <button key={i} className="dropdown-item"
                     type="button" name={item[0]}
                     onClick={e => setSortBy(e.target.name)}>
                 {item[0]} ({item[1]})
@@ -40,22 +40,22 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
             <div className="d-flex justify-content-between align-items-center">
                 <h4>Route Alternatives</h4>
 
-                <div class="dropdown">
+                <div className="dropdown">
 
-                    <button class="btn btn-primary dropdown-toggle"
+                    <button className="btn btn-primary dropdown-toggle"
                             type="button" id="dropdownMenu2"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Sort By
                     </button>
 
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
                         { renderSortOptions() }
                     </ul>
                 </div>
 
             </div>
 
-            <div class="list-group">
+            <div className="list-group">
                 { renderRouteOptions() }
             </div>
         </>

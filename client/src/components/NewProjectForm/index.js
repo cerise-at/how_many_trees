@@ -24,7 +24,7 @@ function NewProjectForm()
     {
         const token = localStorage.getItem('token');
         const company = localStorage.getItem('company')
-        e.preventDefault();
+        
 
        // change to diff date format
 
@@ -36,13 +36,13 @@ function NewProjectForm()
 
         try {
             await axios.post(`${process.env.REACT_APP_API_URL}/projects/create/`, 
-                {'company': 'thisisacomp', 
+                {'company': company, 
                 'title': title,
                 'description': description,
                 'offset_emissions_CO2e': offset,
                 'start_date':start_date,
                 'end_date':end_date},
-            { headers: { "Authorization": `Token ${token}` }});
+                { headers: { "Authorization": `Token ${token}` } });
   
         } catch (err) {
             console.log(err);
@@ -65,7 +65,7 @@ function NewProjectForm()
                     </div>
                     <div className="row">
                         <p className="h4">Project Description</p>
-                        <input type="textarea" maxlength="280"
+                        <input type="textarea" maxLength="280"
                                 className="form-control"
                                 onChange={e => setDescription(e.target.value)}
                                 placeholder="Project Description (280 characters or less)" />
