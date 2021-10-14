@@ -66,7 +66,7 @@ function CreateRoute() {
                         <Map selectedRoute={selectedRoute} />
 
                         <aside className="col-lg-4">
-                            <h4>{selectedRoute.route_name ? selectedRoute.route_name : 'no route name'}</h4>
+                            {/* <h4>{selectedRoute.route_name ?? selectedRoute.route_name}</h4> */}
                             <RoutesSelector routesData={routesData} setSelectedRoute={setSelectedRoute} />
 
                             <button className="btn btn-primary" onClick={e => sendRoute(e)}>Save Route</button>
