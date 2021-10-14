@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavBar } from '../../layout';
+import { useHistory } from 'react-router-dom';
 import { NewRouteForm, Map, RoutesSelector } from '../../components';
 import axios from 'axios';
 
@@ -8,6 +9,7 @@ function CreateRoute() {
     const [routesData, setRoutesData] = useState();
     const [error, setError] = useState(null);
     const [selectedRoute, setSelectedRoute] = useState({});
+    const history = useHistory();
 
     async function getDirections(e, url) {
         e.preventDefault();
@@ -38,6 +40,8 @@ function CreateRoute() {
                 { ...selectedRoute, email, coords: flatCoords, distance_km: selectedRoute.distance },
                 { headers: { "Authorization": `Token ${token}` }}
             );
+
+            // history.push('/dashboard');
         } catch (err) {
             console.log(err);
             setError(err);

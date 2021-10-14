@@ -7,7 +7,7 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
 
     const selectRoute = (e, id) => {
         e.preventDefault()
-        const route = routesData.filter(route => route.id === id);
+        const route = routesData.filter(route => route.route_id === id);
         setSelectedRoute(route[0]);
     }
 
@@ -16,10 +16,10 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
         routesData.sort((a,b) => a[sortBy] - b[sortBy]);
 
         return routesData.map(route =>
-            <label  key={route.id} class="list-group-item">
+            <label  key={route.route_id} class="list-group-item">
                  <input class="form-check-input me-1"
                         type="radio" name="route"
-                        onInput={e => selectRoute(e, route.id)}/>
+                        onInput={e => selectRoute(e, route.route_id)}/>
                   {route[sortBy]}
             </label>
         )}
