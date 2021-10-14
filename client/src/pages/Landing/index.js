@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { SimpleSlider } from "../../components/";
 import './style.css';
 
 function Landing() {
@@ -49,4 +48,3 @@ function Landing() {
 }
 
 export default Landing;
-

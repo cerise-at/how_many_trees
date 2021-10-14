@@ -23,9 +23,9 @@ function Dashboard() {
                 `${process.env.REACT_APP_API_URL}/dashboard/${email}`,
                 { headers: { "Authorization": `Token ${token}` } }
             );
-            
+
             localStorage.setItem('company', data.company_name)
-                
+
             setProjects(data.projects);
             setCompany(data.company_name);
             setRoutes(data.routes);
@@ -36,10 +36,10 @@ function Dashboard() {
         }
     }
 
-    const renderProjects = () => {
+    const renderProjects = () =>
         // render list of project names with short description
-        if (projects.length >1 ){
-            return projects.map((obj, i) =>
+
+            projects.map((obj, i) =>
                 <li key={i} className="list-group-item d-flex justify-content-between align-items-start">
                     <div className="ms-2 me-auto">
                         <div className="fw-bold">{obj.project_title}</div>
@@ -47,10 +47,6 @@ function Dashboard() {
                     </div>
                 </li>
         )
-        }else {
-            return (<p>Once you have registered an offset project they will appear here!</p>)
-        }
-    }
 
     return (
         <>
@@ -69,13 +65,16 @@ function Dashboard() {
                         <div>
                             <p className="h3">Active offsets</p>
                             <ul className="list-group">
-                                {projects && renderProjects()}
+                                { (projects && projects.length >= 1)
+                                    ? renderProjects()
+                                    : <p>Once you have registered an offset project they will appear here!</p>
+                                }
                             </ul>
                         </div>
                     </div>
 
                     <div className="col-lg">
-                        {(routes && routes.length >= 1) ? <RoutesList routes={routes} /> : null}
+                        { (routes && routes.length >= 1) ? <RoutesList routes={routes} /> : null }
                     </div>
 
                 </div >
