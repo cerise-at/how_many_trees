@@ -116,9 +116,9 @@ class Directions(APIView):
                               fro = fro.replace(',', ' ')
                               routes = get_directions_info(request, to, fro)
                               route_options = []
-                              for route in routes:
+                              for i, route in enumerate(routes):
                                     route_options.append(
-                                    {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry'], 'emissions': (calc_emissions_no_vehicle_info(route['distance'])), 'start_address': fro, 'end_address': to })
+                                    {'route_id': i, 'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry'], 'emissions': (calc_emissions_no_vehicle_info(route['distance'])), 'start_address': fro, 'end_address': to })
                               return Response({'routes': route_options}, status=status.HTTP_200_OK)
                         else:
                               return Response("Not enough information provided, please try again")
@@ -147,6 +147,8 @@ def route_detail(_, route_id):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_route(request):
+
+      print('data', request.data)
 
       serializer = RouteSerializer(data=request.data)
 

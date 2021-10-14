@@ -15,7 +15,7 @@ function Dashboard() {
     useEffect(() => getDashboard(), []);
 
     async function getDashboard() {
-        try{
+        try {
             const email = localStorage.getItem('email');
             const token = localStorage.getItem('token');
 
@@ -65,17 +65,17 @@ function Dashboard() {
                         <div>
                             <p className="h3">Active offsets</p>
                             <ul className="list-group">
-                                { projects && renderProjects() }
+                                {projects && renderProjects()}
                             </ul>
                         </div>
                     </div>
 
                     <div className="col-lg">
-                        { (routes && routes.length >= 1) ? <RoutesList routes={routes}/> : null}
+                        {(routes && routes.length >= 1) ? <RoutesList routes={routes} /> : null}
                     </div>
 
-                </div>
-            </main>
+                </div >
+            </main >
         </>
     );
 }
