@@ -51,7 +51,7 @@ function Map({ selectedRoute }) {
        });
 
 
-    }, []);
+   }, [selectedRoute]);
 
     return (
         <div className="col-lg-8">
