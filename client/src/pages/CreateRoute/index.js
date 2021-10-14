@@ -32,8 +32,9 @@ function CreateRoute() {
         try {
             const token = localStorage.getItem('token');
             const email = localStorage.getItem('email');
-
-            await axios.post(`${process.env.REACT_APP_API_URL}/routes/create/`, { ...selectedRoute, email },
+            const flatCoords = selectedRoute.coordinates.coordinates.flat();
+            
+            await axios.post(`${process.env.REACT_APP_API_URL}/routes/create/`, { ...selectedRoute, email, coords: flatCoords },
                 { headers: { "Authorization": `Token ${token}` }}
             );
         } catch (err) {
