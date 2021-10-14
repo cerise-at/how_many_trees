@@ -36,7 +36,7 @@ class User(AbstractUser):
             # TODO: implement Route model!
         routes = [ route.get_overview() for route in Route.objects.filter(email=self.email) ]
             # TODO: implement Project model!
-        projects = [ project.get_overview() for project in Project.objects.get(fk=self.company) ]
+        projects = [ project.get_overview() for project in Project.objects.get(company=self.company) ]
         dashboard = {
             "first_name": self.username,
             "company_name": self.company,
