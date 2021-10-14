@@ -17,7 +17,7 @@ class User(AbstractUser):
     * 'Company' as new required field.
     """
 
-    # username = models.CharField(null=False, max_length=255)
+    username = None
     email = models.EmailField(_('email address'), unique=True, primary_key=True)
     company = models.CharField(null=False, unique=True, max_length=255)
     emissions_CO2e = models.DecimalField(default=0.0, max_digits=19, decimal_places=10)
