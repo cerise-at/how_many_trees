@@ -23,10 +23,9 @@ function Dashboard() {
                 `${process.env.REACT_APP_API_URL}/dashboard/${email}`,
                 { headers: { "Authorization": `Token ${token}` } }
             );
-            console.log('this is', data.company_name)
+            
             localStorage.setItem('company', data.company_name)
-            console.log('company name in local storage:', localStorage.getItem('company'))
-            console.log(data);
+                
             setProjects(data.projects);
             setCompany(data.company_name);
             setRoutes(data.routes);
@@ -39,15 +38,18 @@ function Dashboard() {
 
     const renderProjects = () => {
         // render list of project names with short description
-
-        return projects.map((obj, i) =>
-            <li key={i} className="list-group-item d-flex justify-content-between align-items-start">
-                <div className="ms-2 me-auto">
-                    <div className="fw-bold">{obj.project_title}</div>
-                    {obj.project_description}
-                </div>
-            </li>
+        if (projects.length >1 ){
+            return projects.map((obj, i) =>
+                <li key={i} className="list-group-item d-flex justify-content-between align-items-start">
+                    <div className="ms-2 me-auto">
+                        <div className="fw-bold">{obj.project_title}</div>
+                        {obj.project_description}
+                    </div>
+                </li>
         )
+        }else {
+            return (<p>Once you have registered an offset project they will appear here!</p>)
+        }
     }
 
     return (
