@@ -15,9 +15,8 @@ function ProjectCards() {
                 `${process.env.REACT_APP_API_URL}/projects/user/${company}`,
                 { headers: { "Authorization": `Token ${token}` } }
             );
-           
 
-            for (let i = 0; i < data.length; i++) { 
+            for (let i = 0; i < data.length; i++) {
                 let str  = new Date(data[i].start_date)
                 str.toLocaleDateString()
                 let start = `${str.getDate()}-${str.getMonth()}-${str.getFullYear()}`
@@ -29,13 +28,14 @@ function ProjectCards() {
                 data.end_date = end
               }
 
+              setProjects(data);
         } catch (err) {
             console.log(err);
             setError('Coud not fetch data');
         }
     }
-    const renderCards = () => {
-        return projects && projects.map((obj, i) =>
+    const renderCards = () =>
+        projects.map((obj, i) =>
             <div className="card" style= {{width: "18rem"}}>
                 {/* <img class="card-img-top" src="..." alt="Card image cap"> */}
                 <div key={i} className="card-body">
@@ -46,10 +46,10 @@ function ProjectCards() {
 
                 </div>
             </div>)
-    }
+
 
     return (<>
-        <div className="card-group">{renderCards()}</div>
+        <div className="card-group">{projects && renderCards()}</div>
 
     </>)
 }
