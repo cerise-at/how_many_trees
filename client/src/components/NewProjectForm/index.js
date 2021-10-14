@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 
 
+
 function NewProjectForm()
 {
     const [title, setTitle] = useState('');
@@ -16,30 +17,32 @@ function NewProjectForm()
     function handleSubmit(e) 
     {
         e.preventDefault();
-
-        const email = localStorage.getItem('email');
-        const token = localStorage.getItem('token');
-        const company = localStorage.getItem('company');
-        let formData;
-
-        const url = `${process.env.REACT_APP_API_URL}/projects/create/?company=${company}&title=${title}&description=${description}&offset_emissions_CO2e=${offset}&start_date=${startDate}&end_date${endDate}/`;
-        createProj(e, url)
+        createProj(e)
     }
 
-    async function createProj(e, url) 
+    async function createProj(e) 
     {
+        const token = localStorage.getItem('token');
+        const company = localStorage.getItem('company')
         e.preventDefault();
+
+       // change to diff date format
+
+        let start_date = startDate.toISOString()
+        let end_date = endDate.toISOString()
+        end_date = end_date.slice(0,10)
+        start_date = start_date.slice(0,10)
+     
+
         try {
-            const token = localStorage.getItem('token');
-            const company = localStorage.getItem('company')
-            await axios.post(url, 
-                {'company': company, 
+            await axios.post(`${process.env.REACT_APP_API_URL}/projects/create/`, 
+                {'company': 'thisisacomp', 
                 'title': title,
                 'description': description,
                 'offset_emissions_CO2e': offset,
-                'start_date':startDate,
-                'end_date':endDate
-            },{ headers: { "Authorization": `Token ${token}` }});
+                'start_date':start_date,
+                'end_date':end_date},
+            { headers: { "Authorization": `Token ${token}` }});
   
         } catch (err) {
             console.log(err);
@@ -81,7 +84,7 @@ function NewProjectForm()
                         </div>        
                         <div className="col-sm-6">    
                             <p className="h4">End Date</p>
-                            <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+                            <DatePicker  selected={endDate}  onChange={(date) => setEndDate(date)} />
                         </div>   
                     </div>
                 </div>
