@@ -6,6 +6,7 @@ import './style.css';
 function Landing() {
 
     return (
+        return (
         <main>
             <div id="hero-image">
                 <div className="card">
@@ -14,7 +15,7 @@ function Landing() {
                     </div>
                     <div className="w-100 d-flex justify-content-center">
                         {/* <hr /> */}
-                        <div className="content-slider">
+                        <div className="content-slider w-100 d-flex justify-content-center">
                             <div className="slider">
                                 <div className="mask">
                                 <ul>
@@ -36,16 +37,17 @@ function Landing() {
                                 </ul>
                                 </div>
                             </div>
-                            </div>
+                        </div>
+                    </div>
                     <section id="auth-buttons" className="w-100 d-flex justify-content-center">
                         <Link to="/auth/login" role="button" className="btn">Login</Link>
                         <Link to="/auth/register" role="button" className="btn">Sign Up</Link>
                     </section>
                 </div>
             </div>
-        </div>
         </main>
     );
 }
 
 export default Landing;
+
