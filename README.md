@@ -2,7 +2,7 @@
 <br />
 <p align="center">
     <img src="https://bestpoolsystems.com/wp-content/themes/BestPoolSystems/img/green-trees.png">
-</head>" alt="Logo" width="80" height="80">
+</head>
   </a>
 
   <h3 align="center">How Many Trees?</h3>
