@@ -24,16 +24,15 @@ class Route(models.Model):
         route = cls(kwargs=kwargs)
         # logic here
         return route
-   
+
    def get_overview(self):
          return {
             'id': self.id,
             'name': self.name,
-            'distance': self.distance_km,
+            'distance_km': str(self.distance_km),
             'emissions_CO2e': self.emissions,
             'emissions_CO2e_km':self.vehicle_emissions_CO2e_km
          }
 
    def __str__(self):
       return f'{self.start_address} to {self.end_address} ({self.vehicle_registration})'
-    
