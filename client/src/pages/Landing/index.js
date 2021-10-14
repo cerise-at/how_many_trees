@@ -21,7 +21,7 @@ function Landing() {
                                     <div className="quote">...to offset my shipping?</div>
                                     </li>
                                     <li className="anim2">
-                                    <div className="quote">...to accountably deliver to my customers ?</div>
+                                    <div className="quote">...to accountably deliver to my customers?</div>
                                     </li>
                                     <li className="anim3">
                                     <div className="quote">...to make my business more sustainable?</div>
