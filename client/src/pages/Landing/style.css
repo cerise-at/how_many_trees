@@ -6,9 +6,9 @@
     opacity: 0.8;
     min-width: 100vw;
     min-height: 100vh;
-    position: fixed; 
-    top: 0; 
-    left: 0; 
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 .card {
@@ -25,7 +25,7 @@
     height: 300px;
 }
 
-/* /* 
+/* /*
     min-width: 0;
     background-color: #fff;
     background-clip: border-box;
@@ -63,7 +63,7 @@
     align-content: center;
     text-align: center;
   }
-  
+
   .slider {
     height: 320px;
     width: 680px;
@@ -71,18 +71,18 @@
     overflow: visible;
     position: relative;
   }
-  
+
   .mask {
     overflow: hidden;
     height: 100px;
   }
-  
+
   .slider ul {
     margin: 0;
     padding: 0;
     position: relative;
   }
-  
+
   .slider li {
     width: 680px;
     height: 320px;
@@ -90,7 +90,7 @@
     top: -325px;
     list-style: none;
   }
-  
+
   .slider .quote {
     display: flex;
     align-items: center;
@@ -99,31 +99,31 @@
     color: ivory;
     word-wrap: break-word;
   }
-  
+
   .slider li.anim1 {
     animation: cycle 15s linear infinite;
   }
-  
+
   .slider li.anim2 {
     animation: cycle2 15s linear infinite;
   }
-  
+
   .slider li.anim3 {
     animation: cycle3 15s linear infinite;
   }
-  
+
   .slider li.anim4 {
     animation: cycle4 15s linear infinite;
   }
-  
+
   .slider li.anim5 {
     animation: cycle5 15s linear infinite;
   }
-  
+
   .slider:hover li {
     animation-play-state: paused;
   }
-  
+
   @keyframes cycle {
     0% {
       top: 0px;
@@ -165,7 +165,7 @@
       opacity: 1;
     }
   }
-  
+
   @keyframes cycle2 {
     0% {
       top: -325px;
@@ -204,7 +204,7 @@
       z-index: -1;
     }
   }
-  
+
   @keyframes cycle3 {
     0% {
       top: -325px;
@@ -243,7 +243,7 @@
       z-index: -1;
     }
   }
-  
+
   @keyframes cycle4 {
     0% {
       top: -325px;
@@ -282,7 +282,7 @@
       z-index: -1;
     }
   }
-  
+
   @keyframes cycle5 {
     0% {
       top: -325px;
@@ -317,7 +317,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
-} 
+}
 
 .btn {
     margin: 1em;
@@ -337,11 +337,11 @@
     background-color:#077375;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
     margin-bottom: 40px;
-} 
+}
 
 /* hr {
     color: orange;
-    border: 1px solid orange; 
+    border: 1px solid orange;
     width: 85%;
     opacity: 1 !important;
     justify-self: center;

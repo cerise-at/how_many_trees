@@ -10,7 +10,7 @@ function LoginForm({ login }) {
     const history = useHistory();
 
     return (
-        <div className='container d-flex vh-100 justify-content-center align-items-center'>
+        <div id="hero-image" className='container d-flex vh-100 justify-content-center align-items-center'>
             <section id="login-form" className="d-flex flex-row">
 
                 <form onSubmit={e => login(e, { email, password }, setError, [setEmail, setPassword])}
