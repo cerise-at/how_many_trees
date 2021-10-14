@@ -9,7 +9,7 @@ function Auth() {
     const location = useLocation();
     const action = location.pathname.split('/')[2];
 
-    async function login(e, userData, setError, setFuncs=null) {
+    async function login(e, userData, setError, setFuncs = null) {
         e.preventDefault();
 
         try {

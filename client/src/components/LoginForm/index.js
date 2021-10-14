@@ -10,12 +10,13 @@ function LoginForm({ login }) {
     const history = useHistory();
 
     return (
-        <section id="login-form" className="d-flex flex-row">
+        <div className='container d-flex vh-100 justify-content-center align-items-center'>
+            <section id="login-form" className="d-flex flex-row">
 
-            <form onSubmit={e => login(e, {email, password}, setError, [setEmail, setPassword])}
+                <form onSubmit={e => login(e, { email, password }, setError, [setEmail, setPassword])}
                     className="d-flex flex-column">
 
-                <input type="email"
+                    <input type="email"
                         name="email"
                         className="form-control mt-3"
                         value={email}
@@ -23,7 +24,7 @@ function LoginForm({ login }) {
                         placeholder="Email"
                         required />
 
-                <input type="password"
+                    <input type="password"
                         name="password"
                         className="form-control mt-3"
                         value={password}
@@ -31,14 +32,16 @@ function LoginForm({ login }) {
                         placeholder="Password"
                         required />
 
-                <input type="submit"
+                    <input type="submit"
                         className="btn btn-outline-primary btn col-12"
                         value="Login" />
 
-                { error && <span role="alert" className="alert alert-danger">{ error.message }</span> }
+                    {error && <span role="alert" className="alert alert-danger">{error.message}</span>}
 
-            </form>
-        </section>
+                </form>
+            </section>
+
+        </div>
     )
 }
 

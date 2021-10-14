@@ -46,7 +46,9 @@
     flex-wrap: nowrap;
     align-items: center;
     align-content: center;
-    color: #f9f7f3
+    color: #f9f7f3;
+    height: 140px;
+    margin-bottom: 70px;
 }
 
 #auth-buttons {
@@ -58,17 +60,29 @@
 
 .btn {
     margin: 1em;
-    border-radius: 35px;
+    border-radius: 7px;
     border-color: #077375;
     color: #077375;
     background-color: ivory;
+    margin-bottom: 40px;
+    width: 120px;
 }
 
 .btn:hover {
     margin: 1em;
-    border-radius: 35px;
+    border-radius: 7px;
     border-color: ivory;
     color: ivory;
     background-color:#077375;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    margin-bottom: 40px;
 } 
+
+hr {
+    color: orange;
+    border: 2px solid orange; 
+    width: 100%;
+    opacity: 1 !important;
+    justify-self: center;
+    margin-bottom: 40px;
+}
