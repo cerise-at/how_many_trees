@@ -6,7 +6,6 @@ import './style.css';
 function Landing() {
 
     return (
-        return (
         <main>
             <div id="hero-image">
                 <div className="card">
