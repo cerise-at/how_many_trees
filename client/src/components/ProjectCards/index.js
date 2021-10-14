@@ -30,7 +30,7 @@ function ProjectCards() {
                 {/* <img class="card-img-top" src="..." alt="Card image cap"> */}
                 <div key={i} className="card-body">
                     <h5 className="card-title">{obj.title}</h5>
-                    <h6 className="card-subtitle mb-2 text-muted">{obj.start_date}{obj.end_date}</h6>
+                    <h6 className="card-subtitle mb-2 text-muted">Start:{obj.start_date}  End:{obj.end_date}</h6>
                     <p className="card-text">{obj.description}</p>
                     <p className="card-text">{obj.offset_emissions_CO2e}</p>
 
