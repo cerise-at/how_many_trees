@@ -26,9 +26,6 @@
     background-color: rgba(21, 27, 23, 0.7);
 }
 
-h1 {
-    font-size: 70px !important;
-}
 /* /* 
     min-width: 0;
     background-color: #fff;
@@ -51,7 +48,7 @@ h1 {
     align-items: center;
     align-content: center;
     color: #f9f7f3;
-    height: 140px;
+    height: 2em;
     margin-bottom: 140px;
 }
 
