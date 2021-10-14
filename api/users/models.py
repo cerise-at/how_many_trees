@@ -4,6 +4,7 @@ from django.db.models.fields import CharField, DateField
 from django.db.models.fields.related import OneToOneField
 from django.utils.translation import gettext_lazy as _
 from rest_framework.response import Response
+from routes.models import Route
 
 from .managers import CustomUserManager
 
@@ -33,23 +34,14 @@ class User(AbstractUser):
             # TODO: sophisticated implementation of n_trees
             #       and amount offset also given!
             # TODO: implement Route model!
-            # "routes": [ route.get_overview() for route in Route.objects.get(fk=self.email) ]
+        routes = [ route.get_overview() for route in Route.objects.filter(email=self.email) ]
             # TODO: implement Project model!
             # "projects": [ project.get_overview() for project in Project.objects.get(fk=self.email) ]
         dashboard = {
             "first_name": self.username,
             "company_name": self.company,
             "n_trees": f'{self.emissions_CO2e / 7 if self.emissions_CO2e > 0 else 0.0}',
-            "routes": [
-                {
-                    "route_name": "route name",
-                    "start_address": "address",
-                    "stop_address": "address",
-                    "emissions_CO2e": 100,
-                    "distance_km": 100,
-                    "vehicle_registration": "SA65 XXX"
-                }
-            ],
+            "routes": routes,
             "projects": [
                 {
                     "project_title": "Project Title Placeholder",

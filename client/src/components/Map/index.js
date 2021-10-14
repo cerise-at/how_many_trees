@@ -12,21 +12,11 @@ function Map({ selectedRoute }) {
     const [zoom, setZoom] = useState(4.1);
     const [routes, setRoutes] = useState();
 
+    console.log('selected route', selectedRoute);
+
     mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
     useEffect(async () => {
-        async function getRoutes() {
-            try {
-                const { data } = await axios.get('https://api.mapbox.com/directions/v5/mapbox/driving/-0.135565%2C51.497452%3B-1.553621125%2C53.806948625000004?alternatives=true&geometries=geojson&steps=true&access_token=pk.eyJ1Ijoiam9uMjM1N3Nub3ciLCJhIjoiY2t1bG0wNnZlMWlvajJxbjZwcHAwNmFrdiJ9.GVXEHdzU73nmvJUXP49_DQ')
-                setRoutes(data.routes);
-                console.log('routes inside', data.routes);
-                return data.routes;
-            } catch (err) {
-                console.log(err);
-            }
-        }
-
-        const routesData = await getRoutes();
 
         const map = new mapboxgl.Map({
             width: '100%',
@@ -43,7 +33,7 @@ function Map({ selectedRoute }) {
         map.once("load", function () {
            map.addSource('route', {
                'type': 'geojson',
-               'data': routesData[0].geometry
+               'data': selectedRoute.coordinates
            });
            map.addLayer({
                'id': 'route',
@@ -54,8 +44,8 @@ function Map({ selectedRoute }) {
                    'line-cap': 'round'
                },
                'paint': {
-                   'line-color': '#888',
-                   'line-width': 8
+                   'line-color': '#38b522',
+                   'line-width': 6
                }
            });
        });
@@ -64,7 +54,7 @@ function Map({ selectedRoute }) {
     }, []);
 
     return (
-        <div>
+        <div className="col-lg-8">
             <div ref={mapContainer} className="map-container"></div>
         </div>
     )

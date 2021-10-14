@@ -7,8 +7,8 @@ import axios from 'axios';
 
 describe('RegisterForm', () => {
 
-    it('renders form with input fields', () => {
-        renderWithReduxAndRouter(<RegisterForm />);
+    it('renders register form with input fields', () => {
+        render(<RegisterForm />);
         const axiosSpy = jest.spyOn(axios, 'post');
 
         const inputs = screen.getAllByRole('textbox');

@@ -5,4 +5,5 @@ export { default as NewRouteForm } from './NewRouteForm';
 export { default as PrivateRoute } from './PrivateRoute';
 export { default as RegisterForm } from './RegisterForm';
 export { default as RoutesList } from './RoutesList';
+export { default as RouteInfoPanel } from './RouteInfoPanel';
 export { default as RoutesSelector } from './RoutesSelector';

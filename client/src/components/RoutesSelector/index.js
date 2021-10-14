@@ -11,29 +11,33 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
         setSelectedRoute(route[0]);
     }
 
-    const renderRouteOptions = () =>
-        routesData.map(route =>
+    const renderRouteOptions = () => {
+
+        routesData.sort((a,b) => a[sortBy] - b[sortBy]);
+
+        return routesData.map(route =>
             <label  key={route.id} class="list-group-item">
                  <input class="form-check-input me-1"
                         type="radio" name="route"
                         onInput={e => selectRoute(e, route.id)}/>
-                  {route.route_name}
+                  {route[sortBy]}
             </label>
-        )
+        )}
 
     const renderSortOptions = () =>
-        ['duration', 'distance', 'emissions'].map((item, i) =>
+        [['duration', 'h'], ['distance', 'km'], ['emissions', 'CO2']].map((item, i) =>
             <li>
                 <button key={i} class="dropdown-item"
-                    type="button" name={item}>
-                {item}
+                    type="button" name={item[0]}
+                    onClick={e => setSortBy(e.target.name)}>
+                {item[0]} ({item[1]})
                 </button>
             </li>
         )
 
     return (
         <>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between align-items-center">
                 <h4>Route Alternatives</h4>
 
                 <div class="dropdown">
@@ -43,7 +47,7 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Sort By
                     </button>
-                    
+
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         { renderSortOptions() }
                     </ul>

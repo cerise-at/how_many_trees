@@ -42,7 +42,7 @@ function NewRouteForm({ getDirections, error, setError }) {
             vehicleData = `registration_no=${regNum}`;
         }
 
-        const url = `${process.env.REACT_APP_API_URL}/directions/?email=${email}&route_name=${routeName}&address1=${address1},${city1},${postcode1}&address2=${address2},${city2},${postcode2}&${vehicleData}`;
+        const url = `${process.env.REACT_APP_API_URL}/routes/directions/?email=${email}&route_name=${routeName}&address1=${address1},${city1},${postcode1}&address2=${address2},${city2},${postcode2}&${vehicleData}/`;
         getDirections(e, url)
     }
 

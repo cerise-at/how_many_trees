@@ -16,17 +16,17 @@ function App() {
         <Switch>
             <Route exact path='/'><Landing /></Route>
 
-            <AuthRoute path='/auth/:action' Component={Auth}></AuthRoute>
+            <AuthRoute path='/auth/:action' Component={ Auth }></AuthRoute>
 
-            <PrivateRoute path='/new-route' Component={CreateRoute}></PrivateRoute>
+            <PrivateRoute path='/new-route' Component={ CreateRoute }></PrivateRoute>
 
-            <PrivateRoute path='/route-details' Component={RouteDetails}></PrivateRoute>
+            <PrivateRoute path='/route-details/:id' Component={ RouteDetails }></PrivateRoute>
 
-            <PrivateRoute path='/dashboard' Component={Dashboard}></PrivateRoute>
+            <PrivateRoute path='/dashboard' Component={ Dashboard }></PrivateRoute>
 
-            <PrivateRoute path='/portfolio'Component={Portfolio}></PrivateRoute>
+            <PrivateRoute path='/portfolio'Component={ Portfolio }></PrivateRoute>
 
-            <PrivateRoute path='/offset' Component={Offset}></PrivateRoute>
+            <PrivateRoute path='/offset' Component={ Offset }></PrivateRoute>
         </Switch>
 )}
 
