@@ -25,7 +25,7 @@ export default class SimpleSlider extends Component {
             <p></p>
           </div>
           <div>
-            <h3>To eat one tonne of co2 a year?</h3>
+            <h3>To remove one tonne of co2 from our air a year?</h3>
             <p></p>
           </div>
           <div>

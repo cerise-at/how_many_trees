@@ -45,19 +45,16 @@
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
-    justify-content: flex-start;
     align-content: center;
-    margin-top: 1em !important;
+    color: #f9f7f3
 }
 
-h1 {
-    opacity: 1 !important;
-}
-
-section {
+#auth-buttons {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-}
+    align-content: center;
+} 
 
 .btn {
     margin: 1em;
