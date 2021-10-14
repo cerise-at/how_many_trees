@@ -10,9 +10,10 @@ function Landing() {
             <div id="hero-image">
                 <div className="card">
                     <h1 className="display-1">How Many Trees?</h1>
+                    <hr />
                     {/* <SimpleSlider /> */}
-                    <div className="vw-100">
-                        <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel">
+                    {/* <div className="vw-100"> */}
+                    {/* <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel">
                             <div className="carousel-indicators">
                                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -77,8 +78,8 @@ function Landing() {
                                 </div>
                                 </div>
                             </div>
-                            </div>
-                        </div> 
+                            </div> */}
+                    {/* </div> */}
                     <section id="auth-buttons" className="w-100 d-flex justify-content-center">
                         <Link to="/auth/login" role="button" className="btn">Login</Link>
                         <Link to="/auth/register" role="button" className="btn">Sign Up</Link>
