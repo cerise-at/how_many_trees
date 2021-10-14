@@ -39,7 +39,7 @@ function RegisterForm({ login }) {
     };
 
     return (
-        <section id="register-form" className="d-flex flex-row">
+        <section id="register-form" className="d-flex vh-100 justify-content-center align-items-center">
 
             <form onSubmit={register} className="d-flex flex-column">
 
