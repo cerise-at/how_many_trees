@@ -27,52 +27,52 @@ function Landing() {
                             </div>
                             <div className="carousel-inner vw100">
                                 <div className="carousel-item active">
-                                <div className="carousel-caption d-md-block">
+                                <div className="carousel-caption">
                                     <h5>To offset my shipping emissions?</h5>
                                 </div>
                                 </div>
                                 <div className="carousel-item">
-                                <div className="carousel-caption d-md-block">
+                                <div className="carousel-caption">
                                     <h5>To make my business sustainable?</h5>
                                 </div>
                                 </div>
                                 <div className="carousel-item">
-                                <div className="carousel-caption d-md-block">
+                                <div className="carousel-caption">
                                     <h5>To remove one tonne of co2 from our air a year?</h5>
                                 </div>
                                 </div>
                                 <div className="carousel-item">
-                                <div className="carousel-caption d-md-block">
+                                <div className="carousel-caption">
                                     <h5>To make my breakfast carbon neutral?</h5>
                                 </div>
                                 </div>
                                 <div className="carousel-item">
-                                <div className="carousel-caption d-md-block">
+                                <div className="carousel-caption">
                                     <h5>To accountably deliver to my customers?</h5>
                                 </div>
                                 </div>
                                 <div className="carousel-item">
-                                <div className="carousel-caption d-md-block">
+                                <div className="carousel-caption">
                                     <h5>To take care of the future?</h5>
                                 </div>
                                 </div>
                                 <div className="carousel-item">
-                                <div className="carousel-caption d-md-block">
+                                <div className="carousel-caption">
                                     <h5>Should I plant to save the planet?</h5>
                                 </div>
                                 </div>
                                 <div className="carousel-item">
-                                <div className="carousel-caption d-md-block">
+                                <div className="carousel-caption">
                                     <h5>Does it take to change a lightbulb?</h5>
                                 </div>
                                 </div>
                                 <div className="carousel-item">
-                                <div className="carousel-caption d-md-block">
+                                <div className="carousel-caption">
                                     <h5>Crossed the road?</h5>
                                 </div>
                                 </div>
                                 <div className="carousel-item">
-                                <div className="carousel-caption d-md-block">
+                                <div className="carousel-caption">
                                     <h5>Could a woodchuck if a woodchuck could chuck trees?</h5>
                                 </div>
                                 </div>
