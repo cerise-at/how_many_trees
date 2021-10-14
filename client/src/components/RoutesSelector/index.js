@@ -11,16 +11,31 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
     }
 
     const renderRouteOptions = () => {
-        routesData.sort((a,b) => a[sortBy] - b[sortBy]);
+
+        routesData.sort((a, b) => a[sortBy] - b[sortBy]);
 
         return routesData.map(route =>
-            <label  key={route.route_id} class="list-group-item">
-                 <input class="form-check-input me-1"
-                        type="radio" name="route"
-                        onInput={e => selectRoute(e, route.route_id)}/>
-                  {route[sortBy]}
+            <label key={route.id} class="list-group-item">
+                <input class="form-check-input me-1"
+                    type="radio" name="route"
+                    onInput={e => selectRoute(e, route.route_id)} />
+                {Math.round((route[sortBy] + Number.EPSILON) * 100) / 100} {getCorrectMetric(sortBy)}
             </label>
-        )}
+        )
+    }
+
+    const getCorrectMetric = (sortBy) => {
+        switch (sortBy) {
+            case 'distance':
+                return 'km';
+            case 'duration':
+                return 'hrs';
+            case 'emissions':
+                return 'CO2e'
+            default:
+                return ''
+        }
+    }
 
     const renderSortOptions = () =>
         [['duration', 'h'], ['distance', 'km'], ['emissions', 'CO2']].map((item, i) =>
@@ -28,7 +43,7 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
                 <button key={i} class="dropdown-item"
                     type="button" name={item[0]}
                     onClick={e => setSortBy(e.target.name)}>
-                {item[0]} ({item[1]})
+                    {item[0]} ({item[1]})
                 </button>
             </li>
         )
@@ -41,20 +56,20 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
                 <div class="dropdown">
 
                     <button class="btn btn-primary dropdown-toggle"
-                            type="button" id="dropdownMenu2"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Sort By
+                        type="button" id="dropdownMenu2"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Sort By
                     </button>
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        { renderSortOptions() }
+                        {renderSortOptions()}
                     </ul>
                 </div>
 
             </div>
 
             <div class="list-group">
-                { renderRouteOptions() }
+                {renderRouteOptions()}
             </div>
         </>
     )
