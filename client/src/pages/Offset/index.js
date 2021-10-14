@@ -7,16 +7,18 @@ function Offset() {
     return (
         <>
             <NavBar />
+            <ComingSoon />
         </>
     );
 }
 
 
-const comingSoon = () => {
+const ComingSoon = () => {
     return (
         <>
-            <h1>Coming Soon!</h1>
-            <NavLink to='dashboard'>Back to Home</NavLink>
+            <div className='container vh-100 d-flex justify-content-center align-content-center'>
+                <h1>Coming Soon!</h1>
+            </div>
         </>
     )
 }
