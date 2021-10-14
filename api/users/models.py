@@ -53,9 +53,9 @@ class User(AbstractUser):
 
 class Project(models.Model):
 
-    company = models.CharField(null=False, unique=True, max_length=255)
+    company = models.CharField(null=False, max_length=255)
     title = models.CharField(null=False, unique=True, max_length=255)
-    description = models.CharField(null=False, unique=True, max_length=510)
+    description = models.CharField(null=False, max_length=510)
     offset_emissions_CO2e = models.DecimalField(default=0.0, max_digits=19, decimal_places=10)
     start_date = DateField()
     end_date = DateField()
