@@ -1,9 +1,74 @@
-section {
-    display: flex;
-    justify-content: center;
-    padding: 4em;
+#hero-image {
+    background-image: url(https://wallpaperaccess.com/full/5185950.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top fixed;
+    opacity: 0.8;
+    min-width: 100vw;
+    min-height: 100vh;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
 }
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    transition: 0.3s;
+    width: 40vw;
+    margin-top: 4em;
+    margin-left: 5em;
+    background-color: rgba(21, 27, 23, 0.7);
+}
+/* 
+    min-width: 0;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    align-items: center;
+    opacity: 0.5;
+    max-width: 300px;
+    max-height: 300px;
+    margin: auto;
+    text-align: center;
+  }
+*/
+
+.display-1 {
+    display: flex !important;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;
+    color: #f9f7f3
+}
+
+#auth-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+} 
 
 .btn {
     margin: 1em;
+    border-radius: 35px;
+    border-color: #077375;
+    color: #077375;
+    background-color: ivory;
 }
+
+.btn:hover {
+    margin: 1em;
+    border-radius: 35px;
+    border-color: ivory;
+    color: ivory;
+    background-color:#077375;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+} 
