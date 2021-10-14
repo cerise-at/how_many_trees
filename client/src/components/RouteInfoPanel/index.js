@@ -26,7 +26,7 @@ function RouteInfoPanel({ routeDetails }) {
     return (
         <>
             <h4>{routeDetails.name}</h4>
-            <p>Distance: {routeDetails.distance_km}</p>
+            <p>Distance: {(routeDetails.distance_km/1000).toFixed(2)} km</p>
             <p>Emissions: {routeDetails.emissions}</p>
             <p>From: {routeDetails.start_address}</p>
             <p>To: {routeDetails.end_address}</p>
