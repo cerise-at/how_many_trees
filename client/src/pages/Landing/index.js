@@ -7,8 +7,8 @@ function Landing() {
     return (
         <main>
             <div id="hero-image">
-                <div className="card">
-                    <div className="w-100 d-flex justify-content-center">
+                <div className="card d-flex justify-content-flex-start">
+                    <div className="title-container w-100 d-flex justify-content-center">
                         <h1 className="display-1">How Many Trees...</h1>
                     </div>
                     <div className="w-100 d-flex justify-content-center">
