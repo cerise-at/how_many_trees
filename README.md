@@ -78,21 +78,28 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-* You have Python installed. See https://www.python.org/downloads/ for how to install Python on your system.
+* You have Python installed. See https://www.python.org/downloads/ for how to install Python on your system. 
+* You have Docker installed. See https://docs.docker.com/get-docker/ for how to install Docker on your local system.
 
 ### Installation and Usage
 1. Fork and clone the repo:
    ```sh
    git clone https://github.com/cerise-at/how_many_trees.git
    ```
-2. Check Docker engine is running\*
-3. To Start up on the local host:
+2. Get your environment up and running: 
+    a. cd into the folder containing the Docker Compose file
+    b. In your terminal run:
     ```sh
-    cd express-flask-microservice-demo && docker-compose up
+    docker-compose up
     ```
-4. Visit localhost:3000.
+3. Visit localhost:3000.
+4. Finished? Ctrl+C in your application terminal to stop the server, and clean up your system with:
+    ```sh
+    docker-compose down --rmi all --volumes --remove-orphans
+    ```
+5. Stop Docker\*
 
-6. Finished? Ctrl+C in your application terminal to stop the server
+* (\* this will depend on your OS- see documentation linked in Prerequisites)
 
 <!-- TECH USED -->
 ## Technologies Used:
