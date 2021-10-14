@@ -20,7 +20,7 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
                 <input class="form-check-input me-1"
                     type="radio" name="route"
                     onInput={e => selectRoute(e, route.id)} />
-                {route[sortBy]} {getCorrectMetric(sortBy)}
+                {Math.round((route[sortBy] + Number.EPSILON) * 100) / 100} {getCorrectMetric(sortBy)}
             </label>
         )
     }
