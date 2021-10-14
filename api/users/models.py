@@ -36,13 +36,13 @@ class User(AbstractUser):
             # TODO: implement Route model!
         routes = [ route.get_overview() for route in Route.objects.filter(email=self.email) ]
             # TODO: implement Project model!
-        projects = [ project.get_overview() for project in Project.objects.get(company=self.company) ]
+        # projects = [ project.get_overview() for project in Project.objects.get(company=self.company) ]
         dashboard = {
             "first_name": self.username,
             "company_name": self.company,
             "n_trees": f'{int(self.emissions_CO2e / 0.021 if self.emissions_CO2e > 0 else 0.0)}',
-            "routes": routes,
-            "projects": projects
+            "routes": routes
+            # "projects": projects
         }
         return dashboard
 
