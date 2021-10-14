@@ -85,7 +85,10 @@ function Dashboard() {
                     <div className="col-lg">
                         <div>
                             <p className="h3">How many trees...?</p>
-                            <p>You need to plant {trees} trees per year to offset the company's CO<sub>2</sub> emissions.</p>
+                            { (trees >= 1)
+                                ? <p>You need to plant {trees} trees per year to offset the company's CO<sub>2</sub> emissions.</p>
+                                : <p>You don't have any emissions to offset! Woohoo!</p>
+                            }
                         </div>
 
                         <div>

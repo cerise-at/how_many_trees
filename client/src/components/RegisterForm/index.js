@@ -39,9 +39,9 @@ function RegisterForm({ login }) {
     };
 
     return (
-        <section id="register-form" className="d-flex vh-100 justify-content-center align-items-center">
+        <section id="hero-image" className="d-flex vh-100 justify-content-center align-items-center">
 
-            <form onSubmit={register} className="d-flex flex-column">
+            <form id="register-form" onSubmit={register} className="d-flex flex-column">
 
                 <input type="text"
                         className="form-control mt-3"
@@ -71,7 +71,7 @@ function RegisterForm({ login }) {
                         placeholder="Password"
                         required />
 
-                <span>Use 8 or more characters with a mix of upper and lowercase letters & numbers</span>
+                <span id="password-info">Use 8 or more characters with a mix of upper and lowercase letters & numbers</span>
 
                 <input type="password"
                         className="form-control mt-3"
