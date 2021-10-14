@@ -31,7 +31,9 @@ def get_vehicle_info(reg, request):
 
             url = "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles"
             payload = "{\n\t\"registrationNumber\": \"{reg}\"\n}"
-            headers = { 'x-api-key': 'yaA4ghNltM91GCEFqIjEg6c0ECFJtN12aMhNR1CO','Content-Type': 'application/json' }
+            headers = { 'x-api-key': 'yaA4ghNltM91GCEFqIjEg6c0ECFJtN12aMhNR1CO',
+                        'Content-Type':
+                        'application/json' }
             response = requests.request("POST", url, headers=headers, data = payload)
             if response == 200:
                   data = response.json()
@@ -41,7 +43,9 @@ def get_vehicle_info(reg, request):
                   new_vehicle = {'co2_emissions': co2, 'revenue_weight': rev_weight, 'reg_plate': reg}
                   return (new_vehicle)
             else:
-                  new_vehicle = {'co2_emissions': calc_emissions_no_vehicle_info(), 'revenue_weight': 0, 'reg_plate': 'unknown'}
+                  new_vehicle = {'co2_emissions': calc_emissions_no_vehicle_info(), 
+                                    'revenue_weight': 0, 
+                                    'reg_plate': 'unknown'}
 
 # This reaches into the MapBox API to get a routes startpoint and endpoint
 def get_lat_long(to, fro):
@@ -61,8 +65,8 @@ def get_lat_long(to, fro):
             raise e
 
 
-# Calculates the vehicle emissions for a given distance if vehicle information is unknown. Uses average for van provided by the European Automobile Manufacturers Association 
-# and set by the 1996 EU "Weights and dimensions" Directive
+# Calculates the vehicle emissions for a given distance if vehicle information is unknown. 
+# Uses average emissions and tonnage for van provided by DVLA
 def calc_emissions_no_vehicle_info(distance):
       total_emits = (3.5 * distance * 142)/1000000
       return total_emits
