@@ -17,29 +17,26 @@ function RouteDetails() {
         try {
             const email = localStorage.getItem('email');
             const token = localStorage.getItem('token');
-            console.log('use effectz');
-            // const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/routes/${email}/${route_id}`,
-            //     { headers: { "Authorization": `Token ${token}` } }
-            // );
-            //
-            // console.log(data);
-            //
-            // setRouteDetails(data);
+
+            const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/routes/${route_id}`,
+                { headers: { "Authorization": `Token ${token}` } }
+            );
+
+            console.log(data);
+
+            setRouteDetails(data);
         } catch (err) {
             console.log(err);
             setError(true);
         }
     }
 
-    console.log(error);
-    console.log(routeDetails);
     return (
         <>
             <NavBar />
             {
-                error
-                ? <p className="alert" role="alert alert-danger">Could not retrieve data</p>
-                : <>
+                routeDetails
+                ? <>
                     <h1>Route Details</h1>
                     <main className="container row">
 
@@ -49,6 +46,7 @@ function RouteDetails() {
                         </aside>
                     </main>
                 </>
+                : <p className="alert" role="alert alert-danger">Could not retrieve data</p>
             }
         </>
     );

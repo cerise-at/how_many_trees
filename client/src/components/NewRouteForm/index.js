@@ -25,11 +25,14 @@ function NewRouteForm({ getDirections, error, setError }) {
         ['day', 'other day', 'week', 'two weeks', 'month'].map((date, i) =>
         <option key={i} value={date}>{date}</option>)
 
-    function handleSubmit(e) {
+    function handleSubmit(e, routeName) {
         e.preventDefault();
 
         const email = localStorage.getItem('email');
         const token = localStorage.getItem('token');
+
+        console.log(routeName);
+        localStorage.setItem('routeName', routeName);
         let vehicleData;
 
         // check if user provided only the registration number or the vehicle class
@@ -42,7 +45,7 @@ function NewRouteForm({ getDirections, error, setError }) {
             vehicleData = `registration_no=${regNum}`;
         }
 
-        const url = `${process.env.REACT_APP_API_URL}/routes/directions/?email=${email}&route_name=${routeName}&address1=${address1},${city1},${postcode1}&address2=${address2},${city2},${postcode2}&${vehicleData}/`;
+        const url = `${process.env.REACT_APP_API_URL}/routes/directions/?email=${email}&name=${routeName}&address1=${address1},${city1},${postcode1}&address2=${address2},${city2},${postcode2}&${vehicleData}/`;
         getDirections(e, url)
     }
 
@@ -50,7 +53,7 @@ function NewRouteForm({ getDirections, error, setError }) {
         <>
         <h1>Create a New Route</h1>
         <main className="d-flex justify-content-center">
-            <form className="container row" id="new-route" onSubmit={e => handleSubmit(e)}>
+            <form className="container row" id="new-route" onSubmit={e => handleSubmit(e, routeName)}>
                 <div className="address col-lg-6">
 
                     <p className="h4">Address</p>
@@ -87,8 +90,7 @@ function NewRouteForm({ getDirections, error, setError }) {
                     <input type="text"
                             className="form-control"
                             onChange={e => setAddress2(e.target.value)}
-                            placeholder="Street"
-                            required />
+                            placeholder="Street" />
 
                     <div className="container p-0">
                         <div className="row">
@@ -117,7 +119,7 @@ function NewRouteForm({ getDirections, error, setError }) {
                         <p className="h4">Route Name</p>
                             <input type="text"
                                     className="form-control"
-                                    onChange={e => setRouteName(e.target.value)}
+                                    onChange={e => console.log(e.target.value)}
                                     required />
 
                         <p className="h4">Vehicle</p>

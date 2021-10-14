@@ -3,17 +3,16 @@ import React, { useState } from 'react';
 function RoutesSelector({ routesData, setSelectedRoute }) {
 
     const [sortBy, setSortBy] = useState('duration');
-    // TO DO: implement sorting
 
     const selectRoute = (e, id) => {
         e.preventDefault()
-        const route = routesData.filter(route => route.id === id);
+        const route = routesData.filter(route => route.route_id === id);
         setSelectedRoute(route[0]);
     }
 
     const renderRouteOptions = () => {
 
-        routesData.sort((a,b) => a[sortBy] - b[sortBy]);
+        routesData.sort((a, b) => a[sortBy] - b[sortBy]);
 
         return routesData.map(route =>
             <label  key={route.id} className="list-group-item">
@@ -22,7 +21,21 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
                         onInput={e => selectRoute(e, route.id)}/>
                   {route[sortBy]}
             </label>
-        )}
+        )
+    }
+
+    const getCorrectMetric = (sortBy) => {
+        switch (sortBy) {
+            case 'distance':
+                return 'km';
+            case 'duration':
+                return 'hrs';
+            case 'emissions':
+                return 'CO2e'
+            default:
+                return ''
+        }
+    }
 
     const renderSortOptions = () =>
         [['duration', 'h'], ['distance', 'km'], ['emissions', 'CO2']].map((item, i) =>
@@ -30,7 +43,7 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
                 <button key={i} className="dropdown-item"
                     type="button" name={item[0]}
                     onClick={e => setSortBy(e.target.name)}>
-                {item[0]} ({item[1]})
+                    {item[0]} ({item[1]})
                 </button>
             </li>
         )

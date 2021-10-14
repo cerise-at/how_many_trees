@@ -31,7 +31,9 @@ def get_vehicle_info(reg, request):
 
             url = "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles"
             payload = "{\n\t\"registrationNumber\": \"{reg}\"\n}"
-            headers = { 'x-api-key': 'yaA4ghNltM91GCEFqIjEg6c0ECFJtN12aMhNR1CO','Content-Type': 'application/json' }
+            headers = { 'x-api-key': 'yaA4ghNltM91GCEFqIjEg6c0ECFJtN12aMhNR1CO',
+                        'Content-Type':
+                        'application/json' }
             response = requests.request("POST", url, headers=headers, data = payload)
             if response == 200:
                   data = response.json()
@@ -41,7 +43,9 @@ def get_vehicle_info(reg, request):
                   new_vehicle = {'co2_emissions': co2, 'revenue_weight': rev_weight, 'reg_plate': reg}
                   return (new_vehicle)
             else:
-                  new_vehicle = {'co2_emissions': calc_emissions_no_vehicle_info(), 'revenue_weight': 0, 'reg_plate': 'unknown'}
+                  new_vehicle = {'co2_emissions': calc_emissions_no_vehicle_info(), 
+                                    'revenue_weight': 0, 
+                                    'reg_plate': 'unknown'}
 
 # This reaches into the MapBox API to get a routes startpoint and endpoint
 def get_lat_long(to, fro):
@@ -61,10 +65,10 @@ def get_lat_long(to, fro):
             raise e
 
 
-# Calculates the vehicle emissions for a given distance if vehicle information is unknown. Uses average for road freight provided by the European Automobile Manufacturers Association 
-# and set by the 1996 EU "Weights and dimensions" Directive
+# Calculates the vehicle emissions for a given distance if vehicle information is unknown. 
+# Uses average emissions and tonnage for van provided by DVLA
 def calc_emissions_no_vehicle_info(distance):
-      total_emits = (26 * distance * 62)/1000000
+      total_emits = (3.5 * distance * 142)/1000000
       return total_emits
 
 # This reaches into the MapBox API and uses the previously inputted coordinate data to provide a list of routes
@@ -107,7 +111,7 @@ class Directions(APIView):
                               route_options = []
                               for route in routes:
                                     route_options.append(
-                                    {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry']['coordinates'], 'emissions': calc_emissions(route['distance'], vehicle), 'start_address': fro, 'end_address': to })
+                                    {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry']['coordinates'], 'emissions': calc_emissions(route['distance']/1000, vehicle), 'start_address': fro, 'end_address': to })
                               return Response({'routes': route_options,})
                         elif self.request.query_params.get('vehicle_class'):
                               to = self.request.query_params.get('address1')
@@ -116,16 +120,16 @@ class Directions(APIView):
                               fro = fro.replace(',', ' ')
                               routes = get_directions_info(request, to, fro)
                               route_options = []
-                              for route in routes:
+                              for i, route in enumerate(routes):
                                     route_options.append(
-                                    {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry'], 'emissions': (calc_emissions_no_vehicle_info(route['distance'])), 'start_address': fro, 'end_address': to })
+                                    {'route_id': i, 'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry'], 'emissions': (calc_emissions_no_vehicle_info(route['distance']/1000)), 'start_address': fro, 'end_address': to })
                               return Response({'routes': route_options}, status=status.HTTP_200_OK)
                         else:
                               return Response("Not enough information provided, please try again")
                   elif request.method =='POST':
                         new_route = Route.create(request)
             except: 
-                  return Response (status = status.HTTP_400_BAD_REQUEST)
+                  return JsonResponse (status = status.HTTP_400_BAD_REQUEST)
                   
 
 
@@ -148,13 +152,15 @@ def route_detail(_, route_id):
 @permission_classes([IsAuthenticated])
 def create_route(request):
 
+      print('data', request.data)
+
       serializer = RouteSerializer(data=request.data)
 
       if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
 
-      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+      return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -167,7 +173,7 @@ def update_route(request):
 
       if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+            return JsonResponse(serializer.data, status=status.HTTP_204_NO_CONTENT)
 
-      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+      return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
