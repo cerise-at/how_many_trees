@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './style.css';
 
-function NewRouteForm({ getDirections, error, setError, setName }) {
+function NewRouteForm({ getDirections, error, setError }) {
 
     const [address1, setAddress1] = useState('');
     const [city1, setCity1] = useState('');
@@ -25,11 +25,14 @@ function NewRouteForm({ getDirections, error, setError, setName }) {
         ['day', 'other day', 'week', 'two weeks', 'month'].map((date, i) =>
         <option key={i} value={date}>{date}</option>)
 
-    function handleSubmit(e) {
+    function handleSubmit(e, routeName) {
         e.preventDefault();
 
         const email = localStorage.getItem('email');
         const token = localStorage.getItem('token');
+
+        console.log(routeName);
+        localStorage.setItem('routeName', routeName);
         let vehicleData;
 
         // check if user provided only the registration number or the vehicle class
@@ -50,7 +53,7 @@ function NewRouteForm({ getDirections, error, setError, setName }) {
         <>
         <h1>Create a New Route</h1>
         <main className="d-flex justify-content-center">
-            <form className="container row" id="new-route" onSubmit={e => handleSubmit(e)}>
+            <form className="container row" id="new-route" onSubmit={e => handleSubmit(e, routeName)}>
                 <div className="address col-lg-6">
 
                     <p className="h4">Address</p>
@@ -87,8 +90,7 @@ function NewRouteForm({ getDirections, error, setError, setName }) {
                     <input type="text"
                             className="form-control"
                             onChange={e => setAddress2(e.target.value)}
-                            placeholder="Street"
-                            required />
+                            placeholder="Street" />
 
                     <div className="container p-0">
                         <div className="row">
@@ -117,7 +119,7 @@ function NewRouteForm({ getDirections, error, setError, setName }) {
                         <p className="h4">Route Name</p>
                             <input type="text"
                                     className="form-control"
-                                    onChange={e => { setRouteName(e.target.value); setName(e.target.velue); }}
+                                    onChange={e => console.log(e.target.value)}
                                     required />
 
                         <p className="h4">Vehicle</p>
