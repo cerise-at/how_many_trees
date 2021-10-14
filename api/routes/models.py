@@ -12,7 +12,7 @@ class Route(models.Model):
    distance_km = DecimalField(default=0.0, max_digits=19, decimal_places=10)
    coords = ArrayField(models.DecimalField(max_digits=19, decimal_places=10))
    dates = ArrayField(models.DateField(auto_now=True)),
-   emissions = IntegerField(default=0)
+   emissions = DecimalField(default=0.0, max_digits=19, decimal_places=10)
 
    # vehicle details
    vehicle_registration = CharField(null=True, max_length=17)
