@@ -48,7 +48,7 @@ function CreateRoute() {
                 { headers: { "Authorization": `Token ${token}` }}
             );
 
-            // history.push('/dashboard');
+            history.push('/dashboard');
         } catch (err) {
             console.log(err);
             setError(err);
