@@ -95,11 +95,11 @@ function Dashboard() {
             <main className="container">
             <h1>Welcome, {localStorage.getItem('company')}!</h1>
 
-                <div className="row">
+                <div className="row treeContainer">
                     <div className="col-lg d-flex justify-content-center">
                         <div >
-                            <p className="h3">How many trees...?</p>
-                            { (trees >= 1)
+                            <p className="h3 container">How many trees...?</p>
+                            { (trees >= 0.1)
                                 ? <p>You need to plant {trees} trees per year to offset the company's CO<sub>2</sub> emissions.</p>
                                 : <p>You don't have any emissions to offset! Woohoo!</p>
                             }
@@ -107,8 +107,8 @@ function Dashboard() {
                     </div>
                 </div >
 
-                        <div className="row">
-                        <div className="col-6">
+                        <div className="row ">
+                        <div className="col treeContainer m-1" >
                             <p className="h3">Active offsets</p>
                             <ul className="list-group">
                                 { (projects && projects.length >= 1)
@@ -117,8 +117,8 @@ function Dashboard() {
                                 }
                             </ul>
                         </div>
-
-                    <div className="col-6 ">
+                        
+                    <div className="col treeContainer m-1">
                         { (routes && routes.length >= 1) ? <RoutesList routes={routes} /> : null }
                     </div>
                         </div>
