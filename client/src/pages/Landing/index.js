@@ -1,22 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+// import { SimpleSlider } from "../../components/";
 import './style.css';
 
 function Landing() {
 
     return (
         <main>
-            <div className="p-5 bg-primary text-white">
+            <div id="hero-image">
                 <h1 className="display-1">How Many Trees?</h1>
-                <p className="">Under title</p>
+                {/* <SimpleSlider /> */}
+                <section id="auth-buttons">
+                    <div>
+                        <Link to="/auth/login" role="button" className="btn">Login</Link>
+                        <Link to="/auth/register" role="button" className="btn">Sign Up</Link>
+                    </div>
+                    </section>
             </div>
-
-            <section id="auth-buttons">
-                <div>
-                    <Link to="/auth/login" role="button" className="btn btn-outline-primary">Login</Link>
-                    <Link to="/auth/register" role="button" className="btn btn-outline-primary">Sign Up</Link>
-                </div>
-            </section>
         </main>
     );
 }
