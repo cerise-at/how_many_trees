@@ -12,9 +12,10 @@ function Dashboard() {
     const [trees, setTrees] = useState();
     const [error, setError] = useState();
 
-    useEffect(() => {
-        getDashboard();
-        getProjects();
+    useEffect( async  () => {
+        let comp = await getDashboard();
+        console.log('this is a ',comp)
+        getProjects(comp);
         }, []);
 
     async function getDashboard() {
@@ -25,13 +26,13 @@ function Dashboard() {
             const { data } = await axios.get(
                 `${process.env.REACT_APP_API_URL}/dashboard/${email}`,
                 { headers: { "Authorization": `Token ${token}` } }
-            );
-
+            )
             localStorage.setItem('company', data.company_name)
             
             setCompany(data.company_name);
             setRoutes(data.routes);
             setTrees(data.n_trees);
+            return(data.company_name)
 
         } catch (err) {
             console.log(err);
@@ -40,8 +41,9 @@ function Dashboard() {
     }
 
     
-        const getProjects = async () => {
-            const comp = localStorage.getItem('company')
+        const getProjects = async (comp) => {
+            try{
+            // const comp = localStorage.getItem('company')
             const token = localStorage.getItem('token');
             const { data } = await axios.get(
                 `${process.env.REACT_APP_API_URL}/projects/user/${comp}`,
@@ -57,9 +59,15 @@ function Dashboard() {
                 let end = `${str2.getDate()}-${str2.getMonth()}-${str2.getFullYear()}`
                 data[i].end_date = end
               }
+
     
               setProjects(data);
               console.log('thisis', projects)
+            }catch(err) {
+                console.log(err);
+                setError('Coud not fetch projects');
+
+            }
         }
         // render list of project names with short description
 
