@@ -36,7 +36,7 @@ function ProjectCards() {
     }
     const renderCards = () =>
         projects.map((obj, i) =>
-            <div className="card" style= {{width: "300px"}}>
+            <div className="card-component">
                 {/* <img class="card-img-top" src="..." alt="Card image cap"> */}
                 <div key={i} className="card-body">
                     <h5 className="card-title">{obj.title}</h5>
