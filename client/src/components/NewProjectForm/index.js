@@ -52,10 +52,10 @@ function NewProjectForm()
     }
     return (
         <>
-            <h4>Create a New Project</h4>
+        <h4>Create a New Project</h4>
         <main className="d-flex justify-content-center">
-            <form className="container row" id="new-project" onSubmit={e => handleSubmit(e)}>
-                <div className="col-lg-6">
+            <form className="" id="new-project" onSubmit={e => handleSubmit(e)}>
+                <div className="">
                     <div className="row">
                         <p className="h4">Project Title</p>
                             <input type="text"

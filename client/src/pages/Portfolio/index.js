@@ -11,8 +11,10 @@ function Portfolio() {
             <NavBar />
             <h1>Projects Portfolio</h1>
             <ProjectCards />
-            <button className="btn btn-primary" onClick={e => setDisplayForm(prev => !prev)}>Add Project</button>
-            { displayForm && <NewProjectForm /> }
+            <div className="d-flex flex-column align-items-center">
+                <button className="btn btn-primary" onClick={e => setDisplayForm(prev => !prev)}>Add Project</button>
+                { displayForm && <NewProjectForm /> }
+            </div>
         </>
     );
 }
