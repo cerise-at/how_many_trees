@@ -40,7 +40,7 @@ class User(AbstractUser):
         dashboard = {
             "first_name": self.username,
             "company_name": self.company,
-            "n_trees": f'{self.emissions_CO2e / 7 if self.emissions_CO2e > 0 else 0.0}',
+            "n_trees": f'{int(self.emissions_CO2e / 0.021 if self.emissions_CO2e > 0 else 0.0)}',
             "routes": routes,
             "projects": [
                 {
