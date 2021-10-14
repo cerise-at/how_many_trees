@@ -30,8 +30,8 @@ class Route(models.Model):
             'id': self.id,
             'name': self.name,
             'distance_km': str(self.distance_km),
-            'emissions_CO2e': self.emissions,
-            'emissions_CO2e_km':self.vehicle_emissions_CO2e_km
+            'emissions_CO2e': str(self.emissions),
+            'emissions_CO2e_km':str(self.vehicle_emissions_CO2e_km)
          }
 
    def __str__(self):
