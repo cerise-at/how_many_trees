@@ -41,7 +41,7 @@ function ProjectCards() {
         }
 
         return (<>
-        <div class="card-group">{renderCards()}</div>
+        <div class="card-group">{projects ? renderCards(): null}</div>
 
         </>)
     }

@@ -29,10 +29,17 @@ function NewProjectForm()
     async function createProj(e, url) 
     {
         e.preventDefault();
-
         try {
             const token = localStorage.getItem('token');
-            const { formData } = await axios.post(url, { headers: { "Authorization": `Token ${token}` }});
+            const company = localStorage.getItem('company')
+            await axios.post(url, 
+                {'company': company, 
+                'title': title,
+                'description': description,
+                'offset_emissions_CO2e': offset,
+                'start_date':startDate,
+                'end_date':endDate
+            },{ headers: { "Authorization": `Token ${token}` }});
   
         } catch (err) {
             console.log(err);
