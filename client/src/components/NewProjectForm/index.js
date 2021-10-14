@@ -14,17 +14,17 @@ function NewProjectForm()
     const [endDate, setEndDate] = useState('')
     const [error, setError] = useState('')
 
-    function handleSubmit(e) 
+    function handleSubmit(e)
     {
         e.preventDefault();
         createProj(e)
     }
 
-    async function createProj(e) 
+    async function createProj(e)
     {
         const token = localStorage.getItem('token');
         const company = localStorage.getItem('company')
-        
+
 
        // change to diff date format
 
@@ -32,26 +32,27 @@ function NewProjectForm()
         let end_date = endDate.toISOString()
         end_date = end_date.slice(0,10)
         start_date = start_date.slice(0,10)
-     
+
 
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/projects/create/`, 
-                {'company': company, 
+            await axios.post(`${process.env.REACT_APP_API_URL}/projects/create/`,
+                {'company': company,
                 'title': title,
                 'description': description,
                 'offset_emissions_CO2e': offset,
                 'start_date':start_date,
                 'end_date':end_date},
                 { headers: { "Authorization": `Token ${token}` } });
-  
+
         } catch (err) {
             console.log(err);
             setError({ message: 'New project registration failed' });
         }
+        e.target.reset();
     }
     return (
         <>
-            <h1>Create a New Project</h1>
+            <h4>Create a New Project</h4>
         <main className="d-flex justify-content-center">
             <form className="container row" id="new-project" onSubmit={e => handleSubmit(e)}>
                 <div className="col-lg-6">
@@ -81,11 +82,11 @@ function NewProjectForm()
                         <div className="col-sm-6">
                             <p className="h4">Start Date</p>
                             <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-                        </div>        
-                        <div className="col-sm-6">    
+                        </div>
+                        <div className="col-sm-6">
                             <p className="h4">End Date</p>
                             <DatePicker  selected={endDate}  onChange={(date) => setEndDate(date)} />
-                        </div>   
+                        </div>
                     </div>
                 </div>
                 <div className="d-flex justify-content-center">
@@ -102,4 +103,3 @@ function NewProjectForm()
     </>)
 }
 export default NewProjectForm;
-
