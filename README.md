@@ -33,7 +33,6 @@
       </ul>
     </li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
@@ -132,8 +131,6 @@ To get a local copy up and running follow these simple steps.
 ## Contact
 
 Owen Jenkins - [@LinkedIn](https://www.linkedin.com/in/owenglynwilliamjenkins/) - owenglynwilliamjenkins@gmail.com
-
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-
-* The keras image classification code is inspired by a blog post on Keras' website by [Adrian Rosebrock](https://blog.keras.io/building-a-simple-keras-deep-learning-rest-api.html)
+Simon Allan - stallan464@gmail.com
+Cerise Abel-Thompson - cerise.athompson@gmail.com
+Mariusz Las - stallan464@gmail.com
