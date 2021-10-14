@@ -14,7 +14,6 @@ function Dashboard() {
 
     useEffect( async  () => {
         let comp = await getDashboard();
-        console.log('this is a ',comp)
         getProjects(comp);
         }, []);
 
@@ -97,17 +96,19 @@ function Dashboard() {
             <h1>Welcome, {localStorage.getItem('company')}!</h1>
 
                 <div className="row">
-
-                    <div className="col-lg">
-                        <div>
+                    <div className="col-lg d-flex justify-content-center">
+                        <div >
                             <p className="h3">How many trees...?</p>
                             { (trees >= 1)
                                 ? <p>You need to plant {trees} trees per year to offset the company's CO<sub>2</sub> emissions.</p>
                                 : <p>You don't have any emissions to offset! Woohoo!</p>
                             }
                         </div>
+                    </div>
+                </div >
 
-                        <div>
+                        <div className="row">
+                        <div className="col-6">
                             <p className="h3">Active offsets</p>
                             <ul className="list-group">
                                 { (projects && projects.length >= 1)
@@ -116,13 +117,12 @@ function Dashboard() {
                                 }
                             </ul>
                         </div>
-                    </div>
 
-                    <div className="col-lg">
+                    <div className="col-6 ">
                         { (routes && routes.length >= 1) ? <RoutesList routes={routes} /> : null }
                     </div>
+                        </div>
 
-                </div >
             </main >
             </div>
         </>
