@@ -18,35 +18,61 @@ function Dashboard() {
         try {
             const email = localStorage.getItem('email');
             const token = localStorage.getItem('token');
-
+            
             const { data } = await axios.get(
                 `${process.env.REACT_APP_API_URL}/dashboard/${email}`,
                 { headers: { "Authorization": `Token ${token}` } }
             );
 
             localStorage.setItem('company', data.company_name)
-
-            setProjects(data.projects);
+           
             setCompany(data.company_name);
             setRoutes(data.routes);
             setTrees(data.n_trees);
+
         } catch (err) {
             console.log(err);
             setError('Coud not fetch data');
         }
     }
 
-    const renderProjects = () =>
         // render list of project names with short description
 
-            projects.map((obj, i) =>
-                <li key={i} className="list-group-item d-flex justify-content-between align-items-start">
-                    <div className="ms-2 me-auto">
-                        <div className="fw-bold">{obj.project_title}</div>
-                        {obj.project_description}
-                    </div>
-                </li>
-        )
+        const renderProjects = async () => {
+            // render list of project names with short description
+            const comp = localStorage.getItem('company')
+            const token = localStorage.getItem('token');
+            const { data } = await axios.get(
+                `${process.env.REACT_APP_API_URL}/projects/user/${comp}`,
+                { headers: { "Authorization": `Token ${token}` } }
+            );
+                console.log('this is data')
+            for (let i = 0; i < data.length; i++) {
+                let str  = new Date(data[i].start_date)
+                let start = `${str.getDate()}-${str.getMonth()}-${str.getFullYear()}`
+                data[i].start_date = start
+    
+                let str2  = new Date(data[i].end_date)
+                let end = `${str2.getDate()}-${str2.getMonth()}-${str2.getFullYear()}`
+                data[i].end_date = end
+              }
+    
+              setProjects(data);
+              console.log('thisis', data)
+              return(
+                  
+                projects.map((obj, i) =>
+                    <li key={i} className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">{obj.project_title}</div>
+                            {obj.project_description}
+                        </div>
+                    </li>
+                )
+                  
+            )}
+     
+        
 
     return (
         <>
