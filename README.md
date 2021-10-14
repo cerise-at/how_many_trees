@@ -38,10 +38,16 @@ For a metric tonnage of CO2, 'Tree Equivalent' is calculated using Equn. 3 below
 
 # Installation & Usage
 ## Installation
+Blah blah blah
+
+### For Local Use: 
+Blah blah blah
 
 ## Usage
+Blah blah blah
 
-## Change Log
+### For Local Use: 
+Blah blah blah
 
 # Technologies used:
 ## Frontend:
