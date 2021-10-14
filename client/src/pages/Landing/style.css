@@ -18,12 +18,13 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     align-content: flex-start;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6);
     transition: 0.3s;
-    background-color: rgba(109, 116, 111, 0.7);
+    background-color: rgba(21, 24, 21, 0.8);
     width: 60vw;
     margin-left: 5em;
     margin-top: 4em;
+    border-radius: 25px;
 }
 
 .title-container {
@@ -39,6 +40,7 @@
     color: #f9f7f3;
     height: 2em;
     margin-bottom: 10px;
+    margin-top: 0.5em;
 }
 
 .content-slider {
