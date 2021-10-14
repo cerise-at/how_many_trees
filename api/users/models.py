@@ -17,7 +17,7 @@ class User(AbstractUser):
     * 'Company' as new required field.
     """
 
-    # username = models.CharField(null=False, max_length=255)
+    username = None
     email = models.EmailField(_('email address'), unique=True, primary_key=True)
     company = models.CharField(null=False, unique=True, max_length=255)
     emissions_CO2e = models.DecimalField(default=0.0, max_digits=19, decimal_places=10)
@@ -40,7 +40,7 @@ class User(AbstractUser):
         dashboard = {
             "first_name": self.username,
             "company_name": self.company,
-            "n_trees": f'{self.emissions_CO2e / 7 if self.emissions_CO2e > 0 else 0.0}',
+            "n_trees": f'{int(self.emissions_CO2e / 0.021 if self.emissions_CO2e > 0 else 0.0)}',
             "routes": routes,
             "projects": [
                 {

@@ -38,6 +38,6 @@ class CustomRegisterSerializer(RegisterSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Project 
-        fields = [ 'company', 'title', 'description', 
+        model = Project
+        fields = [ 'company', 'title', 'description',
                    'offset_emissions_CO2e', 'start_date', 'end_date' ]

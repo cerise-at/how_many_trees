@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavBar } from '../../layout';
+import { useHistory } from 'react-router-dom';
 import { NewRouteForm, Map, RoutesSelector } from '../../components';
 import axios from 'axios';
 
@@ -8,6 +9,7 @@ function CreateRoute() {
     const [routesData, setRoutesData] = useState();
     const [error, setError] = useState(null);
     const [selectedRoute, setSelectedRoute] = useState({});
+    const history = useHistory();
 
     async function getDirections(e, url) {
         e.preventDefault();
@@ -32,10 +34,21 @@ function CreateRoute() {
         try {
             const token = localStorage.getItem('token');
             const email = localStorage.getItem('email');
+            const flatCoords = selectedRoute.coordinates.coordinates.flat();
 
-            await axios.post(`${process.env.REACT_APP_API_URL}/routes/create/`, { ...selectedRoute, email },
+            const n = localStorage.getItem('routeName');
+            console.log(n);
+            console.log('value', n.name);
+
+            const data = { ...selectedRoute, email, coords: flatCoords, distance_km: selectedRoute.distance, name: 'route name' }
+            console.log(data);
+
+            await axios.post(`${process.env.REACT_APP_API_URL}/routes/create/`,
+                data,
                 { headers: { "Authorization": `Token ${token}` }}
             );
+
+            // history.push('/dashboard');
         } catch (err) {
             console.log(err);
             setError(err);
@@ -65,7 +78,7 @@ function CreateRoute() {
                         </aside>
                     </main>
                 </>
-                : <NewRouteForm getDirections={ getDirections } error={ error } setError={ setError }/>
+                : <NewRouteForm getDirections={ getDirections } error={ error } setError={ setError } />
             }
         </>
     );

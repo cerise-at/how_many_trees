@@ -18,9 +18,7 @@ django-heroku = "*"
 django-allauth = "*"
 django-rest-auth = "*"
 psycopg2-binary = "*"
-"testing.postgresql" = "*"
-django-pytest = "*"
-pytest-django = "*"
+dj-database-url = "*"
 
 [dev-packages]
 pytest = "*"

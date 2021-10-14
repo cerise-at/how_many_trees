@@ -12,7 +12,7 @@ class Route(models.Model):
    distance_km = DecimalField(default=0.0, max_digits=19, decimal_places=10)
    coords = ArrayField(models.DecimalField(max_digits=19, decimal_places=10))
    dates = ArrayField(models.DateField(auto_now=True)),
-   emissions = IntegerField(default=0)
+   emissions = DecimalField(default=0.0, max_digits=19, decimal_places=10)
 
    # vehicle details
    vehicle_registration = CharField(null=True, max_length=17)
@@ -24,16 +24,15 @@ class Route(models.Model):
         route = cls(kwargs=kwargs)
         # logic here
         return route
-   
+
    def get_overview(self):
          return {
             'id': self.id,
             'name': self.name,
-            'distance': self.distance_km,
+            'distance_km': str(self.distance_km),
             'emissions_CO2e': self.emissions,
             'emissions_CO2e_km':self.vehicle_emissions_CO2e_km
          }
 
    def __str__(self):
       return f'{self.start_address} to {self.end_address} ({self.vehicle_registration})'
-    
