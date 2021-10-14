@@ -25,7 +25,7 @@ function Landing() {
                                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="8" aria-label="Slide 9"></button>
                                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="9" aria-label="Slide 10"></button>
                             </div>
-                            <div className="carousel-inner vw100">
+                            <div className="carousel-inner">
                                 <div className="carousel-item active">
                                 <div className="carousel-caption">
                                     <h5>To offset my shipping emissions?</h5>
