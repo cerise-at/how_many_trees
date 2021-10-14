@@ -51,8 +51,6 @@ class User(AbstractUser):
         }
         return dashboard
 
-
-
 class Project(models.Model):
 
     company = models.CharField(null=False, unique=True, max_length=255)
