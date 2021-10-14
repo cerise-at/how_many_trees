@@ -16,8 +16,10 @@ from rest_framework import serializers
 
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
-
 from rest_auth.registration.serializers import RegisterSerializer
+
+from .models import Project
+
 
 
 class CustomRegisterSerializer(RegisterSerializer):
@@ -31,3 +33,11 @@ class CustomRegisterSerializer(RegisterSerializer):
         data_dict['company'] = self.validated_data.get('company', '')
         data_dict['emissions_CO2e'] = self.validated_data.get('emissions_CO2e', '')
         return data_dict
+
+
+
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project 
+        fields = [ 'company', 'title', 'description', 
+                   'offset_emissions_CO2e', 'start_date', 'end_date' ]

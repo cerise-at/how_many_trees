@@ -1,4 +1,5 @@
 from django.test import TestCase
+from rest_framework.test import APIRequestFactory, APITestCase
 import pytest
 from .models import Route
 from .serializers import RouteSerializer
@@ -7,83 +8,116 @@ from django.db.utils import IntegrityError
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-# Create your tests here.
-class TestRouteModel(TestCase):
+# # Create your tests here.
+# class TestRouteModel(TestCase):
     
-    """
-    Tests the behaviour of the Route model.
-    * test_model_created (and stores correct key value pairs)
-    * test_model_not_created (if given missing fields)
-    * test_serializes_expected_key_values
-    """
+#     """
+#     Tests the behaviour of the Route model.
+#     * test_model_created (and stores correct key value pairs)
+#     * test_model_not_created (if given missing fields)
+#     * test_serializes_expected_key_values
+#     """
 
-    test_data = {
-        "email": "user@email.test", 
-        "start_address": "34 Test Street, The Town, The County, The Country",
-        "end_address": "35 Test Street, The Town, The County, The Country",
-        "distance_km": 100,
-        "vehicle_registration": "XXXX XXXX",
-        "vehicle_class": "HGV",
-        "vehicle_emissions_CO2e_km": 0
-    }
+#     test_data = {
+#         "email": "user@email.test", 
+#         "start_address": "34 Test Street, The Town, The County, The Country",
+#         "end_address": "35 Test Street, The Town, The County, The Country",
+#         "distance_km": 100,
+#         "vehicle_registration": "XXXX XXXX",
+#         "vehicle_class": "HGV",
+#         "vehicle_emissions_CO2e_km": 0
+#     }
 
-    @pytest.mark.django_db
-    def test_model_created(self):
+#     @pytest.mark.django_db
+#     def test_model_created(self):
 
-        """
-        Test that Route model is successfully created and stores 
-        all field values passed to the constructor.
-        """
+#         """
+#         Test that Route model is successfully created and stores 
+#         all field values passed to the constructor.
+#         """
 
-        route = Route.objects.create(**self.test_data)
-        for key, value in self.test_data.items():
-            assert route.__dict__[key] == value
-        return
+#         route = Route.objects.create(**self.test_data)
+#         for key, value in self.test_data.items():
+#             assert route.__dict__[key] == value
+#         return
 
 
-    def generate_missing_value_cases(self, kwargs):
+#     def generate_missing_value_cases(self, kwargs):
 
-        """
-        Generate a list of dict copies with one value missing in every copy.
-        """
+#         """
+#         Generate a list of dict copies with one value missing in every copy.
+#         """
 
-        retval = []
-        for i in range(len(kwargs.keys())):
-            retval.append({**kwargs})
+#         retval = []
+#         for i in range(len(kwargs.keys())):
+#             retval.append({**kwargs})
       
-        for i, case in enumerate(retval):
-            for j, key in enumerate(case.keys()):
-                if i == j:
-                    case[key] = None
-                    break
-        return retval 
+#         for i, case in enumerate(retval):
+#             for j, key in enumerate(case.keys()):
+#                 if i == j:
+#                     case[key] = None
+#                     break
+#         return retval 
 
 
-    def test_model_not_created(self):
+#     def test_model_not_created(self):
 
-        """
-        Test that Route model is not successfully created with any missing fields.
-        """
+#         """
+#         Test that Route model is not successfully created with any missing fields.
+#         """
 
-        with self.assertRaises(IntegrityError):
-            for kwargs in self.generate_missing_value_cases(self.test_data):
-                Route.objects.create(**kwargs)
+#         with self.assertRaises(IntegrityError):
+#             for kwargs in self.generate_missing_value_cases(self.test_data):
+#                 Route.objects.create(**kwargs)
 
-        return
+#         return
 
 
-    @pytest.mark.django_db
-    def test_serializes_expected_keys_values(self):
+#     @pytest.mark.django_db
+#     def test_serializes_expected_keys_values(self):
 
-        """
-        Tests the behaviour of the RouteSerializer.
-        """
+#         """
+#         Tests the behaviour of the RouteSerializer.
+#         """
 
-        route = Route.objects.create(**self.test_data)
-        route_serializer = RouteSerializer(instance = route)
-        data = route_serializer.data
+#         route = Route.objects.create(**self.test_data)
+#         route_serializer = RouteSerializer(instance = route)
+#         data = route_serializer.data
 
-        self.assertEqual(set(data.keys()), set(self.test_data.keys()))
+#         self.assertEqual(set(data.keys()), set(self.test_data.keys()))
+
+
+# from datetime import date
+
+# class TestGetRouteByIDEndpoint(APITestCase):
+
+#     """
+#     Tests the behaviour of the GET /routes/<route_id> endpoint.
+#     """
+
+#     route_data =  {
+#         "name": 'test_route',
+#         "email" : 'test_email',
+#         "start_address" : 'test_start_address',
+#         "end_address" : 'test_end_address',
+#         "distance_km" : 1.0,
+#         "coords" : [0.0],
+#         "dates" : [date.today()],
+
+#         # vehicle details
+#         "vehicle_registration": 'test_vehicle_registration',
+#         "vehicle_class": None,
+#         "vehicle_emissions_CO2e_km": 1.0
+#     }
+
+#     @pytest.mark.django_db
+#     def test_response_contains_expected_fields(self):
+
+#         route = Route.objects.create(**self.route_data)
+#         url = reverse('route_detail', kwargs={'route_id': 0})
+#         response = self.client.get(url)
+#         self.assertEqual(response.status_code, status.HTTP_200_OK)
+#         print(response)
         
 
 

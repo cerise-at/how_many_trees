@@ -20,12 +20,7 @@ function Dashboard() {
 
             const { data } = await axios.get(
                 `${process.env.REACT_APP_API_URL}/dashboard/${email}`,
-<<<<<<< HEAD
-                // { headers: { "Authorization": `Token ${token}`} }
-                { headers: { 'Authorization': `Token ${token}` } }
-=======
                 { headers: { "Authorization": `Token ${token}` } }
->>>>>>> 66e04709a8ccbee09aa8b5ddeb21212e4b9c8c08
             );
 
             console.log(data);
@@ -40,7 +35,6 @@ function Dashboard() {
         }
     }
 
-<<<<<<< HEAD
     // dummy emissions data
     const emissionsData = [
         { id: 1, name: 'route 1', emissions_CO2e: 56, emissions_CO2e_km: 23, distance_km: 45 },
@@ -59,10 +53,7 @@ function Dashboard() {
         { project_title: 'Project 3', project_description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }
     ]
 
-    function renderProjects(projectsData) {
-=======
     function renderProjects(projects) {
->>>>>>> 66e04709a8ccbee09aa8b5ddeb21212e4b9c8c08
         // render list of project names with short description
 
         return projects.map((obj, i) =>
@@ -98,15 +89,11 @@ function Dashboard() {
                     </div>
 
                     <div className="col-lg">
-<<<<<<< HEAD
-                        <RoutesList routes={emissionsData} />
-=======
-                        <RoutesList routes={routes}/>
->>>>>>> 66e04709a8ccbee09aa8b5ddeb21212e4b9c8c08
-                    </div>
+                        <RoutesList routes={routes} />
+                    </div >
 
-                </div>
-            </main>
+                </div >
+            </main >
         </>
     );
 }
