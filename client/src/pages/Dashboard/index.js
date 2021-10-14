@@ -77,8 +77,9 @@ function Dashboard() {
     return (
         <>
             <NavBar />
-            <h1>Welcome, {localStorage.getItem('company')}!</h1>
+            <div id="hero-image">
             <main className="container">
+            <h1>Welcome, {localStorage.getItem('company')}!</h1>
 
                 <div className="row">
 
@@ -108,6 +109,7 @@ function Dashboard() {
 
                 </div >
             </main >
+            </div>
         </>
     );
 }

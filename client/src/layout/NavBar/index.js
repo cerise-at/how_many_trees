@@ -54,7 +54,7 @@ function NavBar() {
                         </li>
                     </ul>
 
-                    <div className="d-flex">
+                    <div className="button d-flex">
                         <button className="btn" onClick={e => history.goBack()}>Back</button>
 
                         <button className="btn" onClick={logout}>Log out</button>
