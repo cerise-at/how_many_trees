@@ -78,7 +78,7 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-* You have docker installed. See https://docs.docker.com/get-docker/ for how to install Docker on your local system.
+* You have Python installed. See https://www.python.org/downloads/ for how to install Python on your system.
 
 ### Installation and Usage
 1. Fork and clone the repo:
