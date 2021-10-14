@@ -11,14 +11,13 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
     }
 
     const renderRouteOptions = () => {
-
         routesData.sort((a, b) => a[sortBy] - b[sortBy]);
 
         return routesData.map(route =>
             <label  key={route.id} className="list-group-item">
                  <input className="form-check-input me-1"
                         type="radio" name="route"
-                        onInput={e => selectRoute(e, route.id)}/>
+                        onInput={e => selectRoute(e, route.route_id)}/>
                   {route[sortBy]}
             </label>
         )
