@@ -61,10 +61,10 @@ def get_lat_long(to, fro):
             raise e
 
 
-# Calculates the vehicle emissions for a given distance if vehicle information is unknown. Uses average for road freight provided by the European Automobile Manufacturers Association 
+# Calculates the vehicle emissions for a given distance if vehicle information is unknown. Uses average for van provided by the European Automobile Manufacturers Association 
 # and set by the 1996 EU "Weights and dimensions" Directive
 def calc_emissions_no_vehicle_info(distance):
-      total_emits = (26 * distance * 62)/1000000
+      total_emits = (3.5 * distance * 142)/1000000
       return total_emits
 
 # This reaches into the MapBox API and uses the previously inputted coordinate data to provide a list of routes
