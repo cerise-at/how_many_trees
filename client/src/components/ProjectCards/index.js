@@ -5,7 +5,9 @@ function ProjectCards() {
 
     const [projects, setProjects] = useState();
     const [error, setError] = useState();
+
     useEffect(() => getProjects(), []);
+
     async function getProjects() {
         try {
             const company = localStorage.getItem('company');
@@ -18,14 +20,12 @@ function ProjectCards() {
 
             for (let i = 0; i < data.length; i++) {
                 let str  = new Date(data[i].start_date)
-                str.toLocaleDateString()
                 let start = `${str.getDate()}-${str.getMonth()}-${str.getFullYear()}`
-                data.start_date = start
+                data[i].start_date = start
 
                 let str2  = new Date(data[i].end_date)
-                str2.toLocaleDateString()
                 let end = `${str2.getDate()}-${str2.getMonth()}-${str2.getFullYear()}`
-                data.end_date = end
+                data[i].end_date = end
               }
 
               setProjects(data);
@@ -36,7 +36,7 @@ function ProjectCards() {
     }
     const renderCards = () =>
         projects.map((obj, i) =>
-            <div className="card" style= {{width: "18rem"}}>
+            <div className="card" style= {{width: "300px"}}>
                 {/* <img class="card-img-top" src="..." alt="Card image cap"> */}
                 <div key={i} className="card-body">
                     <h5 className="card-title">{obj.title}</h5>
@@ -47,11 +47,11 @@ function ProjectCards() {
                 </div>
             </div>)
 
-
-    return (<>
-        <div className="card-group">{projects && renderCards()}</div>
-
-    </>)
+    return (
+        <>
+            <div className="d-flex flex-wrap flex-row">{projects && renderCards()}</div>
+        </>
+    )
 }
 
 
