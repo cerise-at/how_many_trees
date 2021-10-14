@@ -9,8 +9,12 @@ function Landing() {
         <main>
             <div id="hero-image">
                 <div className="card">
-                    <h1 className="display-1">How Many Trees?</h1>
-                    <hr />
+                    <div className="w-100 d-flex justify-content-center">
+                        <h1 className="display-1">How Many Trees?</h1>
+                    </div>
+                    <div className="w-100 d-flex justify-content-center">
+                        <hr />
+                    </div>
                     {/* <SimpleSlider /> */}
                     {/* <div className="vw-100"> */}
                     {/* <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel">
