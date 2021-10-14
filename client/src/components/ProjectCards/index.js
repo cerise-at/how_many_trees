@@ -15,13 +15,19 @@ function ProjectCards() {
                 `${process.env.REACT_APP_API_URL}/projects/user/${company}`,
                 { headers: { "Authorization": `Token ${token}` } }
             );
+           
 
-            data
             for (let i = 0; i < data.length; i++) { 
-                let str  = data.start_date
-                str.toLocal
-              }
+                let str  = new Date(data[i].start_date)
+                str.toLocaleDateString()
+                let start = `${str.getDate()}-${str.getMonth()}-${str.getFullYear()}`
+                data.start_date = start
 
+                let str2  = new Date(data[i].end_date)
+                str2.toLocaleDateString()
+                let end = `${str2.getDate()}-${str2.getMonth()}-${str2.getFullYear()}`
+                data.end_date = end
+              }
 
         } catch (err) {
             console.log(err);
