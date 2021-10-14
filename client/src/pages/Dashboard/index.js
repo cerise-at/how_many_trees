@@ -6,7 +6,7 @@ import './style.css';
 
 function Dashboard() {
 
-    const [username, setUsername] = useState();
+    const [company, setCompany] = useState();
     const [routes, setRoutes] = useState();
     const [projects, setProjects] = useState();
     const [trees, setTrees] = useState();
@@ -23,11 +23,12 @@ function Dashboard() {
                 `${process.env.REACT_APP_API_URL}/dashboard/${email}`,
                 { headers: { "Authorization": `Token ${token}` } }
             );
-            console.log('this is',data.company_name)
+            console.log('this is', data.company_name)
             localStorage.setItem('company', data.company_name)
+            console.log('company name in local storage:', localStorage.getItem('company'))
             console.log(data);
             setProjects(data.projects);
-            setUsername(data.first_name);
+            setCompany(data.company_name);
             setRoutes(data.routes);
             setTrees(data.n_trees);
         } catch (err) {
@@ -52,7 +53,7 @@ function Dashboard() {
     return (
         <>
             <NavBar />
-            <h1>Welcome, {username}!</h1>
+            <h1>Welcome, {localStorage.getItem('company')}!</h1>
             <main className="container">
 
                 <div className="row">
