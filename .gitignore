@@ -7,3 +7,5 @@ __pycache__
 api/.pytest_cache
 api/.coverage
 coverage
+packagelock.json
+
