@@ -107,7 +107,7 @@ class Directions(APIView):
                               route_options = []
                               for route in routes:
                                     route_options.append(
-                                    {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry']['coordinates'], 'emissions': calc_emissions(route['distance'], vehicle), 'start_address': fro, 'end_address': to })
+                                    {'distance': route['distance'], 'duration': round(route['duration']/3600, 2), 'coordinates': route['geometry']['coordinates'], 'emissions': calc_emissions(route['distance']/1000, vehicle), 'start_address': fro, 'end_address': to })
                               return Response({'routes': route_options,})
                         elif self.request.query_params.get('vehicle_class'):
                               to = self.request.query_params.get('address1')

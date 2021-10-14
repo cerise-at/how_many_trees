@@ -79,7 +79,7 @@ function Landing() {
                             </div>
                             </div>
                         </div> 
-                    <section id="auth-buttons">
+                    <section id="auth-buttons" className="w-100 d-flex justify-content-center">
                         <Link to="/auth/login" role="button" className="btn">Login</Link>
                         <Link to="/auth/register" role="button" className="btn">Sign Up</Link>
                     </section>
