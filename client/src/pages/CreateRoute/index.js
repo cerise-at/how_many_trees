@@ -16,7 +16,7 @@ function CreateRoute() {
 
         try {
             const token = localStorage.getItem('token');
-            const { data } = await axios.get(url, { headers: { "Authorization": `Token ${token}` }});
+            const { data } = await axios.get(url, { headers: { "Authorization": `Token ${token}` } });
 
             //set the first route as default
             setSelectedRoute(data.routes[0]);
@@ -45,7 +45,7 @@ function CreateRoute() {
 
             await axios.post(`${process.env.REACT_APP_API_URL}/routes/create/`,
                 data,
-                { headers: { "Authorization": `Token ${token}` }}
+                { headers: { "Authorization": `Token ${token}` } }
             );
 
             history.push('/dashboard');
@@ -55,30 +55,27 @@ function CreateRoute() {
         }
     }
 
-    console.log(selectedRoute);
-    console.log(routesData);
-
     return (
         <>
             <NavBar />
-            { routesData
+            {routesData
                 ? <>
                     <h1>Select a Route</h1>
                     <main className="container row">
 
-                        <Map selectedRoute={ selectedRoute }/>
+                        <Map selectedRoute={selectedRoute} />
 
                         <aside className="col-lg-4">
-                            <h4>{selectedRoute.route_name}</h4>
-                            <RoutesSelector routesData={ routesData } setSelectedRoute={ setSelectedRoute }/>
+                            <h4>{selectedRoute.route_name ? selectedRoute.route_name : 'no route name'}</h4>
+                            <RoutesSelector routesData={routesData} setSelectedRoute={setSelectedRoute} />
 
-                        <button className="btn btn-primary" onClick={ e => sendRoute(e) }>Save Route</button>
+                            <button className="btn btn-primary" onClick={e => sendRoute(e)}>Save Route</button>
 
-                        { error && <p role="alert" className="alert alert-danger">{ error.message }</p> }
+                            {error && <p role="alert" className="alert alert-danger">{error.message}</p>}
                         </aside>
                     </main>
                 </>
-                : <NewRouteForm getDirections={ getDirections } error={ error } setError={ setError } />
+                : <NewRouteForm getDirections={getDirections} error={error} setError={setError} />
             }
         </>
     );
