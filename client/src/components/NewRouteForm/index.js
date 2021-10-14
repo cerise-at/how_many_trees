@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './style.css';
 
-function NewRouteForm({ getDirections, error, setError }) {
+function NewRouteForm({ getDirections, error, setError, setName }) {
 
     const [address1, setAddress1] = useState('');
     const [city1, setCity1] = useState('');
@@ -117,7 +117,7 @@ function NewRouteForm({ getDirections, error, setError }) {
                         <p className="h4">Route Name</p>
                             <input type="text"
                                     className="form-control"
-                                    onChange={e => setRouteName(e.target.value)}
+                                    onChange={e => { setRouteName(e.target.value); setName(e.target.velue); }}
                                     required />
 
                         <p className="h4">Vehicle</p>

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 function RoutesSelector({ routesData, setSelectedRoute }) {
 
     const [sortBy, setSortBy] = useState('duration');
-    // TO DO: implement sorting
 
     const selectRoute = (e, id) => {
         e.preventDefault()
@@ -12,7 +11,6 @@ function RoutesSelector({ routesData, setSelectedRoute }) {
     }
 
     const renderRouteOptions = () => {
-
         routesData.sort((a,b) => a[sortBy] - b[sortBy]);
 
         return routesData.map(route =>

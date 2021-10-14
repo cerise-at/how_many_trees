@@ -9,6 +9,7 @@ function CreateRoute() {
     const [routesData, setRoutesData] = useState();
     const [error, setError] = useState(null);
     const [selectedRoute, setSelectedRoute] = useState({});
+    const [name, setName] = useState();
     const history = useHistory();
 
     async function getDirections(e, url) {
@@ -36,8 +37,11 @@ function CreateRoute() {
             const email = localStorage.getItem('email');
             const flatCoords = selectedRoute.coordinates.coordinates.flat();
 
+            const data = { ...selectedRoute, email, coords: flatCoords, distance_km: selectedRoute.distance, name: name }
+            console.log(data);
+
             await axios.post(`${process.env.REACT_APP_API_URL}/routes/create/`,
-                { ...selectedRoute, email, coords: flatCoords, distance_km: selectedRoute.distance },
+                data,
                 { headers: { "Authorization": `Token ${token}` }}
             );
 
@@ -71,7 +75,7 @@ function CreateRoute() {
                         </aside>
                     </main>
                 </>
-                : <NewRouteForm getDirections={ getDirections } error={ error } setError={ setError }/>
+                : <NewRouteForm getDirections={ getDirections } error={ error } setError={ setError } setName={ setName }/>
             }
         </>
     );
