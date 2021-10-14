@@ -25,6 +25,10 @@
     margin-left: 5em;
     background-color: rgba(21, 27, 23, 0.7);
 }
+
+h1 {
+    font-size: 70px !important;
+}
 /* /* 
     min-width: 0;
     background-color: #fff;
@@ -80,8 +84,8 @@
 
 hr {
     color: orange;
-    border: 2px solid orange; 
-    width: 100%;
+    border: 1px solid orange; 
+    width: 85%;
     opacity: 1 !important;
     justify-self: center;
     margin-bottom: 40px;
