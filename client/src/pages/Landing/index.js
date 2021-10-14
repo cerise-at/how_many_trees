@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { SimpleSlider } from "../../components/";
 import './style.css';
 
 function Landing() {
 
     return (
-        return (
         <main>
             <div id="hero-image">
                 <div className="card">
@@ -50,4 +48,3 @@ function Landing() {
 }
 
 export default Landing;
-
