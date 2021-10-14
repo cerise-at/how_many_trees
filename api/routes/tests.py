@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 # # Create your tests here.
-# class TestRouteModel(TestCase):
+class TestRouteModel(TestCase):
     
 #     """
 #     Tests the behaviour of the Route model.
@@ -42,35 +42,35 @@ from django.urls import reverse
 #         return
 
 
-#     def generate_missing_value_cases(self, kwargs):
+    def generate_missing_value_cases(self, kwargs):
 
-#         """
-#         Generate a list of dict copies with one value missing in every copy.
-#         """
+        """
+        Generate a list of dict copies with one value missing in every copy.
+        """
 
-#         retval = []
-#         for i in range(len(kwargs.keys())):
-#             retval.append({**kwargs})
+        retval = []
+        for i in range(len(kwargs.keys())):
+            retval.append({**kwargs})
       
-#         for i, case in enumerate(retval):
-#             for j, key in enumerate(case.keys()):
-#                 if i == j:
-#                     case[key] = None
-#                     break
-#         return retval 
+        for i, case in enumerate(retval):
+            for j, key in enumerate(case.keys()):
+                if i == j:
+                    case[key] = None
+                    break
+        return retval 
 
 
-#     def test_model_not_created(self):
+    def test_model_not_created(self):
 
-#         """
-#         Test that Route model is not successfully created with any missing fields.
-#         """
+        """
+        Test that Route model is not successfully created with any missing fields.
+        """
 
-#         with self.assertRaises(IntegrityError):
-#             for kwargs in self.generate_missing_value_cases(self.test_data):
-#                 Route.objects.create(**kwargs)
+        with self.assertRaises(IntegrityError):
+            for kwargs in self.generate_missing_value_cases(self.test_data):
+                Route.objects.create(**kwargs)
 
-#         return
+        return
 
 
 #     @pytest.mark.django_db
