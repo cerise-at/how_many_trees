@@ -10,7 +10,7 @@ import {  Redirect } from 'react-router-dom';
 function AuthRoute({ Component }) {
 
     return (
-        <> isAuthenticated() ? <Redirect to='/dashboard' /> : <Component /> </>
+        <> {/*isAuthenticated() ? <Redirect to='/dashboard' /> : <Component />*/} <Component /> </>
     )
 }
 
