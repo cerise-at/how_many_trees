@@ -1,6 +1,9 @@
 import { screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Auth from '.';
+import axios from 'axios';
+
+jest.mock('axios');
 
 describe('Auth Page', () => {
 
@@ -10,8 +13,12 @@ describe('Auth Page', () => {
                 <Auth />
             </MemoryRouter>
         );
-
         const loginForm = screen.getByRole('button', {name: /Login/g});
+        const email = screen.getByPlaceholderText('Email');
+        const password = screen.getByPlaceholderText('Password');
+
+        // userEvent.type(email, 'user@email.com');
+        // userEvent.type(password, 'Howmanytrees1{enter}');
         expect(loginForm).toBeInTheDocument();
     });
 
