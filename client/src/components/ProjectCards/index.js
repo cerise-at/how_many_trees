@@ -18,14 +18,13 @@ function ProjectCards() {
                 { headers: { "Authorization": `Token ${token}` } }
             );
 
+            const parseDate = (dateString)=> {
+                let dateObject = new Date(dateString)
+                return `${dateObject.getDate()}-${dateObject.getMonth()}-${dateObject.getFullYear()}`
+            }
             for (let i = 0; i < data.length; i++) {
-                let str  = new Date(data[i].start_date)
-                let start = `${str.getDate()}-${str.getMonth()}-${str.getFullYear()}`
-                data[i].start_date = start
-
-                let str2  = new Date(data[i].end_date)
-                let end = `${str2.getDate()}-${str2.getMonth()}-${str2.getFullYear()}`
-                data[i].end_date = end
+                data[i].start_date = parseDate(data[i].start_date)
+                data[i].end_date = parseDate(data[i].end_date)
               }
 
               setProjects(data);

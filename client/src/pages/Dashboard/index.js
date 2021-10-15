@@ -42,13 +42,13 @@ function Dashboard() {
     
         const getProjects = async (comp) => {
             try{
-            // const comp = localStorage.getItem('company')
+           
             const token = localStorage.getItem('token');
             const { data } = await axios.get(
                 `${process.env.REACT_APP_API_URL}/projects/user/${comp}`,
                 { headers: { "Authorization": `Token ${token}` } }
             );
-                console.log('this is data', data)
+                
             for (let i = 0; i < data.length; i++) {
                 let str  = new Date(data[i].start_date)
                 let start = `${str.getDate()}-${str.getMonth()}-${str.getFullYear()}`
@@ -61,7 +61,7 @@ function Dashboard() {
 
     
               setProjects(data);
-              console.log('thisis', projects)
+              
             }catch(err) {
                 console.log(err);
                 setError('Coud not fetch projects');
@@ -108,7 +108,7 @@ function Dashboard() {
                 </div >
 
                         <div className="row ">
-                        <div className="col treeContainer m-1" >
+                        <div className="col treeContainer m-2 p-2" >
                             <p className="h3">Active offsets</p>
                             <ul className="list-group">
                                 { (projects && projects.length >= 1)
@@ -118,7 +118,7 @@ function Dashboard() {
                             </ul>
                         </div>
                         
-                    <div className="col treeContainer m-1">
+                    <div className="col treeContainer m-2 p-2">
                         { (routes && routes.length >= 1) ? <RoutesList routes={routes} /> : null }
                     </div>
                         </div>
