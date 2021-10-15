@@ -1,0 +1,20 @@
+form {
+    width: 350px;
+}
+
+.card-component {
+    background-color: #7fd1b9;
+    border-radius: 10px;
+    margin: 1em;
+    width: 300px;
+}
+
+h6, #password-info {
+    color: white;
+}
+
+#login-form, #register-form {
+    border-radius: 10px;
+    padding: 2em;
+    background-color: rgba(21, 27, 23, 0.7);
+}

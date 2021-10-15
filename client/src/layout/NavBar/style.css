@@ -1,0 +1,12 @@
+nav {
+    background-color: #7fd1b9;
+}
+
+.navbar {
+    min-height: 80px;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+}

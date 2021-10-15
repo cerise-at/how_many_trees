@@ -5,3 +5,10 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+footer {
+    text-align: center;
+    width: 100%;
+    padding: 1.5em 0 1.5em 0;
+    background-color: #7fd1b9;
+}
