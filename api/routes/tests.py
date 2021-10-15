@@ -60,17 +60,17 @@ class TestRouteModel(TestCase):
         return retval 
 
 
-    def test_model_not_created(self):
+    # def test_model_not_created(self):
 
-        """
-        Test that Route model is not successfully created with any missing fields.
-        """
+    #     """
+    #     Test that Route model is not successfully created with any missing fields.
+    #     """
 
-        with self.assertRaises(IntegrityError):
-            for kwargs in self.generate_missing_value_cases(self.test_data):
-                Route.objects.create(**kwargs)
+    #     with self.assertRaises(IntegrityError):
+    #         for kwargs in self.generate_missing_value_cases(self.test_data):
+    #             Route.objects.create(**kwargs)
 
-        return
+    #     return
 
 
 #     @pytest.mark.django_db
@@ -207,14 +207,14 @@ class TestRouteModel(TestCase):
 #     def test_latlong(monkeypatch):
 #         monkeypatch.setattr(views, "data_request", mock_routes())
 #         data = json.loads(views.get_directions_info('start', 'end'))
-from rest_framework.test import APIRequestFactory
+# from rest_framework.test import APIRequestFactory
 
-factory = APIRequestFactory()
-request = factory.get('/routes/directions', {'vehicle_registration': 'aa19aaa', 'address1': 'ba46bn', 'address2': 'w84sb'})
-@patch('routes.calc_emissions')
-def test_calculating_emissions(self, mock_request):
-    mock_request.return_value = (100)
+# factory = APIRequestFactory()
+# request = factory.get('/routes/directions', {'vehicle_registration': 'aa19aaa', 'address1': 'ba46bn', 'address2': 'w84sb'})
+# @patch('routes.calc_emissions')
+# def test_calculating_emissions(self, mock_request):
+#     mock_request.return_value = (100)
    
-    res = self.client.get(LOCATIONS_URL, payload)
+#     res = self.client.get(LOCATIONS_URL, payload)
 
-    self.assertTrue(res.data['ip'])
+#     self.assertTrue(res.data['ip'])
